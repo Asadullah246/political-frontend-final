@@ -2,13 +2,13 @@
 import React, { useState } from 'react';
 
 interface Answer {
-  id: number;
+  id: any;
   text: string;
   answer: boolean;
 }
 
 interface Question {
-  id: number;
+  id: any;
   title: string;
   quiz: Answer[];
 }
