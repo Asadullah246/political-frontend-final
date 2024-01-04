@@ -1,0 +1,35 @@
+
+
+
+
+
+
+.logoDiv {
+    /* -webkit-clip-path: polygon(0% 0%, 100% 0%, 70% 100%, 0% 100%); */
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 95% 60%, 98% 100%,0% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 95% 60%, 98% 100%,0% 100%);
+  }
+  .carouselDiv::before{
+    position: absolute;
+    left: 0;
+    bottom: -20px;
+    border-left: 20px solid #ffffff;
+    border-bottom: 20px solid transparent;
+    border-right: 20px solid transparent;
+    content: "";
+    z-index: 5;
+    overflow: hidden;
+  }
+
+  .carouselDiv{
+    position: relative;
+    display: block;
+    background: #ffffff;
+    /* box-shadow: 0px 20px 60px 0px rgba(62, 84, 141, 0.07); */
+    /* box-shadow: 0px 20px 60px 0px rgba(62, 84, 141, 0.07), 0px -20px 60px 0px rgba(62, 84, 141, 0.07); */
+
+    padding: 36px 40px 41px;
+    border-radius: 20px 20px 20px 0px;
+    z-index: 1;
+  }
+
