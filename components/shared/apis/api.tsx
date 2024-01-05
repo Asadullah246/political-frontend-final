@@ -17,7 +17,7 @@ export const updateWebsiteInfo = async ( data) => {
     };
     const res = await axios.patch(`${base}/api/v1/websiteInfo`, data, config);
 
-    console.log("resdata is", res) 
+    console.log("resdata is", res)
 
 
     return res.data?.user;
@@ -25,6 +25,37 @@ export const updateWebsiteInfo = async ( data) => {
     console.log(error);
   }
 };
+
+// create new  info
+
+export const newWebsiteInfo = async (data) => {
+  try {
+    const res = await axios.post(`${base}/api/v1/websiteInfo`, data);
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("refresh", res.data.refresh);
+    if (res) return res.data;
+  } catch (error) {
+    console.log("err is", error);
+  }
+};
+
+
+// get webstie info
+
+export const getSiteInfo = async () => {
+  try {
+    const config = {
+      headers: {
+        token: localStorage.getItem("token") || "",
+      },
+    };
+    const res = await axios.get(`${base}/api/v1/websiteInfo`, config);
+    return res.data; 
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // new codes
 
 

@@ -1,55 +1,63 @@
-
-
-import React, { useState } from 'react';
+import { ToastError, ToastSuccess } from "@/components/shared/Others";
+import { newWebsiteInfo } from "@/components/shared/apis/api";
+import React, { useState } from "react";
 
 const WebsiteInfoPage = () => {
-  const [formValues, setFormValues] = useState({
-    websiteName: '',
-    logoImage: null,
-    phone: '',
-    email: '',
-    address: '',
-    description: '',
-    facebook: '',
-    twitter: '',
-    instagram: '',
-  });
+    const [formValues, setFormValues] = useState({
+        websiteName: "",
+        logoImage: null,
+        phone: "",
+        email: "",
+        address: "",
+        description: "",
+        facebook: "",
+        twitter: "",
+        instagram: "",
+    });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e: any) => {
-    const { name, value, files } = e.target;
+    const handleChange = (e: any) => {
+        const { name, value, files } = e.target;
 
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: files ? files[0] : value,
-    }));
-  };
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            [name]: files ? files[0] : value,
+        }));
+    };
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    console.log("data", formValues);
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        console.log("data", formValues);
+        setIsSubmitting(true);
 
-    // Add your logic for form submission here, including the file upload to your VPS hosting.
+        const res = await newWebsiteInfo(formValues)
 
-    setIsSubmitting(true);
+        if (res?.status === "success") {
+            ToastSuccess("Successfully updated")
+             setIsSubmitting(false);
 
-    // Simulate API request or file upload delay
-    setTimeout(() => {
-      setIsSubmitting(false);
-    }, 2000);
-  };
+        } else {
+            ToastError(res?.message || "Something error")
+             setIsSubmitting(false);
+        }
 
-  return (
-    <div>
-      <div className="bg-white min-h-screen flex items-center justify-start ">
-        <div className="md:ml-8 bg-gray-100 p-8 shadow-md rounded-md">
-          <h1 className="text-3xl font-bold mb-4  ">Website Information Form</h1>
+    };
 
-          <form onSubmit={handleSubmit} className="max-w-md mt-8">
+    return (
+        <div>
+            <div className="bg-white min-h-screen flex items-center justify-start ">
+                <div className="md:ml-8 bg-gray-100 p-8 shadow-md rounded-md">
+                    <h1 className="text-3xl font-bold mb-4  ">
+                        Website Information Form
+                    </h1>
 
-          <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="websiteName">
+                    <form onSubmit={handleSubmit} className="max-w-md mt-8">
+                        <div className="mb-4">
+                            <label
+                                className="block text-gray-700 text-sm font-bold mb-2"
+                                htmlFor="websiteName"
+                            >
                                 Website Name
                             </label>
                             <input
@@ -59,12 +67,15 @@ const WebsiteInfoPage = () => {
                                 value={formValues.websiteName}
                                 onChange={handleChange}
                                 className="border p-2 w-full"
-                                required
+                                required={false}
                             />
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="logoImage">
+                            <label
+                                className="block text-gray-700 text-sm font-bold mb-2"
+                                htmlFor="logoImage"
+                            >
                                 Logo Image
                             </label>
                             <input
@@ -74,12 +85,15 @@ const WebsiteInfoPage = () => {
                                 accept="image/*"
                                 onChange={handleChange}
                                 className="border p-2 w-full"
-                                required
+                                required={false}
                             />
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
+                            <label
+                                className="block text-gray-700 text-sm font-bold mb-2"
+                                htmlFor="phone"
+                            >
                                 Phone
                             </label>
                             <input
@@ -89,12 +103,15 @@ const WebsiteInfoPage = () => {
                                 value={formValues.phone}
                                 onChange={handleChange}
                                 className="border p-2 w-full"
-                                required
+                                required={false}
                             />
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                            <label
+                                className="block text-gray-700 text-sm font-bold mb-2"
+                                htmlFor="email"
+                            >
                                 Email
                             </label>
                             <input
@@ -104,12 +121,15 @@ const WebsiteInfoPage = () => {
                                 value={formValues.email}
                                 onChange={handleChange}
                                 className="border p-2 w-full"
-                                required
+                                required={false}
                             />
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">
+                            <label
+                                className="block text-gray-700 text-sm font-bold mb-2"
+                                htmlFor="address"
+                            >
                                 Address
                             </label>
                             <input
@@ -119,12 +139,65 @@ const WebsiteInfoPage = () => {
                                 value={formValues.address}
                                 onChange={handleChange}
                                 className="border p-2 w-full"
-                                required
+                                required={false}
                             />
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+                            <label
+                                className="block text-gray-700 text-sm font-bold mb-2"
+                                htmlFor="facebook"
+                            >
+                                Facebook URL
+                            </label>
+                            <input
+                                type="url"
+                                id="facebook"
+                                name="facebook"
+                                value={formValues.facebook}
+                                onChange={handleChange}
+                                className="border p-2 w-full"
+                            />
+                        </div>
+
+                        <div className="mb-4">
+                            <label
+                                className="block text-gray-700 text-sm font-bold mb-2"
+                                htmlFor="twitter"
+                            >
+                                Twitter URL
+                            </label>
+                            <input
+                                type="url"
+                                id="twitter"
+                                name="twitter"
+                                value={formValues.twitter}
+                                onChange={handleChange}
+                                className="border p-2 w-full"
+                            />
+                        </div>
+
+                        <div className="mb-4">
+                            <label
+                                className="block text-gray-700 text-sm font-bold mb-2"
+                                htmlFor="instagram"
+                            >
+                                Instagram URL
+                            </label>
+                            <input
+                                type="url"
+                                id="instagram"
+                                name="instagram"
+                                value={formValues.instagram}
+                                onChange={handleChange}
+                                className="border p-2 w-full"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label
+                                className="block text-gray-700 text-sm font-bold mb-2"
+                                htmlFor="description"
+                            >
                                 Description
                             </label>
                             <textarea
@@ -133,69 +206,25 @@ const WebsiteInfoPage = () => {
                                 value={formValues.description}
                                 onChange={handleChange}
                                 className="border p-2 w-full h-32"
-                                required
+                                required={false}
                             />
                         </div>
 
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="facebook">
-                Facebook URL
-              </label>
-              <input
-                type="url"
-                id="facebook"
-                name="facebook"
-                value={formValues.facebook}
-                onChange={handleChange}
-                className="border p-2 w-full"
-              />
+                        <div className="mb-4">
+                            <button
+                                type="submit"
+                                className={`bg-gradient-to-r from-${"#FFC400"} to-${"#0D01E5"} bg-blue-500 text-white p-3 rounded-md w-full ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+                                    }`}
+                                disabled={isSubmitting}
+                            >
+                                {isSubmitting ? "Submitting..." : "Submit"}
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="twitter">
-                Twitter URL
-              </label>
-              <input
-                type="url"
-                id="twitter"
-                name="twitter"
-                value={formValues.twitter}
-                onChange={handleChange}
-                className="border p-2 w-full"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="instagram">
-                Instagram URL
-              </label>
-              <input
-                type="url"
-                id="instagram"
-                name="instagram"
-                value={formValues.instagram}
-                onChange={handleChange}
-                className="border p-2 w-full"
-              />
-            </div>
-
-            <div className="mb-4">
-              <button
-                type="submit"
-                className={`bg-gradient-to-r from-${'#FFC400'} to-${'#0D01E5'} bg-blue-500 text-white p-3 rounded-md w-full ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Submitting...' : 'Submit'}
-              </button>
-            </div>
-          </form>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default WebsiteInfoPage;
-
- 
