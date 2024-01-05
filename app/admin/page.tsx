@@ -6,6 +6,8 @@ import FaqManage from '@/components/admin/faq/FaqManage';
 import WebsiteInfoPage from '@/components/admin/websiteInfo/WebsiteInfoPage';
 import Image from 'next/image';
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Page = () => {
     const [current, setCurrent] = useState("Website Info");
@@ -28,7 +30,7 @@ const Page = () => {
                 return <PolitTestPage />;
 
             case "FAQ":
-                return <FaqManage />; 
+                return <FaqManage />;
             case "Orders":
                 return <WebsiteInfoPage />;
             case "My Orders":
@@ -44,6 +46,7 @@ const Page = () => {
     };
     return (
         <div>
+            <ToastContainer /> 
             <div className="drawer lg:drawer-open">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content ">
