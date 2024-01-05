@@ -2,6 +2,7 @@
 
 import NewQuiz from '@/components/admin/PolitiQTest/NewQuiz';
 import PolitTestPage from '@/components/admin/PolitiQTest/PolitTestPage';
+import Blogs from '@/components/admin/blog/blog';
 import FaqManage from '@/components/admin/faq/FaqManage';
 import WebsiteInfoPage from '@/components/admin/websiteInfo/WebsiteInfoPage';
 import Image from 'next/image';
@@ -31,8 +32,8 @@ const Page = () => {
 
             case "FAQ":
                 return <FaqManage />;
-            case "Orders":
-                return <WebsiteInfoPage />;
+            case "Blogs":
+                return <Blogs />;
             case "My Orders":
                 return <WebsiteInfoPage />;
             case "Messages":
