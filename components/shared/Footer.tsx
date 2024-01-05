@@ -159,7 +159,7 @@ const Footer: React.FC = () => {
 
 
   }
-console.log("ifo", info )
+console.log("info", info )
   return (
     <>
       {
@@ -176,10 +176,10 @@ console.log("ifo", info )
                 <div className="flex h-[60px] lg:w-[100%] w-[100%]">
                   <div className={`bg-[#FFC400] lg:pr-12 pr-4 h-full flex items-center lg:pl-4 pl-2 ${styles.logoDiv}`}>
                     <Image alt="Logo" height={50} width={width >= 600 ? 70 : 40} src={logo} />
-                    <h3 className="lg:text-3xl text-xl ml-2 text-[#0D01E5]">PolitIQ</h3>
+                    <h3 className="lg:text-3xl text-xl ml-2 text-[#0D01E5]">{info?.websiteName}</h3>
                   </div>
                 </div>
-                <p className="mt-4 text-gray-400  ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, eos. Assumenda labore eaque est dignissimos?</p>
+                <p className="mt-4 text-gray-400  ">{info?.description}</p>
                 <div className="mt-6">
                   <div className="flex items-center gap-4">
                     <a href="https://facebook.com" target="_blank" className="bg-[#4D4E51] p-3  w-fit rounded-[50%]">
@@ -234,15 +234,15 @@ console.log("ifo", info )
                 <div className="mt-6 text-white ">
                   <div className="flex items-center gap-2 mb-3 ">
                     <MapPin strokeWidth={2} size={20} style={{ fill: "black" }} className="text-[#FFC400]  " />
-                    <p className="mb-0 pb-0">New York, USA</p>
+                    <p className="mb-0 pb-0">{info?.address}</p>
                   </div>
                   <div className="flex items-center gap-2 mb-3 ">
                     <Mail strokeWidth={2} size={20} style={{ fill: "black" }} className="text-[#FFC400]  " />
-                    <p className="mb-0 pb-0">example@gmail.com</p>
+                    <p className="mb-0 pb-0">{info?.email}</p>
                   </div>
                   <div className="flex items-center gap-2 mb-3 ">
                     <Phone strokeWidth={2} size={20} style={{ fill: "black" }} className="text-[#FFC400]  " />
-                    <p className="mb-0 pb-0">333 444 5555</p>
+                    <p className="mb-0 pb-0">{info?.phone}</p>
                   </div>
                 </div>
               </div>
