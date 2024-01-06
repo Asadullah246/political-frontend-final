@@ -1,5 +1,8 @@
+"use client";
+
 import SingelBlog from "@/components/home/singelBlog";
 import SectionTittle from "@/components/sectionTittle";
+import Navbar from "@/components/shared/Navbar";
 import Hero from "@/components/shared/Pagehero";
 
 interface BlogItem {
@@ -43,6 +46,7 @@ const Blogs: BlogItem[] = [
 const Blog: React.FC = () => {
   return (
     <div>
+      <Navbar/>
         <Hero title="Blogs" subtext="Blogs"></Hero>
       <div className=" mt-[120px]">
         <SectionTittle

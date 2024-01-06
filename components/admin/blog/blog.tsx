@@ -2,7 +2,7 @@ import { ToastError, ToastSuccess } from "@/components/shared/Others";
 import { newWebsiteInfo } from "@/components/shared/apis/api";
 import React, { useState } from "react";
 
-const WebsiteInfoPage = () => {
+const NewBlog = () => {
   const [formValues, setFormValues] = useState({
     logoImage: null,
     title: "",
@@ -42,7 +42,7 @@ const WebsiteInfoPage = () => {
       <div className="bg-white min-h-screen flex items-center justify-start ">
         <div className="md:ml-8 bg-gray-100 p-8 shadow-md rounded-md">
           <h1 className="text-3xl font-bold mb-4  ">
-            Website Information Form
+            Blog Information form
           </h1>
 
           <form onSubmit={handleSubmit} className="max-w-md mt-8">
@@ -134,4 +134,4 @@ const WebsiteInfoPage = () => {
   );
 };
 
-export default WebsiteInfoPage;
+export default NewBlog;
