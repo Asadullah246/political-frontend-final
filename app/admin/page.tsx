@@ -31,7 +31,7 @@ const Page = () => {
 
             case "FAQ":
                 return <FaqManage />;
-            case "Orders":
+            case "Blogs":
                 return <WebsiteInfoPage />;
             case "My Orders":
                 return <WebsiteInfoPage />;
@@ -46,7 +46,7 @@ const Page = () => {
     };
     return (
         <div>
-            <ToastContainer /> 
+            <ToastContainer />
             <div className="drawer lg:drawer-open">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content ">
