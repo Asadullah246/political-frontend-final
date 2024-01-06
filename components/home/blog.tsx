@@ -35,7 +35,9 @@ const Blogs: BlogItem[] = [{
 const Blog: React.FC = () => {
     return (
         <div className=" mt-[120px]">
-            <SectionTittle title="CITY NEWS" description="Know More About The City by" span=" Govarnex Media"/>
+            <SectionTittle title="BLOGS" description="Read latest blogs"
+             span=""
+             />
             <div className="px-8 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
               {
                     Blogs.map((blog,index)=>(
