@@ -17,9 +17,9 @@ const PoliticalCard = () => {
     return (
         <div className=" w-[85%] mx-auto py-20 grid grid-cols-12 lg:gap-x-10">
              {
-                typeData.map((item) =>
+                [...Array(6)].map((item) =>
                 (
-                <div className=" col-span-12 md:col-span-6 lg:col-span-4 min-h-[480px] relative w-full bg-gray-200 rounded-[20px] shadow-lg mb-8" key={item._id}>
+                <div className=" col-span-12 md:col-span-6 lg:col-span-4 min-h-[480px] relative w-full bg-gray-200 rounded-[20px] shadow-lg mb-8" key={item?._id}> 
                 {/* ------cover photo----- */}
                 <div className={`h-[200px]`}>
                     <img src='/assets/politicalcover.jpg' className=" object-cover bg-no-repeat bg-cover w-full bg-center rounded-t-[20px] h-full" alt="" />
@@ -34,13 +34,13 @@ const PoliticalCard = () => {
                 <div className=" text-center pb-6">
                        {/* -------user name---- */}
                           <h1 className=" text-2xl font-bold text-gray-700 uppercase">{
-                                item.name
+                                item?.name
                           }</h1>
                        {/* -------user name---- */}
                        {/* -----user position----- */}
                        <p className=" text-gray-600 font-[400] text-[13px]">
                        {
-                        item.description || "No Bio Yet"
+                        item?.description || "No Bio Yet"
                        }
                        </p>
                        {/* -----user position----- */}
@@ -50,17 +50,17 @@ const PoliticalCard = () => {
                             <div className=" flex gap-x-2 items-center">
                                  <MapPin size={20} className=" text-gray-600"/>
                                  <p className=" text-gray-600 font-[500]"> {
-                                    item.country || "No Country Yet"
+                                    item?.country || "No Country Yet"
                                  }</p>
                             </div>
-                            <a href={`mailto: ${item.email}`} className=" flex gap-x-2 items-center cursor-pointer">
+                            <a href={`mailto: ${item?.email}`} className=" flex gap-x-2 items-center cursor-pointer">
                                  <Mail size={20} className=" text-gray-600"/>
                                  <p className=" text-gray-600 font-[500]"> Send Mail</p>
                             </a>
                       </div>
                 </div>
                 <div className=" absolute bottom-0 w-full">
-                    <Link href={`/politicalTalent/${item._id}`}>
+                    <Link href={`/politicalTalent/${item?._id}`}>
                     <Button  className="relative z-[5] w-full rounded-b-[20px] rounded-t-none text-[16px] font-[500] h-[50px] text-gray-700">
                         View Profile
                     </Button>

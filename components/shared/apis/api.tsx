@@ -3,10 +3,41 @@ import axios from "axios";
 
 // const base = 'https://careplan-backend.vercel.app'
 // const base = 'https://care-plan-backend-main.vercel.app'
-const base ='http://localhost:5000'
+export const base ='http://localhost:5000'
 
 
 // new codes
+
+// profile info
+export const activeAccount = async (data) => {
+  try {
+    const res = await axios.post(`${base}/api/v1/user`, data);
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("refresh", res.data.refresh);
+    if (res) return res.data;
+  } catch (error) {
+    console.log("err is", error);
+  }
+};
+
+export const updateProfileInfo = async (id:string, data:any) => {
+  try {
+    const config = {
+      headers: {
+        token: localStorage.getItem("token") || "",
+      },
+    };
+    const res = await axios.patch(`${base}/api/v1/user/${id}`, data, config);
+
+    return res.data?.user;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+// profile info
 // update website info
 export const updateWebsiteInfo = async ( data) => {
   try {
@@ -50,7 +81,7 @@ export const getSiteInfo = async () => {
       },
     };
     const res = await axios.get(`${base}/api/v1/websiteInfo`, config);
-    return res.data; 
+    return res.data;
   } catch (error) {
     console.log(error);
   }

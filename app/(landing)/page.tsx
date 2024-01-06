@@ -14,6 +14,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import axios from "axios";
 import { useEffect } from "react";
+import PloticalTalentPage from "../politicalTalent/page";
 const HomePage: React.FC = () => {
   const {fetchUsers,setUser,allUser,setAllUser} = UserStore()
   const {allCourse,fetchAllCourse,courses} = CourseMgmt()
@@ -44,7 +45,7 @@ fetchAllCourse()
     }
 
     // const res = await axios.post("http://localhost:5000/api/v1/user/create", data);
-    const res = await axios.post(`${baseUrl}/api/v1/user/create`, data); 
+    const res = await axios.post(`${baseUrl}/api/v1/user/create`, data);
 
     if(res.data.status === 'success'){
       setUser(res?.data?.data)
@@ -83,6 +84,7 @@ CreateUser()
       </div>
 
       <div className=" bg-[#F9F9F9] lg:h-[50vh]">
+        {/* <PloticalTalentPage/> */}
       </div>
        {/* ----user home page----- */}
       <AboutUs/>
