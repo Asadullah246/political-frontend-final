@@ -9,6 +9,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Blog from '../blog/page';
 
 const Page = () => {
     const [current, setCurrent] = useState("Website Info");
