@@ -166,35 +166,134 @@ const Navbar: React.FC = () => {
 
 
   const constituency = [
-    "Create my profile as constituency or Organization",
-    "Search for political talent",
-    "Managed Matchmaking",
-    "Need to arrange Training or Workshop or Seminar",
-    "Arrange Consultancy",
-    "Take on Political Apprentices",
-    "Partner with PolitIQ",
-  ]
+    {
+      id: 1,
+      text: "Create my profile as constituency or Organization",
+      // link: "/myprofile"
+    },
+    {
+      id: 2,
+      text: "Search for political talent",
+      link: "/politicalTalent"
+    },
+    {
+      id: 3,
+      text: "Managed Matchmaking",
+      // link: "/matchmaking"
+    },
+    {
+      id: 4,
+      text: "Need to arrange Training or Workshop or Seminar",
+      // link: "/training"
+    },
+    {
+      id: 5,
+      text: "Arrange Consultancy",
+      // link: "/consultancy"
+    },
+    {
+      id: 6,
+      text: "Take on Political Apprentices",
+      // link: "/apprentices"
+    },
+    {
+      id: 7,
+      text: "Partner with PolitIQ",
+      // link: "/partner"
+    }
+  ];
+
   const politician = [
-    "Create my profile",
-    "Take PolitIQ Test free",
-    "Apply for political internship",
-    "Councilor courses",
-    "LG Chairmen courses",
-    "House of Assembly member   courses",
-    "House of Representatives member courses",
-    "Senator courses",
-    "Courses for Governors, Presidents, others",
-  ]
+    {
+      id: 1,
+      text: "Create my profile",
+      link: "/myprofile"
+    },
+    {
+      id: 2,
+      text: "Take PolitIQ Test free",
+      link: "/iqpage"
+    },
+    {
+      id: 3,
+      text: "Apply for political internship",
+      // link: "/"
+    },
+    {
+      id: 4,
+      text: "Councilor courses",
+      link: "/courses"
+    },
+    {
+      id: 5,
+      text: "LG Chairmen courses",
+      link: "/courses"
+    },
+    {
+      id: 6,
+      text: "House of Assembly member courses",
+      link: "/courses"
+    },
+    {
+      id: 7,
+      text: "House of Representatives member courses",
+      link: "/courses"
+    },
+    {
+      id: 8,
+      text: "Senator courses",
+      link: "/courses"
+    },
+    {
+      id: 9,
+      text: "Courses for Governors, Presidents, others",
+      link: "/courses"
+    }
+  ];
+
   const othersNav = [
-    "I want to contribute with curated courses",
-    "I want to be a Mentor",
-    "I want to take on Political Apprentices",
-    "I want to collaborate or partner with PolitIQ",
-    "I want to go on Political Apprenticeship",
-    "I want to Partner with PolitIQ",
-    "I need PollitIQ to build me a Plitical Team/Staff",
-    "I need to contact PolitIQ",
-  ]
+    {
+      id: 1,
+      text: "I want to contribute with curated courses",
+      // link: "/contribute-courses"
+    },
+    {
+      id: 2,
+      text: "I want to be a Mentor",
+      link: "/be-mentor"
+    },
+    {
+      id: 3,
+      text: "I want to take on Political Apprentices",
+      // link: "/take-apprentices"
+    },
+    {
+      id: 4,
+      text: "I want to collaborate or partner with PolitIQ",
+      link: "/collaborate-partner"
+    },
+    {
+      id: 5,
+      text: "I want to go on Political Apprenticeship",
+      // link: "/political-apprenticeship"
+    },
+    {
+      id: 6,
+      text: "I want to Partner with PolitIQ",
+      // link: "/partner-politiq"
+    },
+    {
+      id: 7,
+      text: "I need PolitIQ to build me a Political Team/Staff",
+      // link: "/build-political-team"
+    },
+    {
+      id: 8,
+      text: "I need to contact PolitIQ",
+      link: "/contactus" 
+    }
+  ];
+
 
 
   return (
@@ -221,7 +320,7 @@ const Navbar: React.FC = () => {
                     route?.label == "What you want" ?
                       <Link
                       onClick={toggleVisibility}
-                      
+
                         ref={visibleDivRef2}
                         href={route.href} key={i}
                         id="specificChild"
@@ -334,23 +433,23 @@ const Navbar: React.FC = () => {
                   {
                     constituency?.map((singleC, index) => {
                       return (
-                        <a key={index} href="" className="ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300 ">
+                        <a key={index} href={singleC?.link} className="ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300 ">
                           <MdArrowForward class="block mt-[5px] " style={{}} />
-                          <span className="">{singleC}</span>
+                          <span className="">{singleC?.text}</span>
                         </a>
                       )
                     })
                   }
                 </div>
                 <div>
-                  <p className="text-lg font-semibold  "  >I am a Constituency/Organization</p>
+                  <p className="text-lg font-semibold  "  >I am a politician (new or experienced)</p>
 
                   {
                     politician?.map((singleC, index) => {
                       return (
-                        <a key={index} href="" className="ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300 ">
+                        <a key={index} href={singleC?.link} className="ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300 ">
                           <MdArrowForward class="block mt-[5px] " style={{}} />
-                          <span className="">{singleC}</span>
+                          <span className="">{singleC?.text}</span>
                         </a>
                       )
                     })
@@ -363,9 +462,9 @@ const Navbar: React.FC = () => {
                   {
                     othersNav?.map((singleC, index) => {
                       return (
-                        <a key={index} href="" className="ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300 ">
+                        <a key={index} href={singleC?.link} className="ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300 ">
                           <MdArrowForward class="block mt-[5px] " style={{}} />
-                          <span className=" ">{singleC}</span>
+                          <span className=" ">{singleC?.text}</span>
                         </a>
                       )
                     })

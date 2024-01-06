@@ -153,13 +153,13 @@ const Footer: React.FC = () => {
     const res = await getSiteInfo()
     const length=res?.data?.length -1
     if(length){
-   
+
       setInfo(res?.data[length])
     }
 
 
   }
-console.log("info", info )
+
   return (
     <>
       {

@@ -65,7 +65,7 @@ const BasicInfo: React.FC<Props> = ({
             <span className=" text-gray-500 font-[500]">
               Description
             </span>
-           
+
           </div>
           <span className=" text-gray-500 text-[14px]">
             {
@@ -78,7 +78,7 @@ const BasicInfo: React.FC<Props> = ({
             <span className=" text-gray-500 font-[500]">
               { userdata?.tittle}
             </span>
-             
+
           </div>
           <span className=" text-gray-500 text-[14px]">
             {
@@ -122,8 +122,10 @@ const BasicInfo: React.FC<Props> = ({
 
         </div>
         {
-          exits ?<div className="overflow-hidden w-[40%]">
-          <Button className="relative z-[5] bg-blue-100 h-[40px] text-blue-700 w-full  hover:text-white" variant={'hover'}>
+          exits ?<div className="overflow-hidden w-[40%]"> 
+          <Button
+          onClick={() => document.getElementById('my_modal_4').showModal()}
+           className="relative z-[5] bg-blue-100 h-[40px] text-blue-700 w-full  hover:text-white" variant={'hover'}>
             Edit Profile
           </Button>
         </div>:null
