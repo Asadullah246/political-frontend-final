@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import BlogPage from "@/components/admin/blog/BlogPage";
 import TalentPage from "@/components/admin/talent/FaqManage";
 import ContactManage from "@/components/admin/contacts/FaqManage";
+import TestPage from "@/components/admin/testimonial/FaqManage";
 
 const Page = () => {
   const [current, setCurrent] = useState("Contacts");
@@ -37,6 +38,8 @@ const Page = () => {
         return <FaqManage />;
       case "Blogs":
         return <BlogPage />;
+      case "Testimonials":
+        return <TestPage />;
 
       case "Political Talents":
         return <TalentPage />;

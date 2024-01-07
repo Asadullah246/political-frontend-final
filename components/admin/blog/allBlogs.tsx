@@ -1,26 +1,57 @@
-import { base } from "@/components/shared/apis/api";
+import { ToastError, ToastSuccess } from "@/components/shared/Others";
+import { base, deleteBlog } from "@/components/shared/apis/api";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { FaTrash } from "react-icons/fa";
 
 const AllBlogs = () => {
+  const [currentData, setCurrentData] = useState();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+  useEffect(() => {
+    axios.get(`${base}/api/v1/blogs`).then((res) => {
+      //   console.log("users in politic", res);
+      if (res?.data?.status === "success") {
+        const allData = res?.data?.data;
+        //   const filtered=allData?.filter(a=>!(a?.archived)==true)
+        setUserData(allData);
+        // setUserData(res?.data?.data);
+      }
+    });
+  }, [refresh]);
+
   const [userData, setUserData] = useState();
   useEffect(() => {
-    axios.get(`${base}/api/v1/blogs`)
+    axios
+      .get(`${base}/api/v1/blogs`)
       .then((res) => {
         // console.log("response", res.data.data);
         if (res.data.status === "success") {
           setUserData(res?.data?.data);
         }
       })
-      .catch(err=>{
-        console.log("err" , err);
-      })
+      .catch((err) => {
+        console.log("err", err);
+      });
   }, []);
 
-  console.log("user data", userData);
+  // console.log("Test", userData);
 
-  const [currentData, setCurrentData] = useState();
-  console.log("currentData", currentData);
+  // function for delete
+  const handleDelete = async (id: any) => {
+    const res = await deleteBlog(id);
+    console.log("res", res);
+    setRefresh(!refresh);
+    if (res?.data?.status == "success") {
+      ToastSuccess("Successfully Deleted");
+      setIsSubmitting(false);
+    } else {
+      ToastError(res?.message || "Something error");
+      setIsSubmitting(false);
+    }
+  };
+
+  // console.log("user data", userData);
 
   return (
     <div>
@@ -28,9 +59,7 @@ const AllBlogs = () => {
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">{currentData?.title}</h3>
-          <p className="py-4">
-           {currentData?.description}
-          </p>
+          <p className="py-4">{currentData?.description}</p>
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
@@ -39,19 +68,20 @@ const AllBlogs = () => {
           </div>
         </div>
       </dialog>
+
+      {/* head */}
+      {/* <thead>
+        <tr className="flex justify-space-around">
+          <th>Name</th>
+          <th>Job</th>
+          <th>Favorite Color</th>
+          <th></th>
+        </tr>
+      </thead> */}
+
+
       {userData?.map((user) => (
         <div key={user?._id}>
-          {/* <td className="border p-2">Author: {user.author}</td>
-          <td className="border p-2">
-            <img
-              src={user.authorImage}
-              alt={`Image of ${user.author}`}
-              className="w-12 h-12 object-cover rounded-full"
-            />
-          </td>
-          <td className="border p-2">Title: {user.title}</td>
-          <td className="border p-2">Description: {user.description}</td> */}
-
           {/* table  */}
           <div className="overflow-x-auto">
             <table className="table">
@@ -94,7 +124,18 @@ const AllBlogs = () => {
                     </button>
                   </th>
                   <th>
-                    <button className="btn btn-ghost btn-xs">Delete</button>
+                    <p className="flex items-center gap-4">
+                      <button
+                        onClick={() => handleDelete(user._id)}
+                        className="p-2"
+                      >
+                        <FaTrash
+                          class={`text-blue-500 ${
+                            isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+                          }`}
+                        />
+                      </button>
+                    </p>
                   </th>
                 </tr>
               </tbody>

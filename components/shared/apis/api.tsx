@@ -25,6 +25,43 @@ export const createFaq = async (data:any) => {
 // faq
 
 // contact
+export const createTestimonial = async (data:any) => {
+  try {
+    const res = await axios.post(`${base}/api/v1/testimonial`, data);
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("refresh", res.data.refresh);
+    if (res) return res.data;
+  } catch (error) {
+    console.log("err is", error);
+  }
+};
+
+// delete for blog 
+export const deleteBlog = async (id) => {
+  try {
+    const headers = {
+      token: localStorage.getItem("refresh") || "",
+    };
+    const res = await axios.delete(`${base}/api/v1/blogs/${id}`, { headers });
+    return res;
+  } catch ( {message} ) {
+    console.log(message);
+  }
+};
+
+export const deleteTest = async (id) => {
+  try {
+    const headers = {
+      token: localStorage.getItem("refresh") || "",
+    };
+    const res = await axios.delete(`${base}/api/v1/testimonial/${id}`, { headers });
+    return res;
+  } catch ( {message} ) {
+    console.log(message);
+  }
+};
+
+// contact
 export const createContact = async (data:any) => {
   try {
     const res = await axios.post(`${base}/api/v1/contact`, data);

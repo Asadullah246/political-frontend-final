@@ -1,5 +1,4 @@
-
-"use client"
+"use client";
 import { Clock4, Mail, MapPin, Phone } from "lucide-react";
 import Input from "../shared/Input";
 import { Button } from "../ui/button";
