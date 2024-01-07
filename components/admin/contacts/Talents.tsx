@@ -1,5 +1,5 @@
 import { ToastSuccess, ToastError } from "@/components/shared/Others";
-import { base, updateProfileInfo } from "@/components/shared/apis/api";
+import { base, updateContactInfo, updateProfileInfo } from "@/components/shared/apis/api";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaRegCircleCheck } from "react-icons/fa6";
@@ -7,32 +7,34 @@ import { FaDeleteLeft } from "react-icons/fa6";
 
 
 
-const AskedQuestions = () => {
+const Talents = () => {
     const [userData, setUserData] = useState();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [refresh, setRefresh]=useState(false)
     useEffect(() => {
-        axios.get(`${base}/api/v1/user`).then((res) => {
+        axios.get(`${base}/api/v1/contact`).then((res) => {
             //   console.log("users in politic", res);
             if (res?.data?.status === "success") {
-                setUserData(res?.data?.data);
+              const allData=res?.data?.data
+              const filtered=allData?.filter(a=>!(a?.archived)==true)
+              setUserData(filtered)
+                // setUserData(res?.data?.data);
             }
         });
     }, [refresh]);
 
-    console.log("from database", userData);
+    console.log("filtered contact", userData);
 
     const handleApproved = async (id: any) => {
         const body = {
-            talent: "approved"
+            archived: true
         }
-        const res = await updateProfileInfo(id, body);
+        const res = await updateContactInfo(id, body);
+        console.log("res", res )
         if (res?.status == "success"){
             ToastSuccess("Successfully approved");
             setIsSubmitting(false);
-            setRefresh(!refresh)
         } else {
-            setRefresh(!refresh)
             ToastError(res?.message || "Something error");
             setIsSubmitting(false);
         }
@@ -66,9 +68,10 @@ const AskedQuestions = () => {
                             </th> */}
                             <th>Name</th>
 
-                            <th>Skills</th>
-                            <th>Address</th>
-                            <th>Manage</th>
+                            <th>Subject</th>
+                            <th>Description</th>
+                            <th>Send Reply</th>
+                            <th>Archive</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,11 +86,7 @@ const AskedQuestions = () => {
                                     </th> */}
                                         <td>
                                             <div className="flex items-center gap-3">
-                                                <div className="avatar">
-                                                    <div className="mask mask-squircle w-12 h-12">
-                                                        <img src={user?.image_url} />
-                                                    </div>
-                                                </div>
+
                                                 <div>
                                                     <div className="font-bold">{user?.name}</div>
                                                     <div className="text-sm opacity-50">{user?.email}</div>
@@ -95,15 +94,16 @@ const AskedQuestions = () => {
                                             </div>
                                         </td>
                                         <td>
-                                            {user?.skills}
+                                            {user?.subject}
                                         </td>
-                                        <td>{user?.address}</td>
+                                        <td>{user?.description}</td>
+                                        <td><a className="text-blue-500 font-bold" href={`mailto:#{user?.email}`}>Reply</a></td>
                                         <th>
                                             <p className="flex items-center gap-4">
                                                 <button onClick={() => handleApproved(user._id)} className="p-2"><FaRegCircleCheck class={`text-blue-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" }`} />
                                                 </button>
-                                                <button onClick={() => handleDecline(user._id)} className="p-2"><FaDeleteLeft class={`text-red-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" }`} />
-                                                </button>
+                                                {/* <button onClick={() => handleDecline(user._id)} className="p-2"><FaDeleteLeft class={`text-red-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" }`} />
+                                                </button> */}
                                             </p>
                                         </th>
                                     </tr>
@@ -135,5 +135,5 @@ const AskedQuestions = () => {
     );
 };
 
-export default AskedQuestions;
+export default Talents;
 

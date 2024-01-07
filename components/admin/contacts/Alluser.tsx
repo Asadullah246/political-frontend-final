@@ -1,5 +1,5 @@
 import { ToastSuccess, ToastError } from "@/components/shared/Others";
-import { base, updateProfileInfo } from "@/components/shared/apis/api";
+import { base, deleteUser, updateProfileInfo } from "@/components/shared/apis/api";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaRegCircleCheck } from "react-icons/fa6";
@@ -7,7 +7,7 @@ import { FaDeleteLeft } from "react-icons/fa6";
 
 
 
-const AskedQuestions = () => {
+const AllUser = () => {
     const [userData, setUserData] = useState();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [refresh, setRefresh]=useState(false)
@@ -30,22 +30,19 @@ const AskedQuestions = () => {
         if (res?.status == "success"){
             ToastSuccess("Successfully approved");
             setIsSubmitting(false);
-            setRefresh(!refresh)
         } else {
-            setRefresh(!refresh)
             ToastError(res?.message || "Something error");
             setIsSubmitting(false);
         }
     }
     const handleDecline = async (id: any) => {
-          const body = {
-            talent: ""
-        }
-        const res = await updateProfileInfo(id, body);
+
+        const res = await deleteUser(id);
         setRefresh(!refresh)
-        if (res?.status == "success"){
-            ToastSuccess("Successfully declined");
+        if (res?.data?.data?.status == "success"){
+            ToastSuccess("Successfully Deleted");
             setIsSubmitting(false);
+
         } else {
             ToastError(res?.message || "Something error");
             setIsSubmitting(false);
@@ -68,7 +65,7 @@ const AskedQuestions = () => {
 
                             <th>Skills</th>
                             <th>Address</th>
-                            <th>Manage</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -100,8 +97,8 @@ const AskedQuestions = () => {
                                         <td>{user?.address}</td>
                                         <th>
                                             <p className="flex items-center gap-4">
-                                                <button onClick={() => handleApproved(user._id)} className="p-2"><FaRegCircleCheck class={`text-blue-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" }`} />
-                                                </button>
+                                                {/* <button onClick={() => handleApproved(user._id)} className="p-2"><FaRegCircleCheck class={`text-blue-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" }`} />
+                                                </button> */}
                                                 <button onClick={() => handleDecline(user._id)} className="p-2"><FaDeleteLeft class={`text-red-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" }`} />
                                                 </button>
                                             </p>
@@ -135,5 +132,5 @@ const AskedQuestions = () => {
     );
 };
 
-export default AskedQuestions;
+export default AllUser;
 
