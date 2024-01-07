@@ -29,9 +29,21 @@ export const updateProfileInfo = async (id:string, data:any) => {
     };
     const res = await axios.patch(`${base}/api/v1/user/${id}`, data, config);
 
-    return res.data?.user;
+    return res?.data.data;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const deleteUser = async (id) => {
+  try {
+    const headers = {
+      token: localStorage.getItem("refresh") || "",
+    };
+    const res = await axios.delete(`${base}/user/${id}`, { headers });
+    return res;
+  } catch ( {message} ) {
+    console.log(message);
   }
 };
 
@@ -69,7 +81,7 @@ export const newWebsiteInfo = async (data:any) => {
     console.log("err is", error);
   }
 };
-// blog api start 
+// blog api start
 export const CreatingNewBlog = async (data: any) => {
   try {
     const res = await axios.post(`${base}/api/v1/blogs`, data);
@@ -80,7 +92,7 @@ export const CreatingNewBlog = async (data: any) => {
     console.log("err is", error);
   }
 };
-// blog api end 
+// blog api end
 
 
 

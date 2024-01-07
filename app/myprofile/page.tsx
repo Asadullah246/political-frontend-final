@@ -12,7 +12,7 @@ const ProfilePage: React.FC = () => {
     // console.log("authd", auth()  );
     // const {userId}=auth()
     const {isLoaded,isSignedIn,user} = useUser()
-    console.log("user", user) 
+    console.log("user", user)
     if(!isLoaded || !isSignedIn) return <Loading/>
 
     return (
@@ -20,9 +20,9 @@ const ProfilePage: React.FC = () => {
          <ToastContainer
         />
         <div className="pt-[90px]  pb-[50px]">
-        <div className=" lg:w-[90%] lg:px-16 w-[100%] mx-auto px-[20px]">
-        <Hero userImg={user?.profileImageUrl} fullName={user?.fullName || undefined} id={user?.id}/>
-         <BasicInfo exits={true} />
+        <div className=" lg:w-[90%] lg:px-16 w-[100%] mx-auto px-[20px]"> 
+        <Hero userImg={user?.profileImageUrl} userdata={user} fullName={user?.fullName || undefined}  id={user?.id}/>
+         <BasicInfo exits={true}  userdata={user}  id={user?.id} />
         </div>
         </div>
         </>
