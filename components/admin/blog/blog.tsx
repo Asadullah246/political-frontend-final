@@ -26,15 +26,39 @@ const NewBlog = () => {
     console.log("data", formValues);
     setIsSubmitting(true);
 
-    const res = await CreatingNewBlog(formValues);
+    // const res = await CreatingNewBlog(formValues);
 
-    if (res?.status === "success") {
-      ToastSuccess("Successfully updated");
-      setIsSubmitting(false);
-    } else {
-      ToastError(res?.message || "Something error");
+    // if (res?.status === "success") {
+    //   ToastSuccess("Successfully updated");
+    //   setIsSubmitting(false);
+    // } else {
+    //   ToastError(res?.message || "Something error");
+    //   setIsSubmitting(false);
+    // }
+
+    try {
+      const formData = new FormData();
+
+      // Append each form field to the FormData object
+      for (const key in formValues) {
+        formData.append(key, formValues[key]);
+      }
+
+      // Make a POST request to your server endpoint
+      const res = await CreatingNewBlog(formData)
+
+      if (res?.status === 'success') {
+        ToastSuccess('Successfully created');
+      } else {
+        ToastError(res?.message || 'Something error');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      ToastError('An error occurred');
+    } finally {
       setIsSubmitting(false);
     }
+
   };
 
   return (

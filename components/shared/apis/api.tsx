@@ -151,7 +151,7 @@ export const updateProfileInfo = async (id:string, data:any) => {
     };
     const res = await axios.patch(`${base}/api/v1/user/${id}`, data, config);
 
-    return res?.data.data;
+    return res?.data;
   } catch (error) {
     console.log(error);
   }
@@ -163,7 +163,7 @@ export const deleteUser = async (id) => {
       token: localStorage.getItem("refresh") || "",
     };
     const res = await axios.delete(`${base}/user/${id}`, { headers });
-    return res;
+    return res?.data;
   } catch ( {message} ) {
     console.log(message);
   }

@@ -23,7 +23,6 @@ const ArchivedData = () => {
         });
     }, [refresh]);
 
-    console.log("filtered contact", userData);
 
     const handleApproved = async (id: any) => {
         const body = {
@@ -56,7 +55,7 @@ const ArchivedData = () => {
 
     return (
         <div>
-            <div className="overflow-x-auto"> 
+            <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
                     <thead>
@@ -67,7 +66,6 @@ const ArchivedData = () => {
                                 </label>
                             </th> */}
                             <th>Name</th>
-
                             <th>Subject</th>
                             <th>Description</th>
                             <th>Send Reply</th>

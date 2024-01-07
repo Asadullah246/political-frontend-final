@@ -23,13 +23,14 @@ const Talents = () => {
         });
     }, [refresh]);
 
-    console.log("filtered contact", userData);
+
 
     const handleApproved = async (id: any) => {
         const body = {
             archived: true
         }
         const res = await updateContactInfo(id, body);
+        setRefresh(!refresh)
         console.log("res", res )
         if (res?.status == "success"){
             ToastSuccess("Successfully approved");

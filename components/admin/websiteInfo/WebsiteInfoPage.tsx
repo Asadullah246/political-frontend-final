@@ -4,7 +4,7 @@ import React, { useState,ChangeEvent, FormEvent } from "react";
 
 interface FormValues {
     websiteName: string;
-    logoImage: File | null;
+    logoImage: File | null | any;
     phone: any;
     email: string;
     address: string;

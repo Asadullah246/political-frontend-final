@@ -18,10 +18,10 @@ const AskedQuestions = () => {
         axios.get(`${base}/api/v1/askQuestions`).then((res) => {
             //   console.log("users in politic", res);
             if (res?.data?.status === "success") {
-                const allData=res?.data?.data
+                // const allData=res?.data?.data 
                 // const filtered=allData?.filter(a=>!(a?.archived)==true)
                 // setUserData(filtered)
-                setUserData(res?.data?.data);
+                setUserData(res?.data?.data?.reverse());
             }
         });
     }, [refresh]);
@@ -87,9 +87,9 @@ const AskedQuestions = () => {
                             {/* <th>Archived</th> */}
                         </tr>
                     </thead>
-                    <tbody> 
+                    <tbody>
                         {
-                            userData?.reverse()?.map(user => {
+                            userData?.map(user => {
                                 return (
                                     <tr key={user?._id}>
                                         {/* <th>
