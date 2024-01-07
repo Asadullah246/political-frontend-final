@@ -34,7 +34,7 @@ const Subscribe: React.FC = () => {
           backgroundImage: "url(/assets/subscribe.jpg)",
           backgroundPosition: "center center",
         }}
-        className="  bottom-[54px] right-0 bg-cover bg-no-repeat bg-scroll bg-center 
+        className="  bottom-[54px] right-0 bg-cover bg-no-repeat bg-scroll bg-center
          h-full w-full flex items-center"
       >
         <form
@@ -64,7 +64,7 @@ const Subscribe: React.FC = () => {
                 name="email"
                 className=" bg-gray-100 pt-3 pb-3 lg:mb-0 mb-2"
               />
-              <Button type="submit" className="relative z-[5] bg-[#0D01E5] text-white px-8 pt-3 pb-3 rounded-[30px] w-full h-[50px] text-[20px] leading-[20px] font-[700] cursor-pointer lg:mb-0 mb-2">
+              <Button type="submit" className={`relative z-[5] bg-[#0D01E5] text-white px-8 pt-3 pb-3 rounded-[30px] w-full h-[50px] text-[20px] leading-[20px] font-[700] cursor-pointer lg:mb-0 mb-2 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" } `}> 
                 Subscribe
               </Button>
             </div>

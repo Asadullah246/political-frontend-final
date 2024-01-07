@@ -11,10 +11,25 @@ export const base ='http://localhost:5000'
 
 // new codes
 
+// newletter
+
+export const deleteNewsletter = async (id) => {
+  try {
+    const headers = {
+      token: localStorage.getItem("refresh") || "",
+    };
+    const res = await axios.delete(`${base}/api/v1/newsletter/${id}`, { headers }); 
+    return res?.data;
+  } catch ( {message} ) {
+    console.log(message);
+  }
+};
+// newletter
+
 // home page name and email post ( subscribe )
 export const createSubscribe = async (data:any) => {
   try {
-    const res = await axios.post(`${base}/api/v1/newslatter`, data);
+    const res = await axios.post(`${base}/api/v1/newsletter`, data);
     localStorage.setItem("token", res.data.token);
     localStorage.setItem("refresh", res.data.refresh);
     if (res) return res.data;
@@ -23,7 +38,7 @@ export const createSubscribe = async (data:any) => {
   }
 };
 
-// testimonial  getMethod 
+// testimonial  getMethod
 export const getTest = async () => {
   try {
     const config = {

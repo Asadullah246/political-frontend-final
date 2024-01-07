@@ -3,7 +3,6 @@
 import NewQuiz from "@/components/admin/PolitiQTest/NewQuiz";
 import PolitTestPage from "@/components/admin/PolitiQTest/PolitTestPage";
 import FaqManage from "@/components/admin/faq/FaqManage";
-// import WebsiteInfoPage from "@/components/admin/news/WebsiteInfoPage";
 import Image from "next/image";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -13,9 +12,10 @@ import TalentPage from "@/components/admin/talent/FaqManage";
 import ContactManage from "@/components/admin/contacts/FaqManage";
 import WebsiteInfoPage from "@/components/admin/websiteInfo/WebsiteInfoPage";
 import TestPage from "@/components/admin/testimonial/FaqManage";
+import NewsLetterManage from "@/components/admin/subscribe/FaqManage";
 
 const Page = () => {
-  const [current, setCurrent] = useState("Contacts");
+  const [current, setCurrent] = useState("Website Info");
   const tabs = [
     { label: "Website Info", icon: "website-icon" },
     { label: "Politiq Test", icon: "politiq-icon" },
@@ -24,6 +24,7 @@ const Page = () => {
     { label: "Political Talents", icon: "political-talents-icon" },
     { label: "Contacts", icon: "testimonials-icon" },
     { label: "Testimonials", icon: "testimonials-icon" },
+    { label: "NewsLetters", icon: "testimonials-icon" },
   ];
 
   const tabmanage = (text: string) => {
@@ -43,6 +44,8 @@ const Page = () => {
         return <TalentPage />;
       case "Contacts":
         return <ContactManage />;
+      case "NewsLetters":
+        return <NewsLetterManage />;
       case "Others":
         return <WebsiteInfoPage />;
 

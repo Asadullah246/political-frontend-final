@@ -91,7 +91,13 @@ const Testimonial: React.FC = () => {
     });
   }, [refresh]);
 
-  // console.log("Test data", userData);
+  console.log("Test data", userData);
+
+  if (!userData || userData?.length === 0) {
+    // Handle case when there's no data
+    // return <NoDataMessage />;
+    return <p>No data found</p>
+  }
 
   const responsive = {
     desktop: {
@@ -134,7 +140,7 @@ const Testimonial: React.FC = () => {
               draggable={true}
               showDots={false}
               responsive={responsive}
-              ssr={false} // means to render carousel on server-side.
+              ssr={true} // means to render carousel on server-side.
               infinite={true}
               autoPlay={true}
               autoPlaySpeed={3000}
@@ -148,7 +154,7 @@ const Testimonial: React.FC = () => {
               dotListClass="custom-dot-list-style"
               itemClass="carousel-item-padding-40-px"
             >
-              {reviews?.map((r, index) => {
+              {userData?.map((r, index) => {
                 return (
                   <div
                     key={r._id}
@@ -175,16 +181,16 @@ const Testimonial: React.FC = () => {
                           );
                         })}
                       </div>
-                      <p className="mt-4 ">{r?.comment}</p>
+                      <p className="mt-4 ">{r?.description}</p> 
                     </div>
                     <div className="ml-8 flex items-center mt-6 gap-4">
-                      <Image
-                        src={r?.image}
+                      {/* <Image
+                        src={`${base}${r?.logoImage}`}
                         alt={r?.name}
                         width={70}
                         height={70}
                         className="rounded-[50%]"
-                      />
+                      /> */}
                       <div>
                         <h4 className="text-xl">{r?.name}</h4>
                         <p>{r?.designation}</p>
