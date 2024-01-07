@@ -10,15 +10,17 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BlogPage from "@/components/admin/blog/BlogPage";
 import TalentPage from "@/components/admin/talent/FaqManage";
+import ContactManage from "@/components/admin/contacts/FaqManage";
 
 const Page = () => {
-  const [current, setCurrent] = useState("Political Talents"); 
+  const [current, setCurrent] = useState("Contacts");
   const tabs = [
     { label: "Website Info", icon: "website-icon" },
     { label: "Politiq Test", icon: "politiq-icon" },
     { label: "FAQ", icon: "faq-icon" },
     { label: "Blogs", icon: "blogs-icon" },
     { label: "Political Talents", icon: "political-talents-icon" },
+    { label: "Contacts", icon: "testimonials-icon" },
     { label: "Testimonials", icon: "testimonials-icon" },
     { label: "News", icon: "news-icon" },
   ];
@@ -38,8 +40,8 @@ const Page = () => {
 
       case "Political Talents":
         return <TalentPage />;
-      case "Messages":
-        return <WebsiteInfoPage />;
+      case "Contacts":
+        return <ContactManage />;
       case "Others":
         return <WebsiteInfoPage />;
 
