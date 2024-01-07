@@ -5,13 +5,19 @@ import React, { useEffect, useState } from "react";
 const AllBlogs = () => {
   const [userData, setUserData] = useState();
   useEffect(() => {
-    const res = axios.get(`${base}/api/v1/blogs`).then((res) => {
-      console.log("response", res.data.data);
-      if (res.data.status === "success") {
-        setUserData(res?.data?.data);
-      }
-    });
+    axios.get(`${base}/api/v1/blogs`)
+      .then((res) => {
+        // console.log("response", res.data.data);
+        if (res.data.status === "success") {
+          setUserData(res?.data?.data);
+        }
+      })
+      .catch(err=>{
+        console.log("err" , err);
+      })
   }, []);
+
+  console.log("user data", userData);
 
   const [currentData, setCurrentData] = useState();
   console.log("currentData", currentData);
@@ -34,7 +40,7 @@ const AllBlogs = () => {
         </div>
       </dialog>
       {userData?.map((user) => (
-        <div key={user.id}>
+        <div key={user?._id}>
           {/* <td className="border p-2">Author: {user.author}</td>
           <td className="border p-2">
             <img
@@ -64,7 +70,7 @@ const AllBlogs = () => {
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold">{user.author}</div>
+                        <div className="font-bold">{user?.author}</div>
                       </div>
                     </div>
                   </td>
@@ -72,7 +78,7 @@ const AllBlogs = () => {
                     <h3 className="font-bold">Title</h3>
                     <br />
                     <span className="badge badge-ghost badge-sm">
-                      {user.title}
+                      {user?.title}
                     </span>
                   </td>
                   <th>

@@ -14,7 +14,9 @@ interface HeroProps {
     id?: string;
 }
 interface InfoType {
-
+    name?: string;
+    email?: string;
+    image_url?: string;
     signingId?: string;
     address?: string;
     phone?: any;
@@ -24,6 +26,7 @@ interface InfoType {
     skills?: string;
     experiences?: string;
     _id?: string;
+    talent?: any;
     // Add other properties if needed
 }
 const Hero = ({
@@ -47,7 +50,9 @@ const Hero = ({
 
 
     const [formValues, setFormValues] = useState<InfoType>({
-        // name: "",
+        name: userdata?.fullName,
+        email:userdata?.primaryEmailAddress?.emailAdress,
+        image_url:userdata?.image_Url,
         signingId: id,
         address: info?.address || "",
         phone: info?.phone || "",
@@ -58,9 +63,6 @@ const Hero = ({
         experiences: info?.experiences || "",
     });
 
-    console.log("info", info);
-
-
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (e: any) => {
@@ -69,6 +71,9 @@ const Hero = ({
         setFormValues((prevValues) => ({
             ...prevValues,
             [name]: value,
+            name: userdata?.fullName,
+        email:userdata?.primaryEmailAddress?.emailAddress,
+        image_url:userdata?.imageUrl,
         }));
     };
 
@@ -91,7 +96,7 @@ const Hero = ({
 
     const handleSubmit2 = async (e: any) => {
         e.preventDefault();
-        console.log("data", formValues);
+        console.log("update data", formValues);
         setIsSubmitting(true);
 
         if ((!info?._id)) {
@@ -100,14 +105,44 @@ const Hero = ({
         }
 
         const res = await updateProfileInfo(info?._id, formValues);
+        console.log("res", res )
+        if (res?.status=="success") {
+
+
+            ToastSuccess("Successfully Activated");
+            setIsSubmitting(false);
+            window.location.reload()
+
+
+        } else {
+
+            window.location.reload()
+
+            // ToastError(res?.message || "Something error");
+            setIsSubmitting(false);
+        }
+    };
+
+    const handleTalent = async () => {
+        setIsSubmitting(true);
+
+        if ((!info?._id)) {
+            ToastError("User data not found")
+            return;
+        }
+        const body = {
+            talent: "pending"
+        }
+
+        const res = await updateProfileInfo(info?._id, body);
 
         if (res) {
             // const doc=document.getElementById('my_modal_4')
             // if(doc){
             //     doc.style.display="none"
             // }
-            ToastSuccess("Successfully Activated");
-            setIsSubmitting(false); 
+            ToastSuccess("Successfully Applied");
+            setIsSubmitting(false);
             window.location.reload()
 
 
@@ -116,11 +151,13 @@ const Hero = ({
             // if(doc){
             //     doc.style.display="none"
             // }
+            window.location.reload()
 
-            ToastError(res?.message || "Something error");
+            // ToastError(res?.message || "Something error");
             setIsSubmitting(false);
         }
-    };
+
+    }
 
 
     return (
@@ -498,6 +535,20 @@ const Hero = ({
                                     Activate Profile
                                 </Button>
                             </div>}
+                        {!(info?.talent) || info?.talent == "none" &&
+
+                            <div className="overflow-hidden w-[40%] mt-8">
+                                <span className=""> Are you a political expert ? </span>
+                                <Button
+                                    onClick={handleTalent}
+                                    className="mt-3 relative z-[5] bg-blue-100 h-[40px] text-blue-700 w-full  hover:text-white" variant={'hover'}>
+                                    Confirm Us
+                                </Button>
+                            </div>}
+                        {
+                            info?.talent == "approved" &&
+                            <span className="font-bold"> you are political expert</span>
+                        }
 
                     </div>
                     {/* ------user info----- */}

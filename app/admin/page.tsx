@@ -9,9 +9,10 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BlogPage from "@/components/admin/blog/BlogPage";
+import TalentPage from "@/components/admin/talent/FaqManage";
 
 const Page = () => {
-  const [current, setCurrent] = useState("Website Info");
+  const [current, setCurrent] = useState("Political Talents"); 
   const tabs = [
     { label: "Website Info", icon: "website-icon" },
     { label: "Politiq Test", icon: "politiq-icon" },
@@ -35,8 +36,8 @@ const Page = () => {
       case "Blogs":
         return <BlogPage />;
 
-      case "My Orders":
-        return <WebsiteInfoPage />;
+      case "Political Talents":
+        return <TalentPage />;
       case "Messages":
         return <WebsiteInfoPage />;
       case "Others":
