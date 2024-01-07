@@ -55,7 +55,7 @@ const Blog: React.FC = () => {
       //   console.log("users in politic", res);
       if (res?.data?.status === "success") {
         const allData = res?.data?.data;
-        console.log("allData", allData);
+        // console.log("allData", allData);
         //   const filtered=allData?.filter(a=>!(a?.archived)==true)
         setUserData(allData);
         // setUserData(res?.data?.data);

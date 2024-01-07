@@ -11,6 +11,33 @@ export const base ='http://localhost:5000'
 
 // new codes
 
+// home page name and email post ( subscribe )
+export const createSubscribe = async (data:any) => {
+  try {
+    const res = await axios.post(`${base}/api/v1/newslatter`, data);
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("refresh", res.data.refresh);
+    if (res) return res.data;
+  } catch (error) {
+    console.log("err is", error);
+  }
+};
+
+// testimonial  getMethod 
+export const getTest = async () => {
+  try {
+    const config = {
+      headers: {
+        token: localStorage.getItem("token") || "",
+      },
+    };
+    const res = await axios.get(`${base}/api/v1/testimonial`, config);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // faq
 export const createFaq = async (data:any) => {
   try {
