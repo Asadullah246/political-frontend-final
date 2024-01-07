@@ -1,5 +1,6 @@
+
 import { MoveRight, Users } from 'lucide-react';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { LargeTitle } from '../shared/SmallComponents';
 import SingelCourse from '../shared/singelCourse';
 import { db } from '@/lib/db';
@@ -25,7 +26,7 @@ interface Course {
 }
 interface Single {
     id: string,
-    userId:string,
+    userId: string,
     title: string,
     imageUrl: string | null,
     rating?: [],
@@ -57,102 +58,99 @@ const AllCourses: React.FC = async () => {
     });
 
 
-    // const getCategory=async(catId:any)=>{
-    //     const categories = await db.category.findMany({
-    //         orderBy: {
-    //             name: "asc"
-    //         }
-    //     });
-    //     // console.log("all cat", categories)
-    //     const findExact= await categories?.find(c=>c.id==catId)
-    //     console.log("dat is",catId, findExact )
-    //       return findExact ;
-    // }
 
 
-    const Courses: Course[] = [{
-        id: "1",
-        img: '/assets/globals.jpg',
-        title: 'Global Diplomacy Diplomacy in the Modern World',
-        rating: 5,
-        review: 10,
-        price: "Free",
-        time: "2:30",
-        student: 100
-    }, {
-        id: "2",
-        img: '/assets/global.jpg',
-        title: 'Global Diplomacy: the United Nations in the World',
-        rating: 4,
-        review: 2,
-        price: 12.00,
-        time: "5:15",
-        student: 2
-    }, {
-        id: "3",
-        img: '/assets/health.avif',
-        title: 'International Womens Health and Human Rights',
-        rating: 5,
-        review: 10,
-        price: 19.00,
-        time: "5:15",
-        student: 2
-    }, {
-        id: "4",
-        img: '/assets/japan.jpeg',
-        title: 'Public Leadership Credential Developed by Harvard',
-        rating: 5,
-        review: 7,
-        price: 17.00,
-        time: "15:20",
-        student: 3
-    }, {
-        id: "5",
-        img: '/assets/5.jpg',
-        title: 'New Ideas for Nonprofit Leaders Webinar',
-        rating: 5,
-        review: 6,
-        price: 20,
-        time: "5:14",
-        student: 3
-    }, {
-        id: "6",
-        img: '/assets/6.jpg',
-        title: 'Political Science Degree Online Programs',
-        rating: 5,
-        review: 10,
-        price: 30,
-        time: "2:30",
-        student: 100
-    }]
+
+
+
     return (
         <div>
-            <div className="mt-[80px]">
+            <div className="mt-[50px]">
                 <div>
-                    <LargeTitle className='text-4xl '>Popular courses on Politics</LargeTitle>
-                    <p className='flex items-center mt-2'><Users size={16} /> <span>42,048,955 learners</span> </p>
+                    <LargeTitle className='text-4xl mb-3 '>All Courses on Politics</LargeTitle>
+                    {/* <p className='flex items-center mt-2'><Users size={16} /> <span>42,048,955 learners</span> </p> */}
                 </div>
-                <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  md:gap-8">
-                    {
-                        totalCourse?.map((course, index) => (
-                            <SingelCourse
-                             img={course?.imageUrl}
-                             price={course.price}
-                             title={course.title}
-                             description={course.description}
-                             categoryIs={categories?.find(c=>c.id==course.categoryId)}
-                            //  review={course.review}
-                            key={course.id}
-                            id={course.id}
-                            categoryId={course.categoryId}
-                            category={course.category}
-                            chapters={course.chapters}
-                            attachments={course.attachments}
-                            purchases={course.purchases}
-                            createdAt={course.createdAt}
-                                // student={course.student}
 
+                {/* <div>
+                    <div className="bg-gray-100 p-8 rounded-md shadow-md">
+                        <h2 className="text-2xl font-semibold mb-4">Search Courses</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                            <div className="mb-4">
+                                <label htmlFor="title" className="block text-sm font-medium text-gray-600">
+                                    Title
+                                </label>
+                                <input
+                                    type="text"
+                                    id="title"
+                                    className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+                                    placeholder="Enter course title"
                                 />
+                            </div>
+
+
+                            <div className="mb-4">
+                                <label htmlFor="category" className="block text-sm font-medium text-gray-600">
+                                    Category
+                                </label>
+                                <select
+                                    id="category"
+                                    className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+                                >
+                                    <option value="">Select category</option>
+                                    <option value="web">Web Development</option>
+                                    <option value="design">Design</option>
+                                    <option value="data">Data Science</option>
+                                </select>
+                            </div>
+
+
+                            <div className="mb-4">
+                                <label htmlFor="price" className="block text-sm font-medium text-gray-600">
+                                    Price Range
+                                </label>
+                                <input
+                                    type="range"
+                                    id="price"
+                                    min="0"
+                                    max="100"
+                                    step="1"
+                                    className="mt-1 w-full"
+                                />
+                                <div className="flex justify-between">
+                                    <span>0</span>
+                                    <span>100</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <button  className="bg-blue-500 text-white py-2 px-4 rounded-md mt-4">
+                            Search
+                        </button>
+                    </div>
+                </div> */}
+                <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4  gap-4  md:gap-8">
+                    {
+                        totalCourse?.map((course, index) => ( 
+                            <SingelCourse
+                                img={course?.imageUrl}
+                                price={course.price}
+                                title={course.title}
+                                description={course.description}
+                                categoryIs={categories?.find(c => c.id == course.categoryId)}
+                                //  review={course.review}
+                                key={course.id}
+                                id={course.id}
+                                categoryId={course.categoryId}
+                                category={course.category}
+                                chapters={course.chapters}
+                                attachments={course.attachments}
+                                purchases={course.purchases}
+                                createdAt={course.createdAt}
+                            // student={course.student}
+
+                            />
                         ))
                     }
                 </div>

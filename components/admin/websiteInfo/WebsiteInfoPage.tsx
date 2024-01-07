@@ -1,9 +1,22 @@
 import { ToastError, ToastSuccess } from "@/components/shared/Others";
-import { blogs } from "@/components/shared/apis/api";
-import React, { useState } from "react";
+import { newWebsiteInfo } from "@/components/shared/apis/api";
+import React, { useState,ChangeEvent, FormEvent } from "react";
+
+interface FormValues {
+    websiteName: string;
+    logoImage: File | null;
+    phone: any;
+    email: string;
+    address: string;
+    description: string;
+    facebook: any;
+    twitter: any;
+    instagram: any;
+  }
 
 const WebsiteInfoPage = () => {
-    const [formValues, setFormValues] = useState({
+
+    const [formValues, setFormValues] = useState<FormValues>({
         websiteName: "",
         logoImage: null,
         phone: "",
@@ -31,16 +44,30 @@ const WebsiteInfoPage = () => {
         console.log("data", formValues);
         setIsSubmitting(true);
 
-        const res = await blogs(formValues)
 
-        if (res?.status === "success") {
-            ToastSuccess("Successfully updated")
-             setIsSubmitting(false);
+        try {
+            const formData = new FormData();
 
-        } else {
-            ToastError(res?.message || "Something error")
-             setIsSubmitting(false);
-        }
+            // Append each form field to the FormData object
+            for (const key in formValues) {
+              formData.append(key, formValues[key]);
+            }
+
+            // Make a POST request to your server endpoint
+            const res = await newWebsiteInfo(formData)
+
+            if (res?.status === 'success') {
+              ToastSuccess('Successfully updated');
+            } else {
+              ToastError(res?.message || 'Something error');
+            }
+          } catch (error) {
+            console.error('Error:', error);
+            ToastError('An error occurred');
+          } finally {
+            setIsSubmitting(false);
+          }
+
 
     };
 

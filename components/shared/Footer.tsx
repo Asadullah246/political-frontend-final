@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import logo from "../../public/assets/logo.jpg";
 import styles from "../../styles/home.module.css";
-import { getSiteInfo } from "./apis/api";
+import { base, getSiteInfo } from "./apis/api";
 
 
 
@@ -147,6 +147,8 @@ const Footer: React.FC = () => {
   useEffect(() => {
     getUser()
   }, [])
+  console.log("info", info )
+  console.log("info imaged", base+info?.logoImage )
 
 
   const getUser = async () => {

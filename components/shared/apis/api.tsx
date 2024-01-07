@@ -11,6 +11,19 @@ export const base ='http://localhost:5000'
 
 // new codes
 
+// faq
+export const createFaq = async (data:any) => {
+  try {
+    const res = await axios.post(`${base}/api/v1/quiz`, data); 
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("refresh", res.data.refresh);
+    if (res) return res.data;
+  } catch (error) {
+    console.log("err is", error);
+  }
+};
+// faq
+
 // contact
 export const createContact = async (data:any) => {
   try {
@@ -31,7 +44,7 @@ export const updateContactInfo = async (id:string, data:any) => {
     };
     const res = await axios.patch(`${base}/api/v1/contact/${id}`, data, config);
 
-    return res?.data; 
+    return res?.data;
   } catch (error) {
     console.log(error);
   }

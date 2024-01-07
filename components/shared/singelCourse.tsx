@@ -34,7 +34,7 @@ const SingelCourse =  ({ img, price,title,description,id,categoryId,category,att
     const [totalTime, setTotalTime] = useState('')
 
     const navigateDetails=()=>{
-        router.push(`/course-details/${id}`);
+        router.push(`/dashboard`);
     }
 //    const AvgRating  = rating?.map((a:any)=>a.rating).reduce((a,b)=>a+b,0)/rating?.length!! || 0
 
@@ -77,7 +77,7 @@ const SingelCourse =  ({ img, price,title,description,id,categoryId,category,att
                     {/* -----course title---- */}
                     <div className="">
                         <h3>
-                            <a href={`/course-details/${id}`} className=" no-underline text-[#130F40] text-xl
+                            <a href={`/dashboard`} className=" no-underline text-[#130F40] text-xl
                          font-[700]   inline-block shadow-none" >{title}</a>
                         </h3>
                     </div>
@@ -131,7 +131,7 @@ const SingelCourse =  ({ img, price,title,description,id,categoryId,category,att
                                 </h2>
                             </div> */}
                             <div className=" ml-auto flex gap-1 text-gray-400 items-center">
-                                <User className=" w-5 h-5" />
+                                {/* <User className=" w-5 h-5" /> */}
                                 <h2>
                                     {
                                         // student

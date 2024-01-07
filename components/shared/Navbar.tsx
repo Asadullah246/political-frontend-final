@@ -35,20 +35,20 @@ const routes: Route[] = [
     color: 'text-green-500',
     activeColor: 'text-green-700'
   },
-   {
-    label:'Political Talent',
-    icon:PenSquare,
-    href:'/politicalTalent',
-    color:'text-red-500',
-    activeColor:'text-red-700'
-   },
-   {
-    label:'Courses',
-    icon:PenSquare,
-    href:'/courses',
-    color:'text-yellow-500',
-    activeColor:'text-yellow-700' 
-   },
+  {
+    label: 'Political Talent',
+    icon: PenSquare,
+    href: '/politicalTalent',
+    color: 'text-red-500',
+    activeColor: 'text-red-700'
+  },
+  {
+    label: 'Courses',
+    icon: PenSquare,
+    href: '/courses',
+    color: 'text-yellow-500',
+    activeColor: 'text-yellow-700'
+  },
   //  {
   //   label:'Contact Us',
   //   icon:Contact,
@@ -63,13 +63,7 @@ const routes: Route[] = [
   //   color:'text-blue-500',
   //   activeColor:'text-blue-700'
   //  },
-  {
-    label: 'What you want',
-    icon: User,
-    href: '/',
-    color: 'text-blue-500',
-    activeColor: 'text-blue-700'
-  },
+
   {
     label: 'PolitIQ Test',
     icon: School,
@@ -83,6 +77,13 @@ const routes: Route[] = [
     href: '/dashboard',
     color: 'text-orange-700',
     activeColor: 'text-orange-900'
+  },
+  {
+    label: 'What you want',
+    icon: User,
+    href: '/',
+    color: 'text-blue-500',
+    activeColor: 'text-blue-700'
   },
 ]
 const Navbar: React.FC = () => {
@@ -145,6 +146,8 @@ const Navbar: React.FC = () => {
 
 
 
+  const [mobMenu, setMobMenu] = useState(false)
+
   // Function to toggle the menu
   const Toggle = () => {
     setOpen(!open);
@@ -170,6 +173,8 @@ const Navbar: React.FC = () => {
     setIsVisible(!isVisible);
     console.log("visi", isVisible);
   };
+
+
 
 
   const constituency = [
@@ -318,6 +323,7 @@ const Navbar: React.FC = () => {
                 <h3 className="lg:text-3xl text-xl ml-2 text-[#0D01E5]">PolitIQ</h3>
               </div>
             </div>
+            {/* big screen  menu */}
 
             <div className="  w-[100%] justify-center lg:flex hidden   ">
               {routes.map((route, i) => (
@@ -326,7 +332,7 @@ const Navbar: React.FC = () => {
                   {
                     route?.label == "What you want" ?
                       <Link
-                      onClick={toggleVisibility}
+                        onClick={toggleVisibility}
 
                         ref={visibleDivRef2}
                         href={route.href} key={i}
@@ -371,7 +377,7 @@ const Navbar: React.FC = () => {
             </div>
             {/* ------small screen menu--- */}
 
-            <div className={`z-[200] ${open ? "w-[80%] min-h-[300px] bg-white  absolute top-[100%]  py-8  rounded-b-md px-2 lg:hidden block active shadow-md" : "menu_open_smooth  w-[400px] min-h-[300px] bg-white absolute top-[100%] z-[200] py-8  rounded-b-md px-2 lg:hidden block "}}`}
+            <div className={`z-[200] ${open ? "w-[80%] min-h-[300px] overflow-scroll  bg-white   absolute top-[100%]  py-8  rounded-b-md px-2 lg:hidden block active shadow-md" : "menu_open_smooth  w-[400px] min-h-[300px] bg-white absolute top-[100%] z-[200] py-8  rounded-b-md px-2 lg:hidden block "}}`}
 
             >
               {routes.map((route, i) => (
@@ -380,21 +386,80 @@ const Navbar: React.FC = () => {
                 >
                   {
                     route?.label == "What you want" ?
-                      <Link
-                        href={route.href}
-                        className={cn("text-sm group flex pl-4 justify-center font-medium cursor-pointer rounded-lg transition text-gray-700  group-hover:text-black", pathName === route.href ? `${route.activeColor}font-bold` : '')}
+                      <div
+                        // href={route.href}
+                        className={cn("text-sm group relative  pl-4 justify-center font-medium cursor-pointer rounded-lg transition text-gray-700  group-hover:text-black", pathName === route.href ? `${route.activeColor}font-bold` : '')}
                       >
-                        <div className=" flex items-center flex-1 gap-3 text-[18px]">
+                        <div
+                          onClick={() => setMobMenu(!mobMenu)} className=" flex items-center flex-1 gap-3 text-[18px]">
                           {/* -------route icon------- */}
                           <route.icon className={cn("h-[20px] w-[20px] mr-1", pathName === route.href ? route.activeColor : route.color)} />
                           {/* -------route icon------- */}
                           {
                             route.label
                           }
-                          text
+
 
                         </div>
-                      </Link> :
+                        {mobMenu &&
+                          <div>
+                            <div
+                              // ref={visibleDivRef}
+                              // onMouseEnter={showDiv}
+                              // onMouseLeave={hideDiv}
+                              className="w-full absolute top-[25px] z-10 px-3 pt-3 pb-6  left-8   text-gray-700 grid grid-cols-1  md:grid-cols-1 lg:grid-cols-1 md:gap-6  " id="">
+                              <div>
+                                <p className="text-lg font-semibold  "  >I am a Constituency/Organization</p>
+
+                                {
+                                  constituency?.map((singleC, index) => {
+                                    return (
+                                      <a key={index} href={singleC?.link} className={`ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300  ${!(singleC?.link) ? "opacity-50 cursor-not-allowed" : ""}`}>
+                                        <MdArrowForward class="block mt-[5px] " style={{}} />
+                                        <span className="">{singleC?.text}</span>
+                                      </a>
+                                    )
+                                  })
+                                }
+                              </div>
+                              <div>
+                                <p className="text-lg font-semibold  "  >I am a politician (new or experienced)</p>
+
+                                {
+                                  politician?.map((singleC, index) => {
+                                    return (
+                                      <a key={index} href={singleC?.link} className={`ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300  ${!(singleC?.link) ? "opacity-50 cursor-not-allowed" : ""}`}>
+                                        <MdArrowForward class="block mt-[5px] " style={{}} />
+                                        <span className="">{singleC?.text}</span>
+                                      </a>
+                                    )
+                                  })
+                                }
+
+                              </div>
+                              <div>
+                                {/* <p className="text-lg font-semibold  "  >I am a Constituency/Organization</p> */}
+
+                                {
+                                  othersNav?.map((singleC, index) => {
+                                    return (
+                                      <a key={index} href={singleC?.link} className={`ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300  ${!(singleC?.link) ? "opacity-50 cursor-not-allowed" : ""}`}>
+                                        <MdArrowForward class="block mt-[5px] " style={{}} />
+                                        <span className=" ">{singleC?.text}</span>
+                                      </a>
+                                    )
+                                  })
+                                }
+
+                              </div>
+
+
+
+                            </div>
+                          </div>
+                        }
+
+                      </div> :
                       <Link
                         href={route.href}
                         className={cn("text-sm group flex pl-4 justify-center font-medium cursor-pointer rounded-lg transition text-gray-700  group-hover:text-black", pathName === route.href ? `${route.activeColor}font-bold` : '')}
@@ -414,7 +479,7 @@ const Navbar: React.FC = () => {
               ))}
             </div>
 
-            {/* ------small screen menu--- */}
+            {/* ------small screen menu and --- */}
             <div className=" lg:hidden flex justify-end w-[40%] cursor-pointer"
               onClick={Toggle}
             >
@@ -423,6 +488,11 @@ const Navbar: React.FC = () => {
 
               }
             </div>
+
+
+
+
+
             <div className=" flex items-center justify-end">
               <UserButton afterSignOutUrl="/sign-in" />
               {/**/}
@@ -430,7 +500,7 @@ const Navbar: React.FC = () => {
 
             {isVisible &&
               <div
-              ref={visibleDivRef}
+                ref={visibleDivRef}
                 // onMouseEnter={showDiv}
                 // onMouseLeave={hideDiv}
                 className="w-full absolute top-[85px] z-10 px-3 pt-3 pb-6  left-0 bg-white grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 md:gap-6  " id="">
@@ -440,7 +510,7 @@ const Navbar: React.FC = () => {
                   {
                     constituency?.map((singleC, index) => {
                       return (
-                        <a key={index} href={singleC?.link} className="ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300 ">
+                        <a key={index} href={singleC?.link} className={`ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300  ${!(singleC?.link) ? "opacity-50 cursor-not-allowed" : ""}`}>
                           <MdArrowForward class="block mt-[5px] " style={{}} />
                           <span className="">{singleC?.text}</span>
                         </a>
@@ -454,7 +524,7 @@ const Navbar: React.FC = () => {
                   {
                     politician?.map((singleC, index) => {
                       return (
-                        <a key={index} href={singleC?.link} className="ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300 ">
+                        <a key={index} href={singleC?.link} className={`ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300  ${!(singleC?.link) ? "opacity-50 cursor-not-allowed" : ""}`}>
                           <MdArrowForward class="block mt-[5px] " style={{}} />
                           <span className="">{singleC?.text}</span>
                         </a>
@@ -469,7 +539,7 @@ const Navbar: React.FC = () => {
                   {
                     othersNav?.map((singleC, index) => {
                       return (
-                        <a key={index} href={singleC?.link} className="ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300 ">
+                        <a key={index} href={singleC?.link} className={`ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300  ${!(singleC?.link) ? "opacity-50 cursor-not-allowed" : ""}`}>
                           <MdArrowForward class="block mt-[5px] " style={{}} />
                           <span className=" ">{singleC?.text}</span>
                         </a>
