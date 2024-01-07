@@ -61,30 +61,31 @@ const AboutUSForm = () => {
             <div className=" grid grid-cols-12 gap-8">
               <div className=" lg:col-span-6 col-span-12">
                 <div className="lg:mb-[30px] mb-[10px]">
-                  <Input type="text" placeholder="Your Name" name="name" />
+                  <Input type="text" placeholder="Your Name" name="name" required/>
                 </div>
               </div>
               <div className=" lg:col-span-6 col-span-12">
                 <div className="lg:mb-[30px] mb-[10px]">
-                  <Input type="text" placeholder="Designation" name="designation" />
+                  <Input type="text" placeholder="Designation" name="designation"  required/>
                 </div>
               </div>
             </div>
             <div className=" grid grid-cols-12 gap-8">
               <div className=" lg:col-span-6 col-span-12">
                 <div className="lg:mb-[30px] mb-[10px]">
-                  <Input type="number" placeholder="Rating" name="rating" />
+                  <Input type="number" placeholder="Rating" name="rating" required/>
                 </div>
               </div>
               <div className=" lg:col-span-6 col-span-12">
                 <div className="lg:mb-[30px] mb-[10px]">
-                  <Input type="file"  name="testimonial_img" />
+                  <Input type="file"  name="testimonial_img" required />
                 </div>
               </div>
             </div>
             <div className=" pb-[50px]">
               <textarea
                 name="description"
+                required
                 className="relative block bg-white border border-[#E5E5E5] w-[100%]  text-[#676767] font-[500] text-[16px]  px-[35px] rounded-[25px] focus:outline-none h-[180px] pt-[12px] pb-[12px]"
                 cols={30}
                 rows={10}
