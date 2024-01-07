@@ -23,31 +23,26 @@ const Page = () => {
     { label: "Political Talents", icon: "political-talents-icon" },
     { label: "Contacts", icon: "testimonials-icon" },
     { label: "Testimonials", icon: "testimonials-icon" },
-    { label: "News", icon: "news-icon" },
   ];
 
   const tabmanage = (text: string) => {
     switch (text) {
       case "Website Info":
         return <WebsiteInfoPage />;
-
       case "Politiq Test":
         return <PolitTestPage />;
-
       case "FAQ":
         return <FaqManage />;
       case "Blogs":
         return <BlogPage />;
       case "Testimonials":
         return <TestPage />;
-
       case "Political Talents":
         return <TalentPage />;
       case "Contacts":
         return <ContactManage />;
       case "Others":
         return <WebsiteInfoPage />;
-
       default:
         return <WebsiteInfoPage />;
     }

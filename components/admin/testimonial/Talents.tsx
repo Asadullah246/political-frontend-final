@@ -31,7 +31,7 @@ const Talents = () => {
 
   const handleDelete = async (id: any) => {
     const res = await deleteTest(id);
-    console.log("res", res);
+    console.log("res", res); 
     setRefresh(!refresh);
     if (res?.data?.status == "success") {
       ToastSuccess("Successfully Deleted");
@@ -42,22 +42,7 @@ const Talents = () => {
     }
   };
 
-  const handleDecline = async (id: any) => {
-    const body = {
-      talent: "",
-    };
-    const res = await updateProfileInfo(id, body);
-    setRefresh(!refresh);
-    if (res?.status == "success") {
-      ToastSuccess("Successfully declined");
-      setIsSubmitting(false);
-    } else {
-      ToastError(res?.message || "Something error");
-      setIsSubmitting(false);
-    }
-  };
 
-  //   function for delete
 
 
   return (
