@@ -32,6 +32,8 @@ const Blogs: BlogItem[] = [{
     author:"Admin",
     id:"3"
 }]
+
+
 const Blog: React.FC = () => {
     return (
         <div className=" mt-[120px]">

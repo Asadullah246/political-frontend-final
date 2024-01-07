@@ -1,6 +1,7 @@
 import { ToastSuccess, ToastError } from "@/components/shared/Others";
 import {
   base,
+  deleteTest,
   updateContactInfo,
   updateProfileInfo,
 } from "@/components/shared/apis/api";
@@ -29,12 +30,10 @@ const Talents = () => {
   console.log("Test", userData);
 
   const handleDelete = async (id: any) => {
-    const body = {
-      archived: true,
-    };
-    const res = await updateContactInfo(id, body);
+    const res = await deleteTest(id);
     console.log("res", res);
-    if (res?.status == "success") {
+    setRefresh(!refresh);
+    if (res?.data?.status == "success") {
       ToastSuccess("Successfully Deleted");
       setIsSubmitting(false);
     } else {
@@ -42,6 +41,7 @@ const Talents = () => {
       setIsSubmitting(false);
     }
   };
+
   const handleDecline = async (id: any) => {
     const body = {
       talent: "",
@@ -56,6 +56,9 @@ const Talents = () => {
       setIsSubmitting(false);
     }
   };
+
+  //   function for delete
+
 
   return (
     <div>
@@ -98,14 +101,12 @@ const Talents = () => {
                         onClick={() => handleDelete(user._id)}
                         className="p-2"
                       >
-                        < FaTrash 
+                        <FaTrash
                           class={`text-blue-500 ${
                             isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                           }`}
                         />
                       </button>
-                      {/* <button onClick={() => handleDecline(user._id)} className="p-2"><FaDeleteLeft class={`text-red-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" }`} />
-                                                </button> */}
                     </p>
                   </th>
                 </tr>

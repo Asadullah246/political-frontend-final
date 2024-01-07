@@ -23,6 +23,31 @@ export const createTestimonial = async (data:any) => {
   }
 };
 
+// delete for blog 
+export const deleteBlog = async (id) => {
+  try {
+    const headers = {
+      token: localStorage.getItem("refresh") || "",
+    };
+    const res = await axios.delete(`${base}/api/v1/blogs/${id}`, { headers });
+    return res;
+  } catch ( {message} ) {
+    console.log(message);
+  }
+};
+
+export const deleteTest = async (id) => {
+  try {
+    const headers = {
+      token: localStorage.getItem("refresh") || "",
+    };
+    const res = await axios.delete(`${base}/api/v1/testimonial/${id}`, { headers });
+    return res;
+  } catch ( {message} ) {
+    console.log(message);
+  }
+};
+
 // contact
 export const createContact = async (data:any) => {
   try {
