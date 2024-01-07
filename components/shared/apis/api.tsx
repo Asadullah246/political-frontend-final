@@ -9,7 +9,7 @@ export const base ='http://localhost:5000'
 // new codes
 
 // profile info
-export const activeAccount = async (data) => {
+export const activeAccount = async (data:any) => {
   try {
     const res = await axios.post(`${base}/api/v1/user`, data);
     localStorage.setItem("token", res.data.token);
@@ -39,7 +39,7 @@ export const updateProfileInfo = async (id:string, data:any) => {
 
 // profile info
 // update website info
-export const updateWebsiteInfo = async ( data) => {
+export const updateWebsiteInfo = async ( data:any) => {
   try {
     const config = {
       headers: {
@@ -59,7 +59,7 @@ export const updateWebsiteInfo = async ( data) => {
 
 // create new  info
 
-export const newWebsiteInfo = async (data) => {
+export const newWebsiteInfo = async (data:any) => {
   try {
     const res = await axios.post(`${base}/api/v1/websiteInfo`, data);
     localStorage.setItem("token", res.data.token);
@@ -69,6 +69,19 @@ export const newWebsiteInfo = async (data) => {
     console.log("err is", error);
   }
 };
+// blog api start 
+export const CreatingNewBlog = async (data: any) => {
+  try {
+    const res = await axios.post(`${base}/api/v1/blogs`, data);
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("refresh", res.data.refresh);
+    if (res) return res.data;
+  } catch (error) {
+    console.log("err is", error);
+  }
+};
+// blog api end 
+
 
 
 // get webstie info
