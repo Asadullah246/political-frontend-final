@@ -3,24 +3,38 @@ import { Clock, Star, User } from "lucide-react";
 
 interface Course {
     id: string,
+    userId?:string,
     title: string,
-    img: string,
+    imageUrl?: string | null,
+    img?: string | null,
     rating?: [],
-    review: number,
-    price: number | string,
+    review?: number,
+    description?: string | null,
+    categoryId?: any,
+    category?: any,
+    attachments?: any,
+    purchases?: any,
+    createdAt?: any,
+    chapters?: any,
+    price: number | string | null,
     time?: [],
-    student: number,
+    student?: number,
+    categoryIs?:any,
 }
 
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from "react";
 
-const SingelCourse = ({ img, price, title, review,  student }: Course) => {
+
+
+
+const SingelCourse =  ({ img, price,title,description,id,categoryId,category,attachments,purchases,createdAt,chapters,categoryIs}: Course) => {
     const router = useRouter();
     const [totalTime, setTotalTime] = useState('')
+
     const navigateDetails=()=>{
-        router.push('/course-details');
+        router.push(`/course-details/${id}`);
     }
 //    const AvgRating  = rating?.map((a:any)=>a.rating).reduce((a,b)=>a+b,0)/rating?.length!! || 0
 
@@ -63,12 +77,12 @@ const SingelCourse = ({ img, price, title, review,  student }: Course) => {
                     {/* -----course title---- */}
                     <div className="">
                         <h3>
-                            <a href="#" className=" no-underline text-[#130F40] text-xl
+                            <a href={`/course-details/${id}`} className=" no-underline text-[#130F40] text-xl
                          font-[700]   inline-block shadow-none" >{title}</a>
                         </h3>
                     </div>
                     {/* course by  */}
-                    <p className="mt-1">By Asad</p>
+                    <p className="mt-1">Category : {categoryIs?.name}</p>
 
                     {/* -----course rating---- */}
                     <div className=" flex gap-2 mt-1 items-center ">
@@ -85,13 +99,15 @@ const SingelCourse = ({ img, price, title, review,  student }: Course) => {
                                 })
                             }
                         </div> */}
-                        <div className=" text-gray-400 text-[14px] font-[500]">
-                            ({review} Reviews)
-                        </div>
+                        {/* <div className=" text-gray-400 text-[14px] font-[500]">
+                            (
+                                {review}
+                                 Reviews)
+                        </div> */}
                     </div>
                     {/* course price  */}
                     <div className="flex items-center gap-2">
-                        <p className="font-extrabold " >${price}</p>
+                        <p className="font-extrabold " >{price != null ? `$${price}`:"FREE" }</p>
 
                     </div>
                     {/* ------course footer--- */}
@@ -118,7 +134,7 @@ const SingelCourse = ({ img, price, title, review,  student }: Course) => {
                                 <User className=" w-5 h-5" />
                                 <h2>
                                     {
-                                        student
+                                        // student
                                     }
                                 </h2>
                             </div>

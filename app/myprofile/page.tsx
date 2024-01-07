@@ -12,7 +12,7 @@ const ProfilePage: React.FC = () => {
     // console.log("authd", auth()  );
     // const {userId}=auth()
     const {isLoaded,isSignedIn,user} = useUser()
-    // console.log("user", user)
+    console.log("user", user) 
     if(!isLoaded || !isSignedIn) return <Loading/>
 
     return (

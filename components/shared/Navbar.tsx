@@ -35,13 +35,20 @@ const routes: Route[] = [
     color: 'text-green-500',
     activeColor: 'text-green-700'
   },
-  //  {
-  //   label:'Political Talent',
-  //   icon:PenSquare,
-  //   href:'/politicalTalent',
-  //   color:'text-red-500',
-  //   activeColor:'text-red-700'
-  //  },
+   {
+    label:'Political Talent',
+    icon:PenSquare,
+    href:'/politicalTalent',
+    color:'text-red-500',
+    activeColor:'text-red-700'
+   },
+   {
+    label:'Courses',
+    icon:PenSquare,
+    href:'/courses',
+    color:'text-yellow-500',
+    activeColor:'text-yellow-700' 
+   },
   //  {
   //   label:'Contact Us',
   //   icon:Contact,
@@ -290,7 +297,7 @@ const Navbar: React.FC = () => {
     {
       id: 8,
       text: "I need to contact PolitIQ",
-      link: "/contactus" 
+      link: "/contactus"
     }
   ];
 

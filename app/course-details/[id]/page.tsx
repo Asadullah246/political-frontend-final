@@ -1,3 +1,4 @@
+
 "use client"
 import { ProModal } from '@/components/proModal';
 import VideopoPup from '@/components/VideoPopUp/videoPopUp';
@@ -11,9 +12,66 @@ import SingleNav from '@/components/shared/SingleNav';
 import { useStore } from '@/hooks/useStore';
 import { CourseMgmt } from '@/store/Store';
 import { CheckCircle } from 'lucide-react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { db } from '@/lib/db';
 
-const CourseDetails: React.FC = () => { 
+import { useParams } from 'next/navigation';
+
+
+interface Single {
+    id?: string | null,
+    // userId?:string,
+    title?: string | null,
+    imageUrl?: string | null,
+    rating?: [],
+    review?: number,
+    description?: string | null,
+    categoryId?: any,
+    category?: any,
+    attachments?: any,
+    purchases?: any,
+    createdAt?: any,
+    chapters?: any,
+    price?: string | null,
+    time?: [],
+    student?: number,
+
+}
+// interface Props {
+//     params:{
+//         id:any
+//     }
+// }
+
+const CourseDetailsPage =  ({}) => {
+
+    const {id} = useParams();
+
+
+
+const [courses, setCourses] = useState([]);
+
+
+
+useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/courseupdate', {
+          method: 'GET', // Ensure that the correct method is used
+        });
+        const data = await response.json();
+      console.log("custom",data?.courses)
+      setCourses(data.courses);
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+
     const {isSticky,setIsSticky,isFooterVisible,setIsFooterVisible,isOpen,onOpen,onClose} =CourseMgmt((state)=>state)
     const handleScroll = () => {
         const threshold = 200;
@@ -34,6 +92,14 @@ const CourseDetails: React.FC = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, [isFooterVisible]);
+
+// console.log(params)
+
+
+
+
+
+
     return (
         <div>
             <div className=' bg-black mb-8 '>
@@ -107,7 +173,7 @@ const CourseDetails: React.FC = () => {
             </div>
           {/* ------popup video palyer---- */}
         {
-       isOpen ? <ProModal/> : ModalOpenClose.ModalisOpen ? <VideopoPup/>: ''
+    //    isOpen ? <ProModal/> : ModalOpenClose.ModalisOpen ? <VideopoPup/>: ''
         }
           {/* ------popup video palyer---- */}
           {/* ----subscription modal---- */}
@@ -117,4 +183,5 @@ const CourseDetails: React.FC = () => {
     );
 };
 
-export default CourseDetails;
+export default CourseDetailsPage;
+
