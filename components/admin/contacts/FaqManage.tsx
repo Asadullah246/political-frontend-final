@@ -26,11 +26,11 @@ const ContactManage = () => {
                 return <div className="p-4"><Talents/></div>;
             case 1:
                 return <div className="p-4"><ArchivedData/></div>;
-            case 2:
-                return <div className="p-4"><AllUser/></div>;
+            // case 2:
+            //     return <div className="p-4"><AllUser/></div>;
 
             default:
-                return null;
+                return <Talents/>; 
         }
     };
 
