@@ -147,8 +147,8 @@ const Footer: React.FC = () => {
   useEffect(() => {
     getUser()
   }, [])
-  console.log("info", info )
-  console.log("info imaged", base+info?.logoImage )
+  // console.log("info", info )
+
 
 
   const getUser = async () => {
