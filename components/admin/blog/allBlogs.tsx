@@ -27,9 +27,9 @@ const AllBlogs = () => {
       {/*  modal */}
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
+          <h3 className="font-bold text-lg">{currentData?.title}</h3>
           <p className="py-4">
-            Press ESC key or click the button below to close
+           {currentData?.description}
           </p>
           <div className="modal-action">
             <form method="dialog">
@@ -94,7 +94,7 @@ const AllBlogs = () => {
                     </button>
                   </th>
                   <th>
-                    <button className="btn btn-ghost btn-xs">Edit</button>
+                    <button className="btn btn-ghost btn-xs">Delete</button>
                   </th>
                 </tr>
               </tbody>
