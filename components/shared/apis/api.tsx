@@ -12,6 +12,18 @@ export const base ='http://localhost:5000'
 // new codes
 
 // contact
+export const createTestimonial = async (data:any) => {
+  try {
+    const res = await axios.post(`${base}/api/v1/testimonial`, data);
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("refresh", res.data.refresh);
+    if (res) return res.data;
+  } catch (error) {
+    console.log("err is", error);
+  }
+};
+
+// contact
 export const createContact = async (data:any) => {
   try {
     const res = await axios.post(`${base}/api/v1/contact`, data);

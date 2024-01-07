@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { createContact, getSiteInfo } from "../shared/apis/api";
+import {  createTestimonial, getSiteInfo } from "../shared/apis/api";
 import { ToastError, ToastSuccess } from "../shared/Others";
 
 const AboutUSForm = () => {
@@ -38,7 +38,7 @@ const AboutUSForm = () => {
             // testimonial_img: t.testimonial_img.value,
         }
 
-        const res = await createContact(body);
+        const res = await createTestimonial(body);
         console.log(res)
         if (res?.status == "success") {
             ToastSuccess("Successfully sent");
@@ -78,7 +78,7 @@ const AboutUSForm = () => {
               </div>
               <div className=" lg:col-span-6 col-span-12">
                 <div className="lg:mb-[30px] mb-[10px]">
-                  <Input type="file"  name="testimonial_img" required />
+                  <Input type="file"  name="testimonial_img"  />
                 </div>
               </div>
             </div>

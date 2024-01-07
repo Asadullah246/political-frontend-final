@@ -5,10 +5,13 @@ import OurAims from "@/components/about us/OurAims";
 import AboutUSForm from "@/components/about us/aboutUSForm";
 import Hero from "@/components/shared/Pagehero";
 import React from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AboutUs: React.FC = () => {
   return (
     <div>
+      <ToastContainer />
       <Hero title="About us" subtext="About us" />
       <div className=" px-6 md:px-0">
         <div className="mt-20">
@@ -21,7 +24,7 @@ const AboutUs: React.FC = () => {
           <AboutBlogs></AboutBlogs>
         </div>
         <div className="mt-28 mb-24  container">
-            <AboutUSForm></AboutUSForm>
+          <AboutUSForm></AboutUSForm>
         </div>
       </div>
     </div>
