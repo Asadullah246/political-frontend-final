@@ -1,3 +1,4 @@
+"use client"
 import Contact from "@/components/contactus/contact";
 import Hero from "@/components/shared/Pagehero";
 
