@@ -156,8 +156,6 @@ const Footer: React.FC = () => {
 
       setInfo(res?.data[length])
     }
-
-
   }
 
   return (

@@ -1,5 +1,5 @@
 import { ToastError, ToastSuccess } from "@/components/shared/Others";
-import { newWebsiteInfo } from "@/components/shared/apis/api";
+import { blogs } from "@/components/shared/apis/api";
 import React, { useState } from "react";
 
 const WebsiteInfoPage = () => {
@@ -31,7 +31,7 @@ const WebsiteInfoPage = () => {
         console.log("data", formValues);
         setIsSubmitting(true);
 
-        const res = await newWebsiteInfo(formValues)
+        const res = await blogs(formValues)
 
         if (res?.status === "success") {
             ToastSuccess("Successfully updated")
