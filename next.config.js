@@ -2,11 +2,11 @@
 const nextConfig = {
   // distDir: 'build',
   images: {
-    domains: [
-      "utfs.io"
-    ]
+    domains:
+      ['localhost', 'localhost:5000','http://localhost:5000'] 
+
   }
-  
+
 }
 
 module.exports = nextConfig

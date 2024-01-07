@@ -1,4 +1,3 @@
-
 "use client"
 import { Clock4, Mail, MapPin, Phone } from "lucide-react";
 import Input from "../shared/Input";
@@ -8,6 +7,7 @@ import { createContact, getSiteInfo } from "../shared/apis/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastSuccess, ToastError } from "../shared/Others";
+
 
 interface ContactItem {
     icon: React.ReactNode;
@@ -37,6 +37,8 @@ const data: ContactItem[] = [
         text: "Mon - Fri: 9:00 AM - 5:00 PM",
     },
 ];
+
+
 
 
 
@@ -83,22 +85,23 @@ const Contact: React.FC = () => {
     }
 
 
-
-
     return (
         <>
             <ToastContainer />
             <div className=" block  pt-[120px] pb-[120px]">
                 <div className=" container static max-w-[1320px] px-[15px] mx-auto">
                     <div className=" grid grid-cols-12">
+
                         <div className=" lg:col-span-4 md:col-span-6 col-span-12">
                             {/* ----tittle box---- */}
                             <div className=" pb-[27px]">
-                                <h2 className=" font-[600] text-[30px] leading-[30px] mb-[22px]">Political Office</h2>
+                                <h2 className=" font-[600] text-[30px] leading-[30px] mb-[22px]">
+                                    Political Office
+                                </h2>
                                 <p className=" text-gray-700">
-                                    {info?.address}
+                                    {info?.address} <br />
+                                    (123) 456-7890
                                 </p>
-
                             </div>
                             {/* ----tittle box---- */}
                             <div>
@@ -122,55 +125,61 @@ const Contact: React.FC = () => {
                                         </div>
                                     </div>
                                 ))}
+
+
+                                <div className=" lg:col-span-8 md:col-span-6 col-span-12">
+                                    <div className=" shadow-md rounded-[15px] px-4 lg:px-[50px] pt-[42px] pb-[50px]">
+                                        <form onSubmit={handleSubmit}>
+                                            {/* -------input ----- */}
+                                            <div className=" grid grid-cols-12 gap-8">
+                                                <div className=" lg:col-span-6 col-span-12">
+                                                    <div className="lg:mb-[30px] mb-[10px]">
+                                                        <Input type="text" placeholder="Your Name" name="name" />
+                                                    </div>
+                                                </div>
+                                                <div className=" lg:col-span-6 col-span-12">
+                                                    <div className="lg:mb-[30px] mb-[10px]">
+                                                        <Input type="email" placeholder="Your Email" name="email" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className=" grid grid-cols-12 gap-8">
+                                                <div className=" lg:col-span-6 col-span-12">
+                                                    <div className="lg:mb-[30px] mb-[10px]">
+                                                        <Input type="number" placeholder="Phone" name="phone" />
+                                                    </div>
+                                                </div>
+                                                <div className=" lg:col-span-6 col-span-12">
+                                                    <div className="lg:mb-[30px] mb-[10px]">
+                                                        <Input type="text" placeholder="Subject" name="subject" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className=" pb-[50px]">
+                                                <textarea name="description" className="relative block bg-white border border-[#E5E5E5] w-[100%]  text-[#676767] font-[500] text-[16px]  px-[35px] rounded-[25px] focus:outline-none h-[180px] pt-[12px] pb-[12px]" cols={30} rows={10}></textarea>
+                                            </div>
+                                            {/* -------input ----- */}
+                                            {/* -----button----- */}
+                                            <Button type="submit" className={`relative z-[5] bg-[#FFC400] text-white rounded-[30px] px-[45px] leading-[60px] text-[20px] py-[26px] ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`} >
+                                                Send Messages
+                                            </Button>
+                                            {/* -----button----- */}
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div className=" lg:col-span-8 md:col-span-6 col-span-12">
-                            <div className=" shadow-md rounded-[15px] px-4 lg:px-[50px] pt-[42px] pb-[50px]">
-                                <form onSubmit={handleSubmit}>
-                                    {/* -------input ----- */}
-                                    <div className=" grid grid-cols-12 gap-8">
-                                        <div className=" lg:col-span-6 col-span-12">
-                                            <div className="lg:mb-[30px] mb-[10px]">
-                                                <Input type="text" placeholder="Your Name" name="name" />
-                                            </div>
-                                        </div>
-                                        <div className=" lg:col-span-6 col-span-12">
-                                            <div className="lg:mb-[30px] mb-[10px]">
-                                                <Input type="email" placeholder="Your Email" name="email" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className=" grid grid-cols-12 gap-8">
-                                        <div className=" lg:col-span-6 col-span-12">
-                                            <div className="lg:mb-[30px] mb-[10px]">
-                                                <Input type="number" placeholder="Phone" name="phone" />
-                                            </div>
-                                        </div>
-                                        <div className=" lg:col-span-6 col-span-12">
-                                            <div className="lg:mb-[30px] mb-[10px]">
-                                                <Input type="text" placeholder="Subject" name="subject" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className=" pb-[50px]">
-                                        <textarea name="description" className="relative block bg-white border border-[#E5E5E5] w-[100%]  text-[#676767] font-[500] text-[16px]  px-[35px] rounded-[25px] focus:outline-none h-[180px] pt-[12px] pb-[12px]" cols={30} rows={10}></textarea>
-                                    </div>
-                                    {/* -------input ----- */}
-                                    {/* -----button----- */}
-                                    <Button type="submit" className={`relative z-[5] bg-[#FFC400] text-white rounded-[30px] px-[45px] leading-[60px] text-[20px] py-[26px] ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`} >
-                                        Send Messages
-                                    </Button>
-                                    {/* -----button----- */}
-                                </form>
-                            </div>
+
                         </div>
                     </div>
+
                 </div>
+
             </div>
+
+
         </>
     )
 }
 
 
 export default Contact;
-

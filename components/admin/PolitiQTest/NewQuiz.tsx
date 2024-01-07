@@ -1,5 +1,8 @@
 // components/NewQuiz.tsx
+import { createFaq } from '@/components/shared/apis/api';
 import React, { useState } from 'react';
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 
 interface Answer {
   id: any;
@@ -84,19 +87,30 @@ const NewQuiz: React.FC = () => {
     return shuffledArray;
   };
 
-  const submitData = () => {
+  const submitData =async () => {
     // e.preventDefault();
-    console.log('data', quizData);
+    console.log('calling', quizData);
     setIsSubmitting(true);
+    const res =await createFaq(quizData)
+    console.log('red', res )
 
-    // Simulate API request or file upload delay
-    setTimeout(() => {
+    // if (res?.status === "success") {
+    //   ToastSuccess("Successfully updated");
+    //   setIsSubmitting(false);
+    // } else {
+    //   ToastError(res?.message || "Something error");
+    //   setIsSubmitting(false);
+    // }
+
+
       setIsSubmitting(false);
-    }, 2000);
+
   };
 
   return (
-    <div className="bg-gray-100 p-4 mt-0"> 
+    <>
+     {/* <ToastContainer /> */}
+    <div className="bg-gray-100 p-4 mt-0">
       <form
         className="w-full px-4 pb-6 grid grid-cols-1 md:grid-cols-2 md:gap-10"
         // onSubmit={submitData}
@@ -150,6 +164,7 @@ const NewQuiz: React.FC = () => {
           </button>
         </div>
     </div>
+    </>
   );
 };
 

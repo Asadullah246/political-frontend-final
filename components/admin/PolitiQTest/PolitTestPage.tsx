@@ -9,18 +9,18 @@ import NewQuiz from './NewQuiz';
 const PolitTestPage = () => {
     const [activeTab, setActiveTab] = useState(0);
 
-    const tabs = ["Quiz", "newQuiz"];
+    const tabs = ["newQuiz"];
 
     const handleTabClick = (index:any) => {
-        setActiveTab(index); 
+        setActiveTab(index);
     };
 
     const renderTabContent = () => {
         switch (activeTab) {
             case 0:
-                return <div className="p-4">There will be uploaded quiz</div>;
-            case 1:
                 return <div className="p-4"><NewQuiz /></div>;
+            case 1:
+                return <div className="p-4">Content for Tab 2</div>; 
             case 2:
                 return <div className="p-4">Content for Tab 3</div>;
             default:

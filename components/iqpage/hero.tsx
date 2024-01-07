@@ -2,10 +2,24 @@
 import { Check } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Button } from "../ui/button"
+import axios from "axios"
+import { base } from "../shared/apis/api"
 import data from "./data"
-// import data from './data.js'
+// import data from './data.js' 
 
 const HeroIq: React.FC = () => {
+    // const [data, setData]=useState([])
+    useEffect(()=>{
+        axios.get(`${base}/api/v1/quiz`)
+        .then(res => {
+            console.log("rs", res)
+            if(res.data.status==='success') {
+
+                // setData(res?.data?.data)
+            }
+        })
+
+    },[])
     const [click, setClick] = useState<any>({})
     const [index, setIndex] = useState<any>(
         localStorage.getItem('index') ? JSON.parse(localStorage.getItem('index') as string) : {}
@@ -81,7 +95,7 @@ const HeroIq: React.FC = () => {
                             <div className=" grid grid-cols-12 lg:gap-x-8 gap-x-[10px]">
                                 {
                                     data.map((item, ind) => (
-                                        item.map((item, i) => (
+                                        item?.map((item, i) => (
                                             <div  className={`lg:col-span-6 col-span-12 pt-3 pb-3 shadow-xl rounded-[15px] mb-[20px] ${index[ind] == item.quiz.findIndex((item: any) => item.answer === true) ? "bg-green-500/20" : "bg-red-500/20"}`} key={i}>
 
                                                 <p className="  px-4 font-[600] text-gray-500">
@@ -90,8 +104,8 @@ const HeroIq: React.FC = () => {
                                                     }
                                                 </p>
                                                 {
-                                                    item.quiz.map((item, i) => (
-                                                        item.answer && item.text ? <div className=" px-4 py-1 border-gray-200" key={i}>
+                                                    item?.quiz.map((item, i) => (
+                                                        item?.answer && item.text ? <div className=" px-4 py-1 border-gray-200" key={i}>
                                                             <p className=" font-[600] text-gray-500">
                                                                 Right Answer: {
                                                                     item.text
@@ -129,13 +143,13 @@ const HeroIq: React.FC = () => {
                     //  ------amswer page---
                     : <div className=" mb-[150px]">
                         {
-                            data[nextIndex].map((item, i) => (<div key={item.id}>
+                            data[nextIndex]?.map((item, i) => (<div key={item.id}>
                                 <div className=" block">
                                     <div className=" border border-[#0c01e574] mt-[10rem] rounded-[15px] text-[#0D01E5]/70 text-[24px] border-b-2  bg-white font-[800] h-[180px] flex justify-center items-center w-[100%]">
                                         <div className=" w-[80%] mx-auto text-center">
                                             <span>
                                                 {
-                                                    item.tittle
+                                                    item?.tittle
                                                 }
                                             </span>
                                         </div>

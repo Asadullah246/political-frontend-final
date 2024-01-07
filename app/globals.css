@@ -45,9 +45,9 @@ h1,h2,h3,h4,h5,h6{
   font-weight: 600;
 }
   .menu_open_smooth{
-    transition: all 1s ease-in-out !important;
-    transition-delay: .3s;
-    transition-duration: .7s;
+    transition: all 0.4s ease-in-out !important;
+    transition-delay: 0s;
+    transition-duration: 0.4s;
     transition-property: all;
     transform: translateX(-100%);
   }
@@ -69,9 +69,9 @@ h1,h2,h3,h4,h5,h6{
     transform: translateY(0%);
   }
  .active{
-  transition: all 1s ease-in-out !important;
-    transition-delay: .3s;
-    transition-duration: .7s;
+  transition: all 0.4s ease-in-out !important; 
+    transition-delay: 0s;
+    transition-duration: 0.4s;
     transition-property: all;
     transform: translateX(0%);
   }

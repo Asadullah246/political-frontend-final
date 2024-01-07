@@ -1,4 +1,5 @@
 
+import { createFaq } from '@/components/shared/apis/api';
 import React, { useState } from 'react';
 
 interface Faq {
@@ -48,15 +49,25 @@ const NewFaq: React.FC = () => {
   const submitData = () => {
     console.log('faq data', faqData);
     setIsSubmitting(true);
+    const res =createFaq(faqData)
+    console.log('red', res )
+
+    // if (res?.status === "success") {
+    //   ToastSuccess("Successfully updated");
+    //   setIsSubmitting(false);
+    // } else {
+    //   ToastError(res?.message || "Something error");
+    //   setIsSubmitting(false);
+    // }
 
     // Simulate API request or file upload delay
-    setTimeout(() => {
+
       setIsSubmitting(false);
-    }, 2000);
+
   };
 
   return (
-    <div className="max-w-lg  bg-gray-100 mt-0 p-4"> 
+    <div className="max-w-lg  bg-gray-100 mt-0 p-4">
       <div className="w-full px-4 pb-6">
         {faqData.map((faq, faqIndex) => (
           <div key={faq.id} className="mb-6 overflow-hidden">
