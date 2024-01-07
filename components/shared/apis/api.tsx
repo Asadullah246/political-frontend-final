@@ -6,7 +6,38 @@ import axios from "axios";
 export const base ='http://localhost:5000'
 
 
+
+
+
 // new codes
+
+// contact
+export const createContact = async (data:any) => {
+  try {
+    const res = await axios.post(`${base}/api/v1/contact`, data);
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("refresh", res.data.refresh);
+    if (res) return res.data;
+  } catch (error) {
+    console.log("err is", error);
+  }
+};
+export const updateContactInfo = async (id:string, data:any) => {
+  try {
+    const config = {
+      headers: {
+        token: localStorage.getItem("token") || "",
+      },
+    };
+    const res = await axios.patch(`${base}/api/v1/contact/${id}`, data, config);
+
+    return res?.data; 
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// contact i
 
 // profile info
 export const activeAccount = async (data:any) => {
