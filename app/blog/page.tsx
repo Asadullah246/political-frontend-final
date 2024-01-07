@@ -4,6 +4,9 @@ import SingelBlog from "@/components/home/singelBlog";
 import SectionTittle from "@/components/sectionTittle";
 import Navbar from "@/components/shared/Navbar";
 import Hero from "@/components/shared/Pagehero";
+import { base } from "@/components/shared/apis/api";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 interface BlogItem {
   img: string;
@@ -44,6 +47,37 @@ const Blogs: BlogItem[] = [
   },
 ];
 const Blog: React.FC = () => {
+
+  const [userData, setUserData] = useState();
+  const [refresh, setRefresh] = useState(false);
+  useEffect(() => {
+    axios.get(`${base}/api/v1/blogs`).then((res) => {
+      //   console.log("users in politic", res);
+      if (res?.data?.status === "success") {
+        const allData = res?.data?.data;
+        console.log("allData", allData);
+        //   const filtered=allData?.filter(a=>!(a?.archived)==true)
+        setUserData(allData);
+        // setUserData(res?.data?.data);
+      }
+    });
+  }, [refresh]);
+  useEffect(() => {
+    axios
+      .get(`${base}/api/v1/blogs`)
+      .then((res) => {
+        // console.log("response", res.data.data);
+        if (res.data.status === "success") {
+          setUserData(res?.data?.data);
+        }
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }, []);
+  
+  
+  
   return (
     <div>
       <Navbar/>
@@ -55,7 +89,7 @@ const Blog: React.FC = () => {
           span=" "
         />
         <div className="px-8 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
-          {Blogs.map((blog, index) => (
+          {userData?.map((blog, index) => (
             <SingelBlog
               img={blog.img}
               date={blog.date}
