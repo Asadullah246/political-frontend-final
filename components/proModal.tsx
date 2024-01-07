@@ -55,7 +55,7 @@ export const ProModal = () => {
   if (!isSignedIn) {
     return null;
   }
-    const proModal = CourseMgmt()
+    const proModal = CourseMgmt()  
 
 
     if (!isMounted) return null

@@ -7,25 +7,68 @@ import { db } from '@/lib/db';
 
 
 interface Course {
-    id: string;
-    img: string;
-    title: string;
-    rating: number;
-    review: number;
-    price: string | number;
-    time: string;
-    student: number;
+    id: string,
+    title: string,
+    imageUrl: string,
+    rating?: [],
+    review?: number,
+    description?: string,
+    categoryId?: any,
+    category?: any,
+    attachments?: any,
+    purchases?: any,
+    createdAt?: any,
+    chapters?: any,
+    price: number | string,
+    time?: [],
+    student?: number,
 }
-const AllCourses: React.FC = async() => {
+interface Single {
+    id: string,
+    userId:string,
+    title: string,
+    imageUrl: string | null,
+    rating?: [],
+    review?: number,
+    description?: string | null,
+    categoryId?: any,
+    category?: any,
+    attachments?: any,
+    purchases?: any,
+    createdAt?: any,
+    chapters?: any,
+    price: number | string | null,
+    time?: [],
+    student?: number,
 
-    const totalCourse = await db.course.findMany({
+}
+const AllCourses: React.FC = async () => {
+
+    const totalCourse: Single[] = await db.course.findMany({
         orderBy: {
-          createdAt: "desc",
+            createdAt: "desc",
         },
-      });
+    });
+    // console.log("all courses", totalCourse);
+    const categories = await db.category.findMany({
+        orderBy: {
+            name: "asc"
+        }
+    });
 
 
-      console.log("all courses", totalCourse );
+    // const getCategory=async(catId:any)=>{
+    //     const categories = await db.category.findMany({
+    //         orderBy: {
+    //             name: "asc"
+    //         }
+    //     });
+    //     // console.log("all cat", categories)
+    //     const findExact= await categories?.find(c=>c.id==catId)
+    //     console.log("dat is",catId, findExact )
+    //       return findExact ;
+    // }
+
 
     const Courses: Course[] = [{
         id: "1",
@@ -87,12 +130,29 @@ const AllCourses: React.FC = async() => {
             <div className="mt-[80px]">
                 <div>
                     <LargeTitle className='text-4xl '>Popular courses on Politics</LargeTitle>
-                    <p className='flex items-center mt-2'><Users size={16}  /> <span>42,048,955 learners</span> </p>
+                    <p className='flex items-center mt-2'><Users size={16} /> <span>42,048,955 learners</span> </p>
                 </div>
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  md:gap-8">
                     {
-                        Courses?.map((course, index) => (
-                            <SingelCourse img={course.img} price={course.price} title={course.title} review={course.review}   key={index}  id={course.id} student={course.student} />
+                        totalCourse?.map((course, index) => (
+                            <SingelCourse
+                             img={course?.imageUrl}
+                             price={course.price}
+                             title={course.title}
+                             description={course.description}
+                             categoryIs={categories?.find(c=>c.id==course.categoryId)}
+                            //  review={course.review}
+                            key={course.id}
+                            id={course.id}
+                            categoryId={course.categoryId}
+                            category={course.category}
+                            chapters={course.chapters}
+                            attachments={course.attachments}
+                            purchases={course.purchases}
+                            createdAt={course.createdAt}
+                                // student={course.student}
+
+                                />
                         ))
                     }
                 </div>
