@@ -16,7 +16,7 @@ const Talents = () => {
             //   console.log("users in politic", res);
             if (res?.data?.status === "success") {
               const allData=res?.data?.data
-              const filtered=allData?.find(a=>a?.talent=="approved")
+              const filtered=allData?.filter(a=>a?.talent=="approved")
               setUserData(filtered)
                 // setUserData(res?.data?.data);
             }

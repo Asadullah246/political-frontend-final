@@ -15,7 +15,10 @@ const TalentPlitic = () => {
         axios.get(`${base}/api/v1/user`).then((res) => {
             //   console.log("users in politic", res);
             if (res?.data?.status === "success") {
-                setUserData(res?.data?.data);
+                const allData=res?.data?.data
+                const filtered=allData?.filter(a=>a?.talent=="pending")
+                setUserData(filtered)
+                // setUserData(res?.data?.data);
             }
         });
     }, [refresh]);
@@ -100,9 +103,13 @@ const TalentPlitic = () => {
                                         <td>{user?.address}</td>
                                         <th>
                                             <p className="flex items-center gap-4">
-                                                <button onClick={() => handleApproved(user._id)} className="p-2"><FaRegCircleCheck class={`text-blue-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" }`} />
+                                                <button onClick={() => handleApproved(user._id)} className={`text-blue-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" } p-2`}>
+                                                    {/* <FaRegCircleCheck class={`text-blue-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" }`} /> */}
+                                                    Approve
                                                 </button>
-                                                <button onClick={() => handleDecline(user._id)} className="p-2"><FaDeleteLeft class={`text-red-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" }`} />
+                                                <button onClick={() => handleDecline(user._id)} className={`text-red-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" } p-2`}>
+                                                    {/* <FaDeleteLeft class={`text-red-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" }`} /> */}
+                                                    Decline 
                                                 </button>
                                             </p>
                                         </th>

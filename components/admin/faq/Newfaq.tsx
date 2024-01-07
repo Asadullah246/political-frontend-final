@@ -1,4 +1,5 @@
 
+import { ToastSuccess,ToastError } from '@/components/shared/Others';
 import { createFaq } from '@/components/shared/apis/api';
 import React, { useState } from 'react';
 
@@ -46,19 +47,19 @@ const NewFaq: React.FC = () => {
     });
   };
 
-  const submitData = () => {
-    console.log('faq data', faqData);
+  const submitData = async () => {
     setIsSubmitting(true);
-    const res =createFaq(faqData)
-    console.log('red', res )
-
-    // if (res?.status === "success") {
-    //   ToastSuccess("Successfully updated");
-    //   setIsSubmitting(false);
-    // } else {
-    //   ToastError(res?.message || "Something error");
-    //   setIsSubmitting(false);
-    // }
+    const body={
+      faqData:faqData
+    }
+    const res = await createFaq(body) 
+    if (res?.status === "success") {
+      ToastSuccess("Successfully Created");
+      setIsSubmitting(false);
+    } else {
+      ToastError(res?.message || "Something error");
+      setIsSubmitting(false);
+    }
 
     // Simulate API request or file upload delay
 

@@ -41,7 +41,7 @@ export const getTest = async () => {
 // faq
 export const createFaq = async (data:any) => {
   try {
-    const res = await axios.post(`${base}/api/v1/quiz`, data); 
+    const res = await axios.post(`${base}/api/v1/faq`, data);
     localStorage.setItem("token", res.data.token);
     localStorage.setItem("refresh", res.data.refresh);
     if (res) return res.data;
@@ -49,6 +49,47 @@ export const createFaq = async (data:any) => {
     console.log("err is", error);
   }
 };
+
+export const askQuestions = async (data:any) => {
+  try {
+    const res = await axios.post(`${base}/api/v1/askquestions`, data);
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("refresh", res.data.refresh);
+    if (res) return res.data;
+  } catch (error) {
+    console.log("err is", error);
+  }
+};
+
+export const getfaq = async () => {
+  try {
+    const config = {
+      headers: {
+        token: localStorage.getItem("token") || "",
+      },
+    };
+    const res = await axios.get(`${base}/api/v1/faq`, config);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateakedquestions = async (id:string, data:any) => {
+  try {
+    const config = {
+      headers: {
+        token: localStorage.getItem("token") || "",
+      },
+    };
+    const res = await axios.patch(`${base}/api/v1/askQuestions/${id}`, data, config);
+
+    return res?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // faq
 
 // contact
@@ -63,7 +104,7 @@ export const createTestimonial = async (data:any) => {
   }
 };
 
-// delete for blog 
+// delete for blog
 export const deleteBlog = async (id) => {
   try {
     const headers = {
@@ -137,7 +178,7 @@ export const updateProfileInfo = async (id:string, data:any) => {
     };
     const res = await axios.patch(`${base}/api/v1/user/${id}`, data, config);
 
-    return res?.data.data;
+    return res?.data;
   } catch (error) {
     console.log(error);
   }
@@ -149,7 +190,7 @@ export const deleteUser = async (id) => {
       token: localStorage.getItem("refresh") || "",
     };
     const res = await axios.delete(`${base}/user/${id}`, { headers });
-    return res;
+    return res?.data;
   } catch ( {message} ) {
     console.log(message);
   }

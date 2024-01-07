@@ -3,39 +3,27 @@ import { base, deleteBlog } from "@/components/shared/apis/api";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
+import { CiCircleRemove } from "react-icons/ci";
+
 
 const AllBlogs = () => {
   const [currentData, setCurrentData] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [refresh, setRefresh] = useState(false);
-  useEffect(() => {
-    axios.get(`${base}/api/v1/blogs`).then((res) => {
-      //   console.log("users in politic", res);
-      if (res?.data?.status === "success") {
-        const allData = res?.data?.data;
-        //   const filtered=allData?.filter(a=>!(a?.archived)==true)
-        setUserData(allData);
-        // setUserData(res?.data?.data);
-      }
-    });
-  }, [refresh]);
-
   const [userData, setUserData] = useState();
   useEffect(() => {
-    axios
-      .get(`${base}/api/v1/blogs`)
+    axios.get(`${base}/api/v1/blogs`)
       .then((res) => {
-        // console.log("response", res.data.data);
-        if (res.data.status === "success") {
-          setUserData(res?.data?.data);
+        console.log("blogs", res?.data?.data);
+        if (res?.data?.status === "success") {
+          const allData = res?.data?.data?.reverse(); 
+          //   const filtered=allData?.filter(a=>!(a?.archived)==true)
+          setUserData(allData);
+          // setUserData(res?.data?.data);
         }
-      })
-      .catch((err) => {
-        console.log("err", err);
       });
-  }, []);
+  }, [refresh]);
 
-  // console.log("Test", userData);
 
   // function for delete
   const handleDelete = async (id: any) => {
@@ -69,80 +57,81 @@ const AllBlogs = () => {
         </div>
       </dialog>
 
-      {/* head */}
-      {/* <thead>
-        <tr className="flex justify-space-around">
-          <th>Name</th>
-          <th>Job</th>
-          <th>Favorite Color</th>
-          <th></th>
-        </tr>
-      </thead> */}
+      <div className="overflow-x-auto">
+        <table className="table">
+          {/* head */}
+          <thead>
+            <tr>
 
-
-      {userData?.map((user) => (
-        <div key={user?._id}>
-          {/* table  */}
-          <div className="overflow-x-auto">
-            <table className="table">
-              {/* head */}
-              <tbody>
-                {/* row 1 */}
-                <tr>
-                  <td>
-                    <div className="flex items-center gap-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src="/tailwind-css-component-profile-2@56w.png"
-                            alt="Avatar Tailwind CSS Component"
-                          />
+              <th>Author</th>
+              <th>Title</th>
+              {/* <th>Subject</th> */}
+              <th>Description</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              userData?.map(user => {
+                return (
+                  <tr key={user?._id}>
+                    {/* <th>
+                                        <label>
+                                            <input type="checkbox" className="checkbox" />
+                                        </label>
+                                    </th> */}
+                    <td>
+                      <div className="flex items-center gap-3">
+                        <div className="avatar">
+                          <div className="mask mask-squircle w-12 h-12">
+                            <img src={`${base}${user?.logoImage}`} />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="font-bold">{user?.author}</div>
+                          {/* <div className="text-sm opacity-50">{user?.title}</div> */}
                         </div>
                       </div>
-                      <div>
-                        <div className="font-bold">{user?.author}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <h3 className="font-bold">Title</h3>
-                    <br />
-                    <span className="badge badge-ghost badge-sm">
+                    </td>
+                    <td>
                       {user?.title}
-                    </span>
-                  </td>
-                  <th>
-                    {/* Open the modal using document.getElementById('ID').showModal() method */}
-                    <button
-                      className="btn"
-                      onClick={() => {
-                        document.getElementById("my_modal_1").showModal();
-                        setCurrentData(user);
-                      }}
-                    >
-                      Details
-                    </button>
-                  </th>
-                  <th>
-                    <p className="flex items-center gap-4">
-                      <button
-                        onClick={() => handleDelete(user._id)}
-                        className="p-2"
-                      >
-                        <FaTrash
-                          class={`text-blue-500 ${
-                            isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                          }`}
-                        />
-                      </button>
-                    </p>
-                  </th>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      ))}
+                    </td>
+                    {/* <td>{user?.subject}</td> */}
+                    <td>
+                      <div className="flex justify-between items-start ">
+                        <div>
+                          {user?.description?.slice(0, 50)}...
+                        </div>
+                        <button className="font-bold " onClick={() => {
+                          document.getElementById("my_modal_1").showModal();
+                          setCurrentData(user);
+                        }} >Details
+                        </button>
+                      </div>
+                    </td>
+                    <th>
+                      <p className="flex items-center gap-4">
+                        {/* <button onClick={() => handleApproved(user._id)} className="p-2"><FaRegCircleCheck class={`text-blue-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`} />
+                                                </button> */}
+                        <button className={`text-red-500 p-2 ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`} onClick={() => handleDelete(user._id)} >
+                                                Delete
+                          {/* <CiCircleRemove
+                          class={`text-red-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`} /> */}
+                        </button>
+                      </p>
+                    </th>
+                  </tr>
+                )
+              })
+            }
+
+
+
+
+          </tbody>
+        </table>
+      </div>
+
     </div>
   );
 };
