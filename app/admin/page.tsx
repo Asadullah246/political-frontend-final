@@ -3,7 +3,7 @@
 import NewQuiz from "@/components/admin/PolitiQTest/NewQuiz";
 import PolitTestPage from "@/components/admin/PolitiQTest/PolitTestPage";
 import FaqManage from "@/components/admin/faq/FaqManage";
-import WebsiteInfoPage from "@/components/admin/websiteInfo/WebsiteInfoPage";
+// import WebsiteInfoPage from "@/components/admin/news/WebsiteInfoPage";
 import Image from "next/image";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import BlogPage from "@/components/admin/blog/BlogPage";
 import TalentPage from "@/components/admin/talent/FaqManage";
 import ContactManage from "@/components/admin/contacts/FaqManage";
+import WebsiteInfoPage from "@/components/admin/websiteInfo/WebsiteInfoPage";
 import TestPage from "@/components/admin/testimonial/FaqManage";
 
 const Page = () => {
@@ -28,9 +29,6 @@ const Page = () => {
 
   const tabmanage = (text: string) => {
     switch (text) {
-      case "Website Info":
-        return <WebsiteInfoPage />;
-
       case "Politiq Test":
         return <PolitTestPage />;
 
@@ -45,8 +43,6 @@ const Page = () => {
         return <TalentPage />;
       case "Contacts":
         return <ContactManage />;
-      case "Others":
-        return <WebsiteInfoPage />;
 
       default:
         return <WebsiteInfoPage />;
