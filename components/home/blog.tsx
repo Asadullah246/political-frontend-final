@@ -57,7 +57,7 @@ const Blog: React.FC = () => {
         const allData = res?.data?.data;
         // console.log("allData", allData);
         //   const filtered=allData?.filter(a=>!(a?.archived)==true)
-        setUserData(allData);
+        setUserData(allData?.reverse());
         // setUserData(res?.data?.data);
       }
     });
@@ -80,7 +80,7 @@ const Blog: React.FC = () => {
     <div className=" mt-[120px]">
       <SectionTittle title="BLOGS" description="Read latest blogs" span="" />
       <div className="px-8 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
-        {userData?.map((blog, index) => (
+        {userData?.slice(0,3)?.map((blog, index) => (
           <SingelBlog
             img={blog.img}
             date={blog.date}
@@ -91,7 +91,7 @@ const Blog: React.FC = () => {
             key={index}
           />
         ))}
-        
+
       </div>
     </div>
   );

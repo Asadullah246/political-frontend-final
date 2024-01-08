@@ -4,6 +4,15 @@ import { Button } from "../ui/button";
 import {  createTestimonial, getSiteInfo } from "../shared/apis/api";
 import { ToastError, ToastSuccess } from "../shared/Others";
 
+
+// interface FormValues {
+//   name?: string;
+//   logoImage?: File | null | any;
+//   designation?: any;
+//   rating?: any;
+//   description?: string;
+// }
+
 const AboutUSForm = () => {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -28,30 +37,52 @@ const AboutUSForm = () => {
         e.preventDefault();
         setIsSubmitting(true)
         const t = e.target;
-        const body = {
+        const formValues = {
             name: t.name.value,
             designation: t.designation.value,
             rating: t.rating.value,
             description: t.description.value,
-
-            // below testimonial image type file
-            // testimonial_img: t.testimonial_img.value,
+            logoImage:t.logoImage.files[0]
         }
 
-        const res = await createTestimonial(body);
-        console.log(res)
-        if (res?.status == "success") {
-            ToastSuccess("Successfully sent");
+        // const res = await createTestimonial(body);
+        // console.log(res)
+        // if (res?.status == "success") {
+        //     ToastSuccess("Successfully sent");
+        //     setIsSubmitting(false);
+        // } else {
+        //     ToastError(res?.message || "Something error");
+        //     setIsSubmitting(false);
+        // }
+
+
+         try {
+            const formData = new FormData();
+
+            // Append each form field to the FormData object
+            for (const key in formValues) {
+              formData.append(key, formValues[key]);
+            }
+
+            // Make a POST request to your server endpoint
+            const res = await createTestimonial(formData)
+
+            if (res?.status === 'success') {
+              ToastSuccess('Successfully updated');
+            } else {
+              ToastError(res?.message || 'Something error');
+            }
+          } catch (error) {
+            console.error('Error:', error);
+            ToastError('An error occurred');
+          } finally {
             setIsSubmitting(false);
-        } else {
-            ToastError(res?.message || "Something error");
-            setIsSubmitting(false);
-        }
+          }
 
     }
-    
-    
-    
+
+
+
   return (
     <div>
       <div className=" lg:col-span-8 md:col-span-6 col-span-12">
@@ -78,7 +109,7 @@ const AboutUSForm = () => {
               </div>
               <div className=" lg:col-span-6 col-span-12">
                 <div className="lg:mb-[30px] mb-[10px]">
-                  <Input type="file"  name="testimonial_img"  />
+                  <Input type="file"  name="logoImage"  />
                 </div>
               </div>
             </div>

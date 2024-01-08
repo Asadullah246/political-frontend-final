@@ -37,22 +37,23 @@ const Hero = ({
 }: HeroProps) => {
 
     const [info, setInfo] = useState<InfoType>()
+    const [refresh, setRefresh] = useState(false)
     useEffect(() => {
         axios.get(`${base}/api/v1/user/${id}`)
             .then(data => {
-                // console.log("data", data?.data?.data)
+                console.log("data", data?.data?.data)
                 setInfo(data?.data?.data)
             })
             .catch(error => {
                 console.log("err", error)
             })
-    }, [id])
+    }, [id, refresh])
 
 
     const [formValues, setFormValues] = useState<InfoType>({
         name: userdata?.fullName,
-        email:userdata?.primaryEmailAddress?.emailAdress,
-        image_url:userdata?.image_Url,
+        email: userdata?.primaryEmailAddress?.emailAdress,
+        image_url: userdata?.image_Url,
         signingId: id,
         address: info?.address || "",
         phone: info?.phone || "",
@@ -72,8 +73,8 @@ const Hero = ({
             ...prevValues,
             [name]: value,
             name: userdata?.fullName,
-        email:userdata?.primaryEmailAddress?.emailAddress,
-        image_url:userdata?.imageUrl,
+            email: userdata?.primaryEmailAddress?.emailAddress,
+            image_url: userdata?.imageUrl,
         }));
     };
 
@@ -88,10 +89,13 @@ const Hero = ({
         if (res?.status === "success") {
             ToastSuccess("Successfully Activated");
             setIsSubmitting(false);
+            window.location.reload()
         } else {
             ToastError(res?.message || "Something error");
             setIsSubmitting(false);
+            window.location.reload()
         }
+        // setRefresh(!refresh)
     };
 
     const handleSubmit2 = async (e: any) => {
@@ -105,8 +109,8 @@ const Hero = ({
         }
 
         const res = await updateProfileInfo(info?._id, formValues);
-        console.log("res", res )
-        if (res?.status=="success") {
+        console.log("res", res)
+        if (res?.status == "success") {
 
 
             ToastSuccess("Successfully Activated");
@@ -143,7 +147,8 @@ const Hero = ({
             // }
             ToastSuccess("Successfully Applied");
             setIsSubmitting(false);
-            window.location.reload()
+            setRefresh(!refresh)
+            // window.location.reload()
 
 
         } else {
@@ -151,9 +156,44 @@ const Hero = ({
             // if(doc){
             //     doc.style.display="none"
             // }
-            window.location.reload()
+            // window.location.reload()
+            setRefresh(!refresh)
 
-            // ToastError(res?.message || "Something error");
+            ToastError(res?.message || "Something error");
+            setIsSubmitting(false);
+        }
+
+    }
+    const handleTeacher = async () => {
+        setIsSubmitting(true);
+
+        if ((!info?._id)) {
+            ToastError("User data not found")
+            return;
+        }
+        const body = {
+            accounttype: "teacher-pending"
+        }
+
+        const res = await updateProfileInfo(info?._id, body);
+
+        if (res) {
+
+            ToastSuccess("Successfully Applied");
+            setRefresh(!refresh)
+            setIsSubmitting(false);
+            // window.location.reload()
+
+
+        } else {
+            // const doc=document.getElementById('my_modal_4')
+            // if(doc){
+            //     doc.style.display="none"
+            // }
+            // window.location.reload()
+            setRefresh(!refresh)
+
+            ToastError(res?.message || "Something error");
             setIsSubmitting(false);
         }
 
@@ -535,16 +575,45 @@ const Hero = ({
                                     Activate Profile
                                 </Button>
                             </div>}
-                        {!(info?.talent) || info?.talent == "none" &&
 
-                            <div className="overflow-hidden w-[40%] mt-8">
-                                <span className=""> Are you a political expert ? </span>
+                        {info?.talent && info?.signingId && (info?.talent == "approved" || "pending") ? <div></div> :
+                            <>
+                            {info?.signingId &&
+                             <div className="overflow-hidden w-[40%] mt-8">
+                             <span className=""> Are you a political expert ? </span>
+                             <Button
+                                 onClick={handleTalent}
+                                 className="mt-3 relative z-[5] bg-blue-100 h-[40px] text-blue-700 w-full  hover:text-white" variant={'hover'}>
+                                 Confirm Us
+                             </Button>
+                         </div> } 
+
+
+                            </>
+
+                        }
+                        {info?.signingId && <div>
+
+                            {info?.accounttype == "teacher" && <span className="font-bold"> you are a Mentor</span>}
+                            {info?.accounttype == "teacher-pending" && <span className="font-bold"> your mentor-requested is pending</span>}
+
+
+
+                            {(!(info?.accounttype) || info?.accounttype == "none") && <div className="overflow-hidden w-[40%] mt-8">
+                                <span className=""> Are you want to be a mentor ? </span>
                                 <Button
-                                    onClick={handleTalent}
+                                    onClick={handleTeacher}
                                     className="mt-3 relative z-[5] bg-blue-100 h-[40px] text-blue-700 w-full  hover:text-white" variant={'hover'}>
-                                    Confirm Us
+                                    Apply Now
                                 </Button>
                             </div>}
+
+
+                        </div>}
+
+
+
+
                         {
                             info?.talent == "approved" &&
                             <span className="font-bold"> you are political expert</span>

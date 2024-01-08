@@ -11,10 +11,76 @@ export const base ='http://localhost:5000'
 
 // new codes
 
+
+// quiz
+
+export const createQuiz = async (data:any) => {
+  try {
+    const res = await axios.post(`${base}/api/v1/quiz`, data);
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("refresh", res.data.refresh);
+    if (res) return res.data;
+  } catch (error) {
+    console.log("err is", error);
+  }
+};
+// quiz
+
+// admin
+export const checkLogin = async (data:any) => {
+  try {
+    const res = await axios.post(`${base}/api/v1/admin/login`, data);
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("refresh", res.data.refresh);
+    if (res) return res?.data;
+  } catch (error) {
+    console.log("err is", error);
+  }
+};
+
+export const deleteAdmin = async (id:any) => {
+  try {
+    const headers = {
+      token: localStorage.getItem("refresh") || "",
+    };
+    const res = await axios.delete(`${base}/api/v1/admin/${id}`, { headers });
+    return res;
+  } catch ( {message} ) {
+    console.log(message);
+  }
+};
+
+export const CreatingNewAdmin = async (data: any) => {
+  try {
+    const res = await axios.post(`${base}/api/v1/admin`, data);
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("refresh", res.data.refresh);
+    if (res) return res.data;
+  } catch (error) {
+    console.log("err is", error);
+  }
+};
+// admin
+
+// newletter
+
+export const deleteNewsletter = async (id:any) => {
+  try {
+    const headers = {
+      token: localStorage.getItem("refresh") || "",
+    };
+    const res = await axios.delete(`${base}/api/v1/newsletter/${id}`, { headers });
+    return res?.data;
+  } catch ( {message} ) {
+    console.log(message);
+  }
+};
+// newletter
+
 // home page name and email post ( subscribe )
 export const createSubscribe = async (data:any) => {
   try {
-    const res = await axios.post(`${base}/api/v1/newslatter`, data);
+    const res = await axios.post(`${base}/api/v1/newsletter`, data);
     localStorage.setItem("token", res.data.token);
     localStorage.setItem("refresh", res.data.refresh);
     if (res) return res.data;
@@ -23,7 +89,7 @@ export const createSubscribe = async (data:any) => {
   }
 };
 
-// testimonial  getMethod 
+// testimonial  getMethod
 export const getTest = async () => {
   try {
     const config = {

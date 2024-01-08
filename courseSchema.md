@@ -12,3 +12,28 @@
     updatedAt: 2023-11-17T09:11:41.665Z
   }
 ]
+
+
+
+ const transformedData = originalData.map((item) => [item]);
+
+ import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
+import axios from "axios";
+import { base } from "../shared/apis/api";
+
+  const [datais, setDatais] = useState([]);
+  useEffect(() => {
+    axios.get(`${base}/api/v1/quiz`).then((res) => { 
+      // console.log("quiz dta", res?.data?.data)
+      if (res.data.status === "success") {
+        const alldata = res?.data?.data;
+        const length = alldata?.length - 1;
+        if (length) {
+          const lastData = alldata[length];
+          setDatais(lastData?.singleQuiz);
+        }
+      }
+    });
+  }, []);
+

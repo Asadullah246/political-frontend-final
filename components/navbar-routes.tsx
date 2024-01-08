@@ -18,6 +18,8 @@ export const NavbarRoutes = () => {
   const isCoursePage = pathname?.includes("/courses");
   const isSearchPage = pathname === "/search";
 
+  console.log("is nav test", isTeacher) 
+
   return (
     <>
       {isSearchPage && (

@@ -4,7 +4,7 @@ import Footer from "@/components/shared/Footer";
 import Navbar from "@/components/shared/Navbar";
 import Hero from "@/components/shared/Pagehero";
 import React from "react";
-import { image } from "../../../components/assets/OIP.jpg";
+// import { image } from "../../../components/assets/OIP.jpg";
 import CommentForm from "@/components/form/commentForm";
 
 const BlogDetails = () => {
@@ -15,12 +15,12 @@ const BlogDetails = () => {
       <div className="container">
         {/* main blog */}
         <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-8">
-            <img
+          <div className="col-span-8"> 
+            {/* <img
               src={image}
               alt="Image Description"
               className="w-full h-auto"
-            />
+            /> */}
             <h2 className="text-2xl font-bold mt-2">Post Title Here</h2>
             <p className="text-gray-600">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt

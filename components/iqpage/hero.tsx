@@ -3,23 +3,31 @@ import { Check } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Button } from "../ui/button"
 import axios from "axios"
-import { base } from "../shared/apis/api"
-import data from "./data"
-// import data from './data.js' 
+import { base } from "../shared/apis/api" ;
+// import data from "./data"
+// import data from './data.js'
 
 const HeroIq: React.FC = () => {
-    // const [data, setData]=useState([])
-    useEffect(()=>{
-        axios.get(`${base}/api/v1/quiz`)
-        .then(res => {
-            console.log("rs", res)
-            if(res.data.status==='success') {
 
-                // setData(res?.data?.data)
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        axios.get(`${base}/api/v1/quiz`).then((res) => {
+          // console.log("quiz dta", res?.data?.data)
+          if (res.data.status === "success") {
+            const alldata = res?.data?.data;
+            const length = alldata?.length - 1; 
+            if (length) {
+              const lastData = alldata[length];
+
+              const transformedData = lastData?.singleQuiz.map((item) => [item]);
+              setData(transformedData);
             }
-        })
+          }
+        });
+      }, []);
 
-    },[])
+
     const [click, setClick] = useState<any>({})
     const [index, setIndex] = useState<any>(
         localStorage.getItem('index') ? JSON.parse(localStorage.getItem('index') as string) : {}
@@ -77,6 +85,10 @@ const HeroIq: React.FC = () => {
         }
         ScoreCheck()
     }, [finish])
+
+    if(!data){
+        return <p> No Data Available</p>
+    }
     return (
         <div className=" lg:w-[70%] w-[90%] mx-auto shadow-2xl rounded-[15px]
             max-w-[88.125rem] min-h-[48.4375rem] bg-[url('/assets/iq.png')]

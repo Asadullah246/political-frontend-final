@@ -352,7 +352,7 @@ const Navbar: React.FC = () => {
 
                       </Link>
                       :
-                      <Link
+                      <a
                         href={route.href} key={i}
                         id="specificChild"
                         className={cn("text-sm group flex p-2 justify-end font-medium cursor-pointer rounded-lg transition group-hover:text-black   ", pathName === route.href ? `${route.activeColor} text-[15px]` : '')}
@@ -367,7 +367,7 @@ const Navbar: React.FC = () => {
                           {/* -------route icon------- */}
                         </div>
 
-                      </Link>
+                      </a>
                   }
                 </>
 
@@ -460,7 +460,7 @@ const Navbar: React.FC = () => {
                         }
 
                       </div> :
-                      <Link
+                      <a 
                         href={route.href}
                         className={cn("text-sm group flex pl-4 justify-center font-medium cursor-pointer rounded-lg transition text-gray-700  group-hover:text-black", pathName === route.href ? `${route.activeColor}font-bold` : '')}
                       >
@@ -473,7 +473,7 @@ const Navbar: React.FC = () => {
                           }
 
                         </div>
-                      </Link>
+                      </a>
                   }
                 </div>
               ))}
