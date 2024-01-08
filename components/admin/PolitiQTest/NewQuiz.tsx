@@ -1,5 +1,6 @@
 // components/NewQuiz.tsx
-import { createFaq } from '@/components/shared/apis/api';
+import { ToastSuccess ,ToastError } from '@/components/shared/Others';
+import { createFaq, createQuiz } from '@/components/shared/apis/api';
 import React, { useState } from 'react';
 // import { ToastContainer, toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
@@ -89,18 +90,24 @@ const NewQuiz: React.FC = () => {
 
   const submitData =async () => {
     // e.preventDefault();
-    console.log('calling', quizData);
+
+    const body={
+      // others:"dkfdkf", 
+      singleQuiz:quizData
+    }
+
+    console.log('calling', body);
     setIsSubmitting(true);
-    const res =await createFaq(quizData)
+    const res =await createQuiz(body)
     console.log('red', res )
 
-    // if (res?.status === "success") {
-    //   ToastSuccess("Successfully updated");
-    //   setIsSubmitting(false);
-    // } else {
-    //   ToastError(res?.message || "Something error");
-    //   setIsSubmitting(false);
-    // }
+    if (res?.status === "success") {
+      ToastSuccess("Successfully updated");
+      setIsSubmitting(false);
+    } else {
+      ToastError(res?.message || "Something error");
+      setIsSubmitting(false);
+    }
 
 
       setIsSubmitting(false);

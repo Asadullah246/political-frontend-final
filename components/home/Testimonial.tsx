@@ -181,9 +181,18 @@ const Testimonial: React.FC = () => {
                           );
                         })}
                       </div>
-                      <p className="mt-4 ">{r?.description}</p> 
+                      <p className="mt-4 ">{r?.description}</p>
                     </div>
                     <div className="ml-8 flex items-center mt-6 gap-4">
+                      {r?.logoImage &&
+                      <Image
+                      src={`${base}${r?.logoImage}`}
+                      alt={r?.name}
+                      width={70}
+                      height={70}
+                      className="rounded-[50%]"
+                    />
+                      } 
                       {/* <Image
                         src={`${base}${r?.logoImage}`}
                         alt={r?.name}

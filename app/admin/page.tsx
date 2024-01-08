@@ -4,7 +4,7 @@ import NewQuiz from "@/components/admin/PolitiQTest/NewQuiz";
 import PolitTestPage from "@/components/admin/PolitiQTest/PolitTestPage";
 import FaqManage from "@/components/admin/faq/FaqManage";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BlogPage from "@/components/admin/blog/BlogPage";
@@ -13,8 +13,44 @@ import ContactManage from "@/components/admin/contacts/FaqManage";
 import WebsiteInfoPage from "@/components/admin/websiteInfo/WebsiteInfoPage";
 import TestPage from "@/components/admin/testimonial/FaqManage";
 import NewsLetterManage from "@/components/admin/subscribe/FaqManage";
+import { checkLogin } from "@/components/shared/apis/api";
+import { ToastSuccess,ToastError } from "@/components/shared/Others";
+import { usePathname, useRouter } from "next/navigation";
+import Adminmange from "@/components/admin/admins/BlogPage";
+import MentorManage from "@/components/admin/mentor/FaqManage";
 
 const Page = () => {
+  const router = useRouter();
+  const [admin,setAdmin]=useState()
+  useEffect(()=>{
+    const usercheking =async()=>{
+      const cAdmin=JSON.parse(localStorage.getItem("admin"))
+      console.log("admin", cAdmin)
+      if(cAdmin){
+        const body={
+          email:cAdmin?.email,
+          password:cAdmin?.password,
+        }
+        const res = await checkLogin(body)
+
+
+        if (res?.status === 'success') {
+          setAdmin(cAdmin)
+        } else {
+          ToastError(res?.message || 'Something error');
+          router.push("/adminlogin")
+        }
+      }
+      else {
+        ToastError('Something error');
+          router.push("/adminlogin")
+      }
+    }
+
+    usercheking()
+
+  },[router])
+
   const [current, setCurrent] = useState("Website Info");
   const tabs = [
     { label: "Website Info", icon: "website-icon" },
@@ -22,9 +58,11 @@ const Page = () => {
     { label: "FAQ", icon: "faq-icon" },
     { label: "Blogs", icon: "blogs-icon" },
     { label: "Political Talents", icon: "political-talents-icon" },
+    { label: "Mentors", icon: "political-talents-icon" },
     { label: "Contacts", icon: "testimonials-icon" },
     { label: "Testimonials", icon: "testimonials-icon" },
     { label: "NewsLetters", icon: "testimonials-icon" },
+    { label: "Admins", icon: "testimonials-icon" },
   ];
 
   const tabmanage = (text: string) => {
@@ -42,10 +80,14 @@ const Page = () => {
         return <TestPage />;
       case "Political Talents":
         return <TalentPage />;
+      case "Mentors":
+        return <MentorManage />;
       case "Contacts":
         return <ContactManage />;
       case "NewsLetters":
         return <NewsLetterManage />;
+      case "Admins":
+        return <Adminmange />;
       case "Others":
         return <WebsiteInfoPage />;
 
@@ -77,17 +119,18 @@ const Page = () => {
           ></label>
           <ul className="menu p-4 py-2  w-80 min-h-full bg-base-200 text-base-content">
             {/* Sidebar content here */}
-            <div className="py-2 px-4 flex gap-2 items-center">
-              <Image
-                src="/assets/profilephoto.jpg"
+            <div className="py-2 px-4 mb-4  flex gap-2 items-center">
+              {/* <Image
+                src={`https://ui-avatars.com/api/?name=${admin?.email}&background=9935F9&color=fff`}
+
                 className="rounded-[50%]"
                 height={40}
                 width={40}
                 alt="user"
-              />
+              /> */}
               <div>
-                <h4 className="text-lg leading-3 ">Asad</h4>
-                <small>asad@email.com</small>
+                <h4 className="text-lg leading-3 ">Admin</h4>
+                <small>{admin?.email}</small>
               </div>
             </div>
             {tabs?.map((t, index) => {
