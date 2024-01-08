@@ -24,7 +24,7 @@ import { base } from "../shared/apis/api";
 
   const [datais, setDatais] = useState([]);
   useEffect(() => {
-    axios.get(`${base}/api/v1/quiz`).then((res) => { 
+    axios.get(`${base}/api/v1/quiz`).then((res) => {
       // console.log("quiz dta", res?.data?.data)
       if (res.data.status === "success") {
         const alldata = res?.data?.data;
@@ -37,3 +37,6 @@ import { base } from "../shared/apis/api";
     });
   }, []);
 
+# local env files
+# .env*.local
+# .env
