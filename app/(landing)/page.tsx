@@ -44,7 +44,7 @@ const HomePage: React.FC = () => {
           tittle: "",
         };
 
-        // const res = await axios.post("http://localhost:5000/api/v1/user/create", data);
+ 
         const res = await axios.post(`${baseUrl}/api/v1/user/create`, data);
 
         if (res.data.status === "success") {
@@ -74,7 +74,7 @@ const HomePage: React.FC = () => {
   }, []);
   //  console.log('hello')
   return (
-    
+
     <div>
       <ToastContainer />
       {/* ----user home page----- */}

@@ -1,9 +1,10 @@
 import axios from "axios";
 // import { IInsurance, IUser } from "../types";
 
-// const base = 'https://careplan-backend.vercel.app'
-// const base = 'https://care-plan-backend-main.vercel.app'
-export const base ='http://localhost:5000'
+
+
+// export const base ='http://localhost:5000'
+export const base ='http://backend.politiq-global.com'
 
 
 
