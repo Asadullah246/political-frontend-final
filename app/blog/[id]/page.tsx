@@ -102,7 +102,7 @@ const BlogDetails = ({ params }) => {
           {/*  Recent post  */}
           <div className="lg:col-span-1 hidden lg:block"></div>
           <div className="col-span-12 lg:col-span-4 shadow-md p-4 rounded-md">
-            <h3 className="text-xl font-semibold mb-6">Recent Blogs</h3> 
+            <h3 className="text-xl font-semibold mb-6">Recent Blogs</h3>
             {
               userData?.reverse()?.slice(0,5)?.map(r=>{
                 return (
@@ -123,7 +123,7 @@ const BlogDetails = ({ params }) => {
           </div>
         </div>
       </div>
-
+<Footer/>
     </div>
   );
 };

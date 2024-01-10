@@ -7,6 +7,7 @@ import Hero from "@/components/shared/Pagehero";
 import { base } from "@/components/shared/apis/api";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Footer from "@/components/shared/Footer";
 
 interface BlogItem {
   img: string;
@@ -92,6 +93,7 @@ const Blog: React.FC = () => {
           ))}
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

@@ -317,7 +317,7 @@ const Footer: React.FC = () => {
 
   return (
     <>
-      <div className="container pt-8  bg-[#151515] text-white ">
+      <div className="    bg-[#151515] text-white ">
         <div>
           <div
 

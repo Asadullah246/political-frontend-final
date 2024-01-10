@@ -1,6 +1,7 @@
 "use client"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "@/components/shared/Footer";
 import Accordian from "@/components/faq/accordian";
 import FaqContact from "@/components/faq/faqContact";
 import Hero from "@/components/shared/Pagehero";
@@ -14,7 +15,8 @@ const Faqpage: React.FC = () => {
                  <Accordian/>
                 <FaqContact/>
             </div>
-            <Subscribe/> 
+            {/* <Subscribe/> */} 
+            <Footer/>
         </div>
     );
 };
