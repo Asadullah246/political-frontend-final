@@ -3,8 +3,8 @@ import axios from "axios";
 
 
 
-export const base ='http://localhost:5000'  
-// export const base ='http://backend.politiq-global.com'
+// export const base ='http://localhost:5000'
+export const base ='http://backend.politiq-global.com'   
 
 
 
