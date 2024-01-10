@@ -10,6 +10,7 @@ import logo from "../../public/assets/logo.jpg";
 import styles from "../../styles/home.module.css";
 import Topbar from "../home/Topbar";
 import { MdArrowForward } from "react-icons/md";
+import { base, getSiteInfo } from "./apis/api";
 
 interface Route {
   label: string;
@@ -56,21 +57,21 @@ const routes: Route[] = [
   //   color:'text-yellow-500',
   //   activeColor:'text-yellow-700'
   //  },
-  //  {
-  //   label:'My Profile',
-  //   icon:User,
-  //   href:'/myprofile',
-  //   color:'text-blue-500',
-  //   activeColor:'text-blue-700'
-  //  },
+   {
+    label:'My Profile',
+    icon:User,
+    href:'/myprofile',
+    color:'text-blue-500',
+    activeColor:'text-blue-700'
+   },
 
-  {
-    label: 'PolitIQ Test',
-    icon: School,
-    href: '/iqpage',
-    color: 'text-purple-500',
-    activeColor: 'text-purple-700'
-  },
+  // {
+  //   label: 'Free Quiz',
+  //   icon: School,
+  //   href: '/iqpage',
+  //   color: 'text-purple-500',
+  //   activeColor: 'text-purple-700'
+  // },
   {
     label: 'Dashboard',
     icon: LucideLayoutDashboard,
@@ -79,7 +80,7 @@ const routes: Route[] = [
     activeColor: 'text-orange-900'
   },
   {
-    label: 'What you want',
+    label: 'What you want ?',
     icon: User,
     href: '/',
     color: 'text-blue-500',
@@ -99,6 +100,27 @@ const Navbar: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const visibleDivRef = useRef(null);
   const visibleDivRef2 = useRef(null);
+
+  const [info, setInfo] = useState()
+  useEffect(() => {
+
+    const getUser = async () => {
+      const res = await getSiteInfo()
+      const length = res?.data?.length - 1
+      if (length) {
+
+        setInfo(res?.data[length])
+      }
+    }
+
+    getUser()
+  }, [])
+  console.log("info", info )
+
+
+
+
+
 
   useEffect(() => {
     // Add event listener when component mounts
@@ -318,10 +340,14 @@ const Navbar: React.FC = () => {
           </div>
           <div className={`flex h-[85px] relative overflow-visible  w-full   items-center justify-between pr-8 shadow-lg bg-white`} >
             <div className="flex h-full lg:w-[30%] w-[40%]">
-              <div className={`bg-[#FFC400] pr-12 h-full flex items-center lg:pl-4 pl-2 ${styles.logoDiv}`}>
-                <Image alt="Logo" height={50} src={logo} />
-                <h3 className="lg:text-3xl text-xl ml-2 text-[#0D01E5]">PolitIQ</h3>
-              </div>
+              <a href="/">   <div className={`bg-[#FFC400] pr-12 h-full flex items-center lg:pl-4 pl-2 ${styles.logoDiv}`}>
+                {
+                  info?.logoImage && 
+                  <Image alt="Logo" height={50} width={50} src={`${base}${info?.logoImage}`} />
+
+                }
+                <h3 className="lg:text-3xl text-xl ml-2 text-[#0D01E5]">{info?.websiteName}</h3>
+              </div></a>
             </div>
             {/* big screen  menu */}
 
@@ -330,7 +356,7 @@ const Navbar: React.FC = () => {
 
                 <>
                   {
-                    route?.label == "What you want" ?
+                    route?.label == "What you want ?" ?
                       <Link
                         onClick={toggleVisibility}
 
@@ -385,7 +411,7 @@ const Navbar: React.FC = () => {
                   key={i}
                 >
                   {
-                    route?.label == "What you want" ?
+                    route?.label == "What you want ?" ?
                       <div
                         // href={route.href}
                         className={cn("text-sm group relative  pl-4 justify-center font-medium cursor-pointer rounded-lg transition text-gray-700  group-hover:text-black", pathName === route.href ? `${route.activeColor}font-bold` : '')}
@@ -460,7 +486,7 @@ const Navbar: React.FC = () => {
                         }
 
                       </div> :
-                      <a 
+                      <a
                         href={route.href}
                         className={cn("text-sm group flex pl-4 justify-center font-medium cursor-pointer rounded-lg transition text-gray-700  group-hover:text-black", pathName === route.href ? `${route.activeColor}font-bold` : '')}
                       >

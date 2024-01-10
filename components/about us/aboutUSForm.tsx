@@ -87,6 +87,8 @@ const AboutUSForm = () => {
     <div>
       <div className=" lg:col-span-8 md:col-span-6 col-span-12">
         <div className=" shadow-md rounded-[15px] px-4 lg:px-[50px] pt-[42px] pb-[50px]">
+
+          <h2 className="text-center text-3xl mb-8 ">Give review about our services</h2>
           <form onSubmit={handleSubmit}>
             {/* -------input ----- */}
             <div className=" grid grid-cols-12 gap-8">
@@ -116,6 +118,7 @@ const AboutUSForm = () => {
             <div className=" pb-[50px]">
               <textarea
                 name="description"
+                placeholder="Decription"
                 required
                 className="relative block bg-white border border-[#E5E5E5] w-[100%]  text-[#676767] font-[500] text-[16px]  px-[35px] rounded-[25px] focus:outline-none h-[180px] pt-[12px] pb-[12px]"
                 cols={30}
@@ -130,7 +133,7 @@ const AboutUSForm = () => {
                 isSubmitting ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >
-              Send Messages
+             Submit
             </Button>
             {/* -----button----- */}
           </form>

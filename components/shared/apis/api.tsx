@@ -3,8 +3,8 @@ import axios from "axios";
 
 
 
-// export const base ='http://localhost:5000'
-export const base ='http://backend.politiq-global.com'
+export const base ='http://localhost:5000'  
+// export const base ='http://backend.politiq-global.com'
 
 
 
@@ -171,6 +171,23 @@ export const createTestimonial = async (data:any) => {
   }
 };
 
+
+// blog
+export const updateBlog = async (id:string, data:any) => {
+  try {
+    const config = {
+      headers: {
+        token: localStorage.getItem("token") || "",
+      },
+    };
+    const res = await axios.patch(`${base}/api/v1/blogs/${id}`, data, config);
+
+    return res?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // delete for blog
 export const deleteBlog = async (id) => {
   try {
@@ -228,6 +245,16 @@ export const updateContactInfo = async (id:string, data:any) => {
 export const activeAccount = async (data:any) => {
   try {
     const res = await axios.post(`${base}/api/v1/user`, data);
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("refresh", res.data.refresh);
+    if (res) return res.data;
+  } catch (error) {
+    console.log("err is", error);
+  }
+};
+export const getTalent = async () => {
+  try {
+    const res = await axios.get(`${base}/api/v1/user`);
     localStorage.setItem("token", res.data.token);
     localStorage.setItem("refresh", res.data.refresh);
     if (res) return res.data;

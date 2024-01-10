@@ -1,51 +1,48 @@
 "use client"
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import { updateBlog } from "../shared/apis/api";
+import { ToastSuccess, ToastError } from "../shared/Others";
 
-const CommentForm = () => {
-  const initialFormData = {
+const CommentForm = ({info, refresh, setRefresh}) => {
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     comment: "",
-  };
-
-  const [formData, setFormData] = useState(initialFormData);
-  const [errors, setErrors] = useState({
-    name: "",
-    email: "",
   });
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+
+  const handleChange = ( e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: "" });
+
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
+    setIsSubmitting(true)
 
-    // Basic form validation (required fields)
-    const newErrors = {
-      name: formData.name.trim() === "" ? "Name is required" : "",
-      email: formData.email.trim() === "" ? "Email is required" : "",
-    };
-
-    setErrors(newErrors);
-
-    // If there are no errors, you can proceed with form submission
-    if (!Object.values(newErrors).some((error) => error !== "")) {
-      // Perform your form submission logic here
-      console.log("Form submitted:", formData);
+    const res = await updateBlog(info?._id, formData)
+    console.log("res", res )
+    if (res?.status == "success"){
+        ToastSuccess("Successfully commented");
+        setIsSubmitting(false);
+        setRefresh(!refresh) 
+    } else {
+        ToastError(res?.message || "Something error");
+        setIsSubmitting(false);
     }
+
+
   };
 
   return (
     <div>
       <div className="mt-16">
-        <h3 className="text-xl font-semibold">Leave Comments</h3>
+        <h3 className="text-xl font-semibold">Leave a Comment</h3>
         <form
           onSubmit={handleSubmit}
-          className="max-w-md mx-auto mt-4 p-4 bg-gray-100 rounded-md"
+          className="w-full mx-auto mt-4 p-4 bg-gray-100 rounded-md"
         >
           <div className="mb-4">
             <label
@@ -60,13 +57,13 @@ const CommentForm = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className={`mt-1 p-2 w-full border rounded-md ${
-                errors.name ? "border-red-500" : ""
-              }`}
+              className={`mt-1 p-2 w-full border rounded-md
+
+              `}
             />
-            {errors.name && (
+            {/* {errors.name && (
               <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-            )}
+            )} */}
           </div>
           <div className="mb-4">
             <label
@@ -81,13 +78,11 @@ const CommentForm = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className={`mt-1 p-2 w-full border rounded-md ${
-                errors.email ? "border-red-500" : ""
-              }`}
+              className={`mt-1 p-2 w-full border rounded-md `}
             />
-            {errors.email && (
+            {/* {errors.email && (
               <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-            )}
+            )} */}
           </div>
           <div className="mb-4">
             <label
@@ -106,6 +101,7 @@ const CommentForm = () => {
             />
           </div>
           <button
+          disabled={isSubmitting}
             type="submit"
             className="bg-blue-500 text-white p-2 rounded-md"
           >

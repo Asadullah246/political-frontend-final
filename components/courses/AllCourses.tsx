@@ -4,6 +4,8 @@ import React, { useRef, useState } from 'react';
 import { LargeTitle } from '../shared/SmallComponents';
 import SingelCourse from '../shared/singelCourse';
 import { db } from '@/lib/db';
+import Navbar from '../shared/Navbar';
+import Footer from '../shared/Footer';
 
 
 
@@ -61,11 +63,10 @@ const AllCourses: React.FC = async () => {
 
 
 
-
-
     return (
         <div>
-            <div className="mt-[50px]">
+            <Navbar />
+            <div className="">
                 <div>
                     <LargeTitle className='text-4xl mb-3 '>All Courses on Politics</LargeTitle>
                     {/* <p className='flex items-center mt-2'><Users size={16} /> <span>42,048,955 learners</span> </p> */}
@@ -130,9 +131,10 @@ const AllCourses: React.FC = async () => {
                         </button>
                     </div>
                 </div> */}
-                <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4  gap-4  md:gap-8">
+                <div className="mt-6 mb-8  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4  gap-4  md:gap-8">
                     {
-                        totalCourse?.map((course, index) => ( 
+                        totalCourse && totalCourse?.length > 0 ?
+                        totalCourse?.map((course, index) => (
                             <SingelCourse
                                 img={course?.imageUrl}
                                 price={course.price}
@@ -152,14 +154,17 @@ const AllCourses: React.FC = async () => {
 
                             />
                         ))
+                        :
+                        <h4 className='my-8 mx-auto text-center   font-semibold text-lg '>No course available at this moment</h4>
                     }
                 </div>
 
 
-                <div className="w-fit text-right  ml-auto ">
+                {/* <div className="w-fit text-right  ml-auto ">
                     <button className="relative z-[5] flex items-center gap-2 font-semibold hover:text-primary text-lg  "><span >see more</span>  <MoveRight size={24} color="#FFC400" strokeWidth={2.25} /></button>
-                </div>
+                </div> */}
             </div>
+            {/* <Footer/>  */}
         </div>
     );
 };

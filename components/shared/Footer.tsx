@@ -11,6 +11,13 @@ import logo from "../../public/assets/logo.jpg";
 import styles from "../../styles/home.module.css";
 import { base, getSiteInfo } from "./apis/api";
 
+import { cn } from "@/lib/utils";
+import { UserButton } from "@clerk/nextjs";
+import { Contact, Grip, LayoutDashboard, MenuIcon, PenSquare, School, User, LucideLayoutDashboard, X } from "lucide-react";
+import Topbar from "../home/Topbar";
+import { MdArrowForward } from "react-icons/md";
+
+
 
 
 interface DOMRectReadOnly {
@@ -145,23 +152,230 @@ const Footer: React.FC = () => {
 
   const [info, setInfo] = useState()
   useEffect(() => {
+    const getUser = async () => {
+      const res = await getSiteInfo()
+      const length = res?.data?.length - 1
+      if (length) {
+
+        setInfo(res?.data[length])
+      }
+    }
+
     getUser()
   }, [])
   // console.log("info", info )
 
 
 
-  const getUser = async () => {
-    const res = await getSiteInfo()
-    const length=res?.data?.length -1
-    if(length){
 
-      setInfo(res?.data[length])
+
+  const constituency = [
+    {
+      id: 1,
+      text: "Create profile as constituency or Organization",
+      // link: "/myprofile"
+    },
+    {
+      id: 2,
+      text: "Search for political talent",
+      link: "/politicalTalent"
+    },
+    {
+      id: 3,
+      text: "Managed Matchmaking",
+      // link: "/matchmaking"
+    },
+    {
+      id: 4,
+      text: "Need to arrange Training or Workshop or Seminar",
+      // link: "/training"
+    },
+    {
+      id: 5,
+      text: "Arrange Consultancy",
+      // link: "/consultancy"
+    },
+    {
+      id: 6,
+      text: "Take on Political Apprentices",
+      // link: "/apprentices"
+    },
+    {
+      id: 7,
+      text: "Partner with PolitIQ",
+      // link: "/partner"
     }
-  }
+  ];
+
+  const politician = [
+
+    {
+      id: 1,
+      text: "Create profile",
+      link: "/myprofile"
+    },
+    {
+      id: 2,
+      text: "Take PolitIQ Test free",
+      link: "/iqpage"
+    },
+    {
+      id: 3,
+      text: "Apply for political internship",
+      // link: "/"
+    },
+    {
+      id: 4,
+      text: "Councilor courses",
+      link: "/courses"
+    },
+    {
+      id: 5,
+      text: "LG Chairmen courses",
+      link: "/courses"
+    },
+    {
+      id: 6,
+      text: "House of Assembly member courses",
+      link: "/courses"
+    },
+    {
+      id: 7,
+      text: "House of Representatives member courses",
+      link: "/courses"
+    },
+    {
+      id: 8,
+      text: "Senator courses",
+      link: "/courses"
+    },
+    {
+      id: 9,
+      text: "Courses for Governors, Presidents, others",
+      link: "/courses"
+    }
+  ];
+
+  const othersNav = [
+    {
+      id: 9,
+      text: "Home",
+      link: "/"
+    },
+    {
+      id: 10,
+      text: "Contact Us",
+      link: "/contactus"
+    },
+    {
+      id: 11,
+      text: "About Us",
+      link: "/about"
+    },
+    {
+      id: 11,
+      text: "FAQ",
+      link: "/faqpage"
+    },
+    {
+      id: 1,
+      text: "Contribute with curated courses",
+      // link: "/contribute-courses"
+    },
+    {
+      id: 2,
+      text: "Be a Mentor",
+      link: "/be-mentor"
+    },
+    {
+      id: 3,
+      text: "Take on Political Apprentices",
+      // link: "/take-apprentices"
+    },
+    {
+      id: 4,
+      text: "Collaborate or partner with PolitIQ",
+      // link: "/collaborate-partner"
+    },
+    {
+      id: 5,
+      text: "Political Apprenticeship",
+      // link: "/political-apprenticeship"
+    },
+    {
+      id: 6,
+      text: "Partner with PolitIQ",
+      // link: "/partner-politiq"
+    },
+    {
+      id: 7,
+      text: "Build a Political Team/Staff",
+      // link: "/build-political-team"
+    },
+
+  ];
 
   return (
     <>
+      <div className="container pt-8  bg-[#151515] text-white ">
+        <div>
+          <div
+
+            // onMouseEnter={showDiv}
+            // onMouseLeave={hideDiv}
+            className="w-full  top-[85px] z-10 px-3 pt-3 pb-6  left-0  grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 md:gap-6  " id="">
+            <div>
+              <p className="text-lg font-semibold mt-0 lg:mt-0 "   >Constituency/Organization</p>
+
+              {
+                constituency?.map((singleC, index) => {
+                  return (
+                    <a key={index} href={singleC?.link} className={`ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300  ${!(singleC?.link) ? "opacity-50 cursor-not-allowed" : ""}`}>
+                      <MdArrowForward class="block mt-[5px] " style={{}} />
+                      <span className="">{singleC?.text}</span>
+                    </a>
+                  )
+                })
+              }
+            </div>
+            <div>
+              <p className="text-lg font-semibold  mt-8 lg:mt-0  "  >Politician (new or experienced)</p>
+
+              {
+                politician?.map((singleC, index) => {
+                  return (
+                    <a key={index} href={singleC?.link} className={`ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300  ${!(singleC?.link) ? "opacity-50 cursor-not-allowed" : ""}`}>
+                      <MdArrowForward class="block mt-[5px] " style={{}} />
+                      <span className="">{singleC?.text}</span>
+                    </a>
+                  )
+                })
+              }
+
+            </div>
+            <div>
+              <p className="text-lg font-semibold  mt-8 lg:mt-0 "  >Others</p>
+
+              {
+                othersNav?.map((singleC, index) => {
+                  return (
+                    <a key={index} href={singleC?.link} className={`ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300  ${!(singleC?.link) ? "opacity-50 cursor-not-allowed" : ""}`}>
+                      <MdArrowForward class="block mt-[5px] " style={{}} />
+                      <span className=" ">{singleC?.text}</span>
+                    </a>
+                  )
+                })
+              }
+
+            </div>
+
+
+
+          </div>
+
+        </div>
+        <div style={{borderBottom:"1px solid"}} className=" border-gray-400 w-full "></div>
+      </div>
       {
         Active === "/about" || Active === "/" || Active === "/politicalTalent" || Active === "/contactus" || Active === "/myprofile" || Active === "/iqpage" || Active === "/faqpage" ? <footer
           ref={footerRef}
@@ -171,16 +385,24 @@ const Footer: React.FC = () => {
 
 
             {/* links  */}
-            <div className=" pt-8  grid grid-cols-12 lg:gap-8 gap-6 text-gray-400 place-items-center">
+            <div className=" pt-8  grid grid-cols-12 lg:gap-8 gap-6 text-gray-400 place-items-start">
               <div className=" lg:col-span-4 col-span-5">
                 <div className="flex h-[60px] lg:w-[100%] w-[100%]">
                   <div className={`bg-[#FFC400] lg:pr-12 pr-4 h-full flex items-center lg:pl-4 pl-2 ${styles.logoDiv}`}>
-                    <Image alt="Logo" height={50} width={width >= 600 ? 70 : 40} src={logo} />
+
+                    {
+                      info?.logoImage &&
+                      <Image alt="Logo" height={50} width={width >= 600 ? 70 : 40} src={`${base}${info?.logoImage}`} />
+
+                    }
                     <h3 className="lg:text-3xl text-xl ml-2 text-[#0D01E5]">{info?.websiteName}</h3>
                   </div>
                 </div>
                 <p className="mt-4 text-gray-400  ">{info?.description}</p>
-                <div className="mt-6">
+
+              </div>
+              <div className="ml-6 lg:ml-0 lg:col-span-4 w-full col-span-7">
+              <div className="">
                   <div className="flex items-center gap-4">
                     <a href="https://facebook.com" target="_blank" className="bg-[#4D4E51] p-3  w-fit rounded-[50%]">
                       <Facebook strokeWidth={0.5} size={16} style={{ fill: "white" }} className="text-white " />
@@ -196,35 +418,7 @@ const Footer: React.FC = () => {
                     </a>
                   </div>
                 </div>
-              </div>
-              <div className=" lg:col-span-4 w-full col-span-7">
-                <h2 className="text-2xl font-bold mb-4 text-white ">Useful Links</h2>
-                <div className=" flex lg:gap-x-12 w-full">
-                  <div>
-                    {
-                      routes.map((route, i) => (<Link key={i} href={route.href} className={`block  mt-3
-                            ${Active === route.href ? `${route.activeColor} font-bold` : 'text-gray-400 hover:text-white'}
-                           `} >
 
-                        {
-                          route.label
-                        }
-                      </Link>))
-                    }
-                  </div>
-                  <div>
-                    {
-                      routes2.map((route, i) => (<Link key={i} href={route.href} className={`block  mt-3
-                            ${Active === route.href ? `${route.activeColor} font-bold` : 'text-gray-400 hover:text-white'}
-                           `}  >
-
-                        {
-                          route.label
-                        }
-                      </Link>))
-                    }
-                  </div>
-                </div>
               </div>
 
               <div className=" lg:col-span-4 col-span-12">

@@ -20,10 +20,10 @@ const AboutUs: React.FC = () => {
         <div className="mt-28 ">
           <CourseNews></CourseNews>
         </div>
-        <div className="mt-28 mb-24  ">
+        <div className="mt-28 mb-16  "> 
           <AboutBlogs></AboutBlogs>
         </div>
-        <div className="mt-28 mb-24  container">
+        <div className="mt-10 mb-10  container">
           <AboutUSForm></AboutUSForm>
         </div>
       </div>

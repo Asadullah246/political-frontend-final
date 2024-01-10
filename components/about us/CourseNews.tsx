@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 const CourseNews: React.FC = () => {
     const router = useRouter();
     const navigateDetails=()=>{
-        router.push('/dashboard/search');
+        router.push('/courses'); 
     }
     const aims: string[] = ["Facilitate Knowledge Sharing", "Host Webinars and Virtual Events", "Gamify User Engagement", "Encourage Mentorship and Collaboration", "Foster a Supportive Environment"]
     return (
