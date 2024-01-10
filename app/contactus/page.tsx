@@ -1,6 +1,7 @@
 "use client"
 import Contact from "@/components/contactus/contact";
 import Hero from "@/components/shared/Pagehero";
+import Footer from "@/components/shared/Footer";
 
 const Contactpage: React.FC = () => {
     return (
@@ -11,6 +12,7 @@ const Contactpage: React.FC = () => {
            {/* ---contact---- */}
            <Contact />
            {/* ---contact---- */}
+           <Footer/>
         </div>
     );
 };

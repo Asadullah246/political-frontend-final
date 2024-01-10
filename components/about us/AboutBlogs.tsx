@@ -25,18 +25,18 @@ const AboutBlogs: React.FC = () => {
               Our Blogs to <br />
               inprove your Knowledge
             </LargeTitle>
-            <div className="mt-12">
-              <Link href="/blog">
+            <div className="mt-12"> 
+              <a href="/blog">
                 {" "}
                 <Button className="relative z-[5] bg-[#FFC400] text-white rounded-[25px] p-[25px] text-[20px]">
                   See Blogs
                 </Button>
-              </Link>
+              </a>
             </div>
           </div>
         </div>
       </div>
-      <Footer/>
+
     </div>
   );
 };

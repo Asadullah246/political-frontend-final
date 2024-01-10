@@ -5,6 +5,7 @@ import AboutUs from "@/components/home/AboutUs";
 import Testimonial from "@/components/home/Testimonial";
 import Blog from "@/components/home/blog";
 import Slider from "@/components/home/slider";
+import Footer from "@/components/shared/Footer";
 import Subscribe from "@/components/shared/Subscribe";
 import { CourseMgmt, UserStore, baseUrl } from "@/store/Store";
 import { useUser } from "@clerk/nextjs";
@@ -44,7 +45,7 @@ const HomePage: React.FC = () => {
           tittle: "",
         };
 
- 
+
         const res = await axios.post(`${baseUrl}/api/v1/user/create`, data);
 
         if (res.data.status === "success") {
@@ -94,6 +95,7 @@ const HomePage: React.FC = () => {
       <div className="mt-12">
         <Subscribe />
       </div>
+      <Footer/>
     </div>
   );
 };

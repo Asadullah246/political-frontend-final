@@ -48,7 +48,7 @@ const experiences: Experience[] = [{
   title: "Motivational writer",
 }]
 
-const BasicInfo: React.FC<Props> = ({
+const BasicInfo2: React.FC<Props> = ({
   exits,
   userdata,
   id
@@ -92,16 +92,17 @@ const BasicInfo: React.FC<Props> = ({
         <div className="border-b w-full mb-[20px]">
           <span className=" uppercase text-gray-500 font-[600] block mb-1">About</span>
         </div>
+
         <div className="mb-7">
         <span className=" text-gray-500 font-[600]">
               Activity in PolitQ
             </span> <br />
 
             <span className=" text-gray-500 text-[14px]">
-{info?.accounttype=="teacher" && "Teacher"}, {" "}
-{info?.talent=="approved" && "Talent"},
+{userdata?.accounttype=="teacher" && "Teacher"}, {" "}
+{userdata?.talent=="approved" && "Talent"},
 
-          </span>
+          </span> 
         </div>
 
         <div className=" mb-[30px]">
@@ -111,8 +112,9 @@ const BasicInfo: React.FC<Props> = ({
             </span>
 
           </div>
+
           <span className=" text-gray-500 text-[14px]">
-            {info?.description?.slice(0, 120)}
+            {userdata?.description?.slice(0, 120)}
             {/* {
               exits ?'Add Your Bio':`${userdata?.description.slice(0, 120)}...`
             } */}
@@ -134,8 +136,8 @@ const BasicInfo: React.FC<Props> = ({
           <span className=" uppercase text-gray-500 font-[600] block mb-1"> Skills </span>
         </div>
         <div>
-          <h2 className=" text-gray-500 text-[14px]"> 
-            {info?.skills}
+          <h2 className=" text-gray-500 text-[14px]">
+            {userdata?.skills}
           </h2>
           {/* {
              exits ?'Add Your Skill' : userdata?.skill.map((exp:any) => (
@@ -158,7 +160,7 @@ const BasicInfo: React.FC<Props> = ({
             <span className=" font-[600] text-[16px] text-gray-500">Phone:</span>
             <span className={` text-black `}>
               {
-                info?.phone
+                userdata?.phone
               }
             </span>
           </div>
@@ -166,7 +168,8 @@ const BasicInfo: React.FC<Props> = ({
             <span className=" font-[600] text-[16px] text-gray-500">Email:</span>
             <span className={` text-black `}>
               {
-                userdata?.primaryEmailAddress?.emailAddress
+                userdata?.email
+                // userdata?.primaryEmailAddress?.emailAddress
               }
             </span>
           </div>
@@ -174,7 +177,7 @@ const BasicInfo: React.FC<Props> = ({
             <span className=" font-[600] text-[16px] text-gray-500">Address:</span>
             <span className={` text-black `}>
               {
-               info?.address
+               userdata?.address
               }
             </span>
           </div>
@@ -193,15 +196,7 @@ const BasicInfo: React.FC<Props> = ({
           } */}
 
         </div>
-        {
-          info?.signingId ? <div className="overflow-hidden w-[40%]">
-            <Button
-              onClick={() => document.getElementById('my_modal_4').showModal()}
-              className="relative z-[5] bg-blue-100 h-[40px] text-blue-700 w-full  hover:text-white" variant={'hover'}>
-              Edit Profile
-            </Button>
-          </div> : null
-        }
+
         {/* ------contact info---- */}
       </div>
 
@@ -209,4 +204,4 @@ const BasicInfo: React.FC<Props> = ({
   )
 }
 
-export default BasicInfo
+export default BasicInfo2

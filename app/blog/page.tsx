@@ -7,6 +7,7 @@ import Hero from "@/components/shared/Pagehero";
 import { base } from "@/components/shared/apis/api";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Footer from "@/components/shared/Footer";
 
 interface BlogItem {
   img: string;
@@ -50,23 +51,12 @@ const Blog: React.FC = () => {
 
   const [userData, setUserData] = useState();
   const [refresh, setRefresh] = useState(false);
-  useEffect(() => {
-    axios.get(`${base}/api/v1/blogs`).then((res) => {
-      //   console.log("users in politic", res);
-      if (res?.data?.status === "success") {
-        const allData = res?.data?.data;
-        console.log("allData", allData);
-        //   const filtered=allData?.filter(a=>!(a?.archived)==true)
-        setUserData(allData);
-        // setUserData(res?.data?.data);
-      }
-    });
-  }, [refresh]);
+
   useEffect(() => {
     axios
       .get(`${base}/api/v1/blogs`)
       .then((res) => {
-        // console.log("response", res.data.data);
+        console.log("response", res.data.data);
         if (res.data.status === "success") {
           setUserData(res?.data?.data);
         }
@@ -74,34 +64,36 @@ const Blog: React.FC = () => {
       .catch((err) => {
         console.log("err", err);
       });
-  }, []);
-  
-  
-  
+  }, [refresh]);
+
+
+
   return (
     <div>
       <Navbar/>
         <Hero title="Blogs" subtext="Blogs"></Hero>
-      <div className=" mt-[120px]">
+      <div className=" mt-[60px]">
         <SectionTittle
           title=" "
-          description="All News"
+          description="All Blogs"
           span=" "
         />
         <div className="px-8 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
           {userData?.map((blog, index) => (
             <SingelBlog
-              img={blog.img}
-              date={blog.date}
-              description={blog.description}
-              title={blog.title}
-              author={blog.author}
-              id={blog.id}
+              img={blog?.logoImage}
+              date={blog?.createdAt}
+              description={blog?.description}
+              title={blog?.title}
+              author={blog?.author}
+              id={blog?._id}
+              comments={blog?.comments}
               key={index}
             />
           ))}
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

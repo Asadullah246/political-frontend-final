@@ -2,24 +2,34 @@
 import { Mail, MapPin } from "lucide-react";
 import { Button } from "../ui/button";
 // import PoliTicalData from "./data.tsx";
-import { UserStore } from "@/store/Store";
-import { PoliticalDataItem } from "@/store/types";
+// import { UserStore } from "@/store/Store";
+// import { PoliticalDataItem } from "@/store/types";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getTalent } from "../shared/apis/api";
 
 
 const PoliticalCard = () => {
-   const {allUser,fetchUsers} = UserStore()
+const [talents, setTalents]=useState([])
    useEffect(() => {
+    const fetchUsers=async()=>{
+        const res= await getTalent()
+
+        if(res.status=="success"){
+           const allpeople=res?.data
+           const filtered=allpeople?.filter(p=>p?.talent=="approved")
+           setTalents(filtered)
+        }
+    }
     fetchUsers()
    },[])
- const typeData:PoliticalDataItem[] = allUser
+
     return (
         <div className=" w-[85%] mx-auto py-20 grid grid-cols-12 lg:gap-x-10">
              {
-                [...Array(6)].map((item) =>
+                talents?.map((item) =>
                 (
-                <div className=" col-span-12 md:col-span-6 lg:col-span-4 min-h-[480px] relative w-full bg-gray-200 rounded-[20px] shadow-lg mb-8" key={item?._id}> 
+                <div className=" col-span-12 md:col-span-6 lg:col-span-4 min-h-[480px] relative w-full bg-gray-200 rounded-[20px] shadow-lg mb-8" key={item?._id}>
                 {/* ------cover photo----- */}
                 <div className={`h-[200px]`}>
                     <img src='/assets/politicalcover.jpg' className=" object-cover bg-no-repeat bg-cover w-full bg-center rounded-t-[20px] h-full" alt="" />
@@ -53,14 +63,14 @@ const PoliticalCard = () => {
                                     item?.country || "No Country Yet"
                                  }</p>
                             </div>
-                            <a href={`mailto: ${item?.email}`} className=" flex gap-x-2 items-center cursor-pointer">
+                            <a href={`mailto:${item?.email}`} className=" flex gap-x-2 items-center cursor-pointer">
                                  <Mail size={20} className=" text-gray-600"/>
                                  <p className=" text-gray-600 font-[500]"> Send Mail</p>
                             </a>
                       </div>
                 </div>
                 <div className=" absolute bottom-0 w-full">
-                    <Link href={`/politicalTalent/${item?._id}`}>
+                    <Link href={`/politicalTalent/${item?.signingId}`}> 
                     <Button  className="relative z-[5] w-full rounded-b-[20px] rounded-t-none text-[16px] font-[500] h-[50px] text-gray-700">
                         View Profile
                     </Button>

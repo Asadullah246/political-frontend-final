@@ -34,11 +34,11 @@ const OurAims: React.FC = () => {
 
 
                     </div>
-                    <div className="mt-8">
+                    {/* <div className="mt-8">
                         <Button className="relative z-[5] bg-[#FFC400] text-white rounded-[25px] p-[25px] text-[20px]">
                             Read More
                         </Button>
-                    </div>
+                    </div> */} 
 
                 </div>
                 <div className="relative ">

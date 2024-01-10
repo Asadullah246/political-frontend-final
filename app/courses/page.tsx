@@ -1,6 +1,6 @@
 import AllCourses from "@/components/courses/AllCourses";
 import Hero from "@/components/shared/Pagehero";
-
+import Footer from "@/components/shared/Footer";
 
 const Courses: React.FC = () => {
     return (
@@ -12,7 +12,7 @@ const Courses: React.FC = () => {
             </div>
 
 
-
+<Footer/>
         </div>
     );
 };

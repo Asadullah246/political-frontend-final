@@ -29,7 +29,7 @@ interface InfoType {
     talent?: any;
     // Add other properties if needed
 }
-const Hero = ({
+const Hero2 = ({
     userImg, fullName,
     userdata,
     exits,
@@ -567,57 +567,7 @@ const Hero = ({
                                 </div>
                             </div>
                         </div>
-                        {!(info?.signingId) &&
-                            <div className="overflow-hidden w-[40%] mt-8">
-                                <Button
-                                    onClick={() => document.getElementById('my_modal_3').showModal()}
-                                    className="relative z-[5] bg-blue-100 h-[40px] text-blue-700 w-full  hover:text-white" variant={'hover'}>
-                                    Activate Profile
-                                </Button>
-                            </div>}
-
-                        {info?.talent && info?.signingId && (info?.talent == "approved" || "pending") ? <div></div> :
-                            <>
-                            {info?.signingId &&
-                             <div className="overflow-hidden w-[40%] mt-8">
-                             <span className=""> Are you a political expert ? </span>
-                             <Button
-                                 onClick={handleTalent}
-                                 className="mt-3 relative z-[5] bg-blue-100 h-[40px] text-blue-700 w-full  hover:text-white" variant={'hover'}>
-                                 Confirm Us
-                             </Button>
-                         </div> }
-
-
-                            </>
-
-                        }
-                        {info?.signingId && <div>
-
-                            {/* {info?.accounttype == "teacher" && <span className="font-bold"> you are a Mentor</span>} */}
-                            {info?.accounttype == "teacher-pending" && <span className="font-bold"> your mentor-requested is pending</span>}
-
-
-
-                            {(!(info?.accounttype) || info?.accounttype == "none") && <div className="overflow-hidden w-[40%] mt-8">
-                                <span className=""> Are you want to be a mentor ? </span>
-                                <Button
-                                    onClick={handleTeacher}
-                                    className="mt-3 relative z-[5] bg-blue-100 h-[40px] text-blue-700 w-full  hover:text-white" variant={'hover'}>
-                                    Apply Now
-                                </Button>
-                            </div>}
-
-
-                        </div>}
-
-
-
-
-                        {/* {
-                            info?.talent == "approved" &&
-                            <span className="font-bold"> you are political expert</span>
-                        } */}
+                       
 
                     </div>
                     {/* ------user info----- */}
@@ -628,4 +578,4 @@ const Hero = ({
     );
 }
 
-export default Hero;
+export default Hero2;

@@ -7,6 +7,7 @@ import Hero from "@/components/shared/Pagehero";
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "@/components/shared/Footer";
 
 const AboutUs: React.FC = () => {
   return (
@@ -20,13 +21,14 @@ const AboutUs: React.FC = () => {
         <div className="mt-28 ">
           <CourseNews></CourseNews>
         </div>
-        <div className="mt-28 mb-24  ">
+        <div className="mt-28 mb-16  ">
           <AboutBlogs></AboutBlogs>
         </div>
-        <div className="mt-28 mb-24  container">
+        <div className="mt-10 mb-10  container">
           <AboutUSForm></AboutUSForm>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

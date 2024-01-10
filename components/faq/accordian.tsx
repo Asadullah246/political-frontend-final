@@ -23,6 +23,8 @@ const Accordian: React.FC = () => {
         }
         getFaqdata()
     }, [])
+
+    console.log("data", data )
     return (
         <div className=" lg:col-span-8 col-span-12">
             <h2 className=" text-[16px] font-[600] text-[#0D01E5]">
