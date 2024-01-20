@@ -378,7 +378,7 @@ const Footer: React.FC = () => {
         <div style={{borderBottom:"1px solid"}} className=" border-gray-400 w-full "></div>
       </div>
       {
-        Active === "/about" || Active === "/" || Active === "/politicalTalent" || Active === "/contactus" || Active === "/myprofile" || Active === "/iqpage" || Active === "/faqpage" ? <footer
+        Active === "/about" || Active === "/" || Active === "/politicalTalent" || Active === "/contactus" || Active === "/myprofile" || Active === "/iqpage" || Active === "/faqpage" || Active !=='/dashboard' ? <footer
           ref={footerRef}
           className="bg-[#151515] text-white pb-16 footer ">
 

@@ -48,6 +48,7 @@ interface Single {
 const AllCourses: React.FC = async () => {
 
     const totalCourse: Single[] = await db.course.findMany({
+        
         orderBy: {
             createdAt: "desc",
         },
@@ -72,7 +73,7 @@ const AllCourses: React.FC = async () => {
                     {/* <p className='flex items-center mt-2'><Users size={16} /> <span>42,048,955 learners</span> </p> */}
                 </div>
 
-                {/* <div>
+                <div>
                     <div className="bg-gray-100 p-8 rounded-md shadow-md">
                         <h2 className="text-2xl font-semibold mb-4">Search Courses</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -130,7 +131,7 @@ const AllCourses: React.FC = async () => {
                             Search
                         </button>
                     </div>
-                </div> */}
+                </div>
                 <div className="mt-6 mb-8  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4  gap-4  md:gap-8">
                     {
                         totalCourse && totalCourse?.length > 0 ?

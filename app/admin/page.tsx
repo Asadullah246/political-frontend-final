@@ -18,13 +18,28 @@ import { ToastSuccess,ToastError } from "@/components/shared/Others";
 import { usePathname, useRouter } from "next/navigation";
 import Adminmange from "@/components/admin/admins/BlogPage";
 import MentorManage from "@/components/admin/mentor/FaqManage";
+import AdminNavbar from "@/components/AdminNavbar/AdminNavbar";
+import { FaCircleInfo } from "react-icons/fa6";
+import { PiExamThin } from "react-icons/pi";
+import { FcFaq } from "react-icons/fc";
+import { FaBlogger } from "react-icons/fa";
+import { SiGenius } from "react-icons/si";
+import { PiChalkboardTeacherThin } from "react-icons/pi";
+import { TiContacts } from "react-icons/ti";
+import { FaRegNoteSticky } from "react-icons/fa6";
+import { IoNewspaperOutline } from "react-icons/io5";
+import { MdAdminPanelSettings } from "react-icons/md";
+
+
+
+
 
 const Page = () => {
   const router = useRouter();
   const [admin,setAdmin]=useState()
   useEffect(()=>{
     const usercheking =async()=>{
-      const cAdmin=JSON.parse(localStorage.getItem("admin"))
+      const cAdmin=JSON.parse(localStorage?.getItem("admin") || JSON.stringify({}))
       console.log("admin", cAdmin)
       if(cAdmin){
         const body={
@@ -53,16 +68,16 @@ const Page = () => {
 
   const [current, setCurrent] = useState("Website Info");
   const tabs = [
-    { label: "Website Info", icon: "website-icon" },
-    { label: "Politiq Test", icon: "politiq-icon" },
-    { label: "FAQ", icon: "faq-icon" },
-    { label: "Blogs", icon: "blogs-icon" },
-    { label: "Political Talents", icon: "political-talents-icon" },
-    { label: "Mentors", icon: "political-talents-icon" },
-    { label: "Contacts", icon: "testimonials-icon" },
-    { label: "Testimonials", icon: "testimonials-icon" },
-    { label: "NewsLetters", icon: "testimonials-icon" },
-    { label: "Admins", icon: "testimonials-icon" },
+    { label: "Website Info", icon: <FaCircleInfo /> },
+    { label: "Politiq Test", icon: <PiExamThin /> },
+    { label: "FAQ", icon: <FcFaq /> },
+    { label: "Blogs", icon: <FaBlogger /> },
+    { label: "Political Talents", icon: <SiGenius/> },
+    { label: "Mentors", icon: <PiChalkboardTeacherThin/> },
+    { label: "Contacts", icon:<TiContacts/> },
+    { label: "Testimonials", icon:<FaRegNoteSticky/> },
+    { label: "NewsLetters", icon: <IoNewspaperOutline/> },
+    { label: "Admins", icon: <MdAdminPanelSettings/> },
   ];
 
   const tabmanage = (text: string) => {
@@ -97,6 +112,7 @@ const Page = () => {
   };
   return (
     <div>
+      <AdminNavbar />
       <ToastContainer />
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -117,7 +133,7 @@ const Page = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu p-4 py-2  w-80 min-h-full bg-base-200 text-base-content">
+          <ul className="menu p-4 py-2  w-80 min-h-full text-gray-300 bg-[#671674] font-bold">
             {/* Sidebar content here */}
             <div className="py-2 px-4 mb-4  flex gap-2 items-center">
               {/* <Image
@@ -129,17 +145,18 @@ const Page = () => {
                 alt="user"
               /> */}
               <div>
-                <h4 className="text-lg leading-3 ">Admin</h4>
+                <h4 className="text-lg leading-3 ">User</h4>
                 <small>{admin?.email}</small>
               </div>
             </div>
             {tabs?.map((t, index) => {
               return (
-                <li key={index} onClick={() => setCurrent(t?.label)}>
-                  <a className={t?.label == current ? "text-blue-400" : ""}>
+                <div key={index} onClick={() => setCurrent(t?.label)} className={` flex py-4 px-4 rounded-md cursor-pointer items-center gap-2 ${t?.label == current ? 'bg-[#163c74]':""}`}>
+                  <a className={`${t?.label == current ? " text-gray-200 " : ""} text-[16px]`}>
                     {t?.label}
                   </a>
-                </li>
+                  <p className={`${t?.label == current ? " text-gray-200" : "text-gray-300"}  text-[16px] font-bold`}>{t?.icon}</p>
+                </div>
               );
             })}
           </ul>
