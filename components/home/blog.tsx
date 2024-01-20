@@ -15,35 +15,7 @@ interface BlogItem {
   id: string;
 }
 
-const Blogs: BlogItem[] = [
-  {
-    img: "/assets/bd.png",
-    date: "12th May 2023",
-    title: "Mapping Bangladesh's Political Crisis | Crisis Group",
-    description:
-      "Tortor neque sed tellus est eget dui id ante tristique tristique dolor.",
-    author: "Admin",
-    id: "1",
-  },
-  {
-    img: "/assets/india.png",
-    date: "21th Aug 2023",
-    title: "The Changing Landscape of Indian Politics | South Asia Journal",
-    description:
-      "The noted Indian historian Ramchandra Guha, has recently suggested that the Nehru-Gandhi family members must leave the Indian National Congress (INC)",
-    author: "Admin",
-    id: "2",
-  },
-  {
-    img: "/assets/africa.jpg",
-    date: "01 Oct 2023",
-    title: "The moral bankruptcy in African politics | This is Africa",
-    description:
-      "The ineptitude of African governments and regimes to provide their citizens basic and essential services i.e. public safety",
-    author: "Admin",
-    id: "3",
-  },
-];
+
 
 const Blog: React.FC = () => {
   const [currentData, setCurrentData] = useState();

@@ -16,6 +16,7 @@ import { UserButton } from "@clerk/nextjs";
 import { Contact, Grip, LayoutDashboard, MenuIcon, PenSquare, School, User, LucideLayoutDashboard, X } from "lucide-react";
 import Topbar from "../home/Topbar";
 import { MdArrowForward } from "react-icons/md";
+import SectionTittle from "../sectionTittle";
 
 
 
@@ -146,7 +147,7 @@ const Footer: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleScroll); 
     };
   }, []);
 
@@ -173,7 +174,7 @@ const Footer: React.FC = () => {
     {
       id: 1,
       text: "Create profile as constituency or Organization",
-      // link: "/myprofile"
+      link: "/myprofile"
     },
     {
       id: 2,
@@ -183,27 +184,27 @@ const Footer: React.FC = () => {
     {
       id: 3,
       text: "Managed Matchmaking",
-      // link: "/matchmaking"
+      link: "/myprofile"
     },
     {
       id: 4,
       text: "Need to arrange Training or Workshop or Seminar",
-      // link: "/training"
+      link: "/myprofile"
     },
     {
       id: 5,
       text: "Arrange Consultancy",
-      // link: "/consultancy"
+      link: "/myprofile"
     },
     {
       id: 6,
       text: "Take on Political Apprentices",
-      // link: "/apprentices"
+      link: "/myprofile"
     },
     {
       id: 7,
       text: "Partner with PolitIQ",
-      // link: "/partner"
+      link: "/myprofile"
     }
   ];
 
@@ -222,7 +223,7 @@ const Footer: React.FC = () => {
     {
       id: 3,
       text: "Apply for political internship",
-      // link: "/"
+      link: "/myprofile"
     },
     {
       id: 4,
@@ -257,6 +258,41 @@ const Footer: React.FC = () => {
   ];
 
   const othersNav = [
+
+    {
+      id: 1,
+      text: "Contribute with curated courses",
+      link: "/myprofile"
+    },
+    {
+      id: 2,
+      text: "Be a Mentor",
+      link: "/be-mentor"
+    },
+    {
+      id: 3,
+      text: "Take on Political Apprentices",
+      link: "/myprofile"
+    },
+    {
+      id: 4,
+      text: "Collaborate or partner with PolitIQ",
+      link: "/myprofile"    },
+    {
+      id: 5,
+      text: "Political Apprenticeship",
+      link: "/myprofile"    },
+    {
+      id: 6,
+      text: "Partner with PolitIQ",
+      link: "/myprofile"    },
+    {
+      id: 7,
+      text: "Build a Political Team/Staff",
+      link: "/myprofile"    },
+
+  ];
+  const navLinks=[
     {
       id: 9,
       text: "Home",
@@ -277,55 +313,20 @@ const Footer: React.FC = () => {
       text: "FAQ",
       link: "/faqpage"
     },
-    {
-      id: 1,
-      text: "Contribute with curated courses",
-      // link: "/contribute-courses"
-    },
-    {
-      id: 2,
-      text: "Be a Mentor",
-      link: "/be-mentor"
-    },
-    {
-      id: 3,
-      text: "Take on Political Apprentices",
-      // link: "/take-apprentices"
-    },
-    {
-      id: 4,
-      text: "Collaborate or partner with PolitIQ",
-      // link: "/collaborate-partner"
-    },
-    {
-      id: 5,
-      text: "Political Apprenticeship",
-      // link: "/political-apprenticeship"
-    },
-    {
-      id: 6,
-      text: "Partner with PolitIQ",
-      // link: "/partner-politiq"
-    },
-    {
-      id: 7,
-      text: "Build a Political Team/Staff",
-      // link: "/build-political-team"
-    },
-
-  ];
+  ]
 
   return (
     <>
-      <div className="    bg-[#151515] text-white ">
+      <div className=" p-6    bg-[#151515] text-white ">
         <div>
+        <SectionTittle title="  SERVICES" description="See Our All Services" span="" />
           <div
 
             // onMouseEnter={showDiv}
             // onMouseLeave={hideDiv}
-            className="w-full  top-[85px] z-10 px-3 pt-3 pb-6  left-0  grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 md:gap-6  " id="">
+            className="w-full  top-[85px] z-10 px-3  pb-6  left-0  grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 md:gap-6  " id="">
             <div>
-              <p className="text-lg font-semibold mt-0 lg:mt-0 "   >Constituency/Organization</p>
+              <p className="text-lg font-semibold mt-0 lg:mt-0 text-[#FFC400]"   >Constituency/Organization</p>
 
               {
                 constituency?.map((singleC, index) => {
@@ -339,7 +340,7 @@ const Footer: React.FC = () => {
               }
             </div>
             <div>
-              <p className="text-lg font-semibold  mt-8 lg:mt-0  "  >Politician (new or experienced)</p>
+              <p className="text-lg font-semibold  mt-8 lg:mt-0  text-[#FFC400]"  >Politician (new or experienced)</p>
 
               {
                 politician?.map((singleC, index) => {
@@ -354,7 +355,7 @@ const Footer: React.FC = () => {
 
             </div>
             <div>
-              <p className="text-lg font-semibold  mt-8 lg:mt-0 "  >Others</p>
+              <p className="text-lg font-semibold  mt-8 lg:mt-0 text-[#FFC400]"  >Others</p>
 
               {
                 othersNav?.map((singleC, index) => {
@@ -399,11 +400,7 @@ const Footer: React.FC = () => {
                   </div>
                 </div>
                 <p className="mt-4 text-gray-400  ">{info?.description}</p>
-
-              </div>
-              <div className="ml-6 lg:ml-0 lg:col-span-4 w-full col-span-7">
-              <div className="">
-                  <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 mt-6 ">
                     <a href="https://facebook.com" target="_blank" className="bg-[#4D4E51] p-3  w-fit rounded-[50%]">
                       <Facebook strokeWidth={0.5} size={16} style={{ fill: "white" }} className="text-white " />
 
@@ -416,6 +413,24 @@ const Footer: React.FC = () => {
                     <a href="https://instagram.com" target="_blank" className="bg-[#4D4E51] p-3  w-fit rounded-[50%]">
                       <Instagram strokeWidth={3} size={16} style={{ fill: "black" }} className="text-white " />
                     </a>
+                  </div>
+
+              </div>
+              <div className="ml-6 lg:ml-0 lg:col-span-4 w-full col-span-7">
+              <div className="">
+              <h2 className="text-2xl font-bold text-white">Links</h2>
+                  <div className="mt-4 ">
+                  {
+                navLinks?.map((singleC, index) => {
+                  return (
+                    <a key={index} href={singleC?.link} className={`ml-2 mt-2 flex items-start gap-2 hover:text-[#FFC400] transition ease-in-out duration-300  ${!(singleC?.link) ? "opacity-50 cursor-not-allowed" : ""}`}>
+                      <MdArrowForward class="block mt-[5px] " style={{}} />
+                      <span className="">{singleC?.text}</span>
+                    </a>
+                  )
+                })
+              }
+
                   </div>
                 </div>
 

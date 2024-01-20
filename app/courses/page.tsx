@@ -9,6 +9,7 @@ const Courses: React.FC = () => {
             title="Courses" subtext='Courses' />
             <div className="container">
             <AllCourses></AllCourses>
+
             </div>
 
 
