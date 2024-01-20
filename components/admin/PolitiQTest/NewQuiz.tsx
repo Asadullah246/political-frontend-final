@@ -131,7 +131,7 @@ const NewQuiz: React.FC = () => {
               type="text"
               value={question.title}
               onChange={(e) => handleQuestionChange(questionIndex, 'title', e.target.value)}
-              className="border p-2 w-full mb-2"
+              className="input_primary mb-2"
               placeholder="Enter the question"
             />
             {question.quiz.map((answer, answerIndex) => (
@@ -140,7 +140,7 @@ const NewQuiz: React.FC = () => {
                 type="text"
                 value={answer.text}
                 onChange={(e) => handleAnswerChange(questionIndex, answerIndex, e.target.value)}
-                className="border p-2 w-full mb-2 ml-4"
+                className="input_primary mb-2 ml-4"
                 placeholder={`Enter Answer ${answerIndex + 1}`}
               />
             ))}

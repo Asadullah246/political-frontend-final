@@ -61,7 +61,7 @@ const NewBlog = () => {
 
   return (
     <div>
-      <div className="bg-white min-h-screen flex items-center justify-start ">
+      <div className="bg-white  flex items-center justify-start ">
         <div className="md:ml-8 bg-gray-100 p-8 shadow-md rounded-md">
           <h1 className="text-3xl font-bold mb-4  ">
             Blog Information form
@@ -83,7 +83,7 @@ const NewBlog = () => {
                 name="email"
                 value={formValues.email}
                 onChange={handleChange}
-                className="border p-2 w-full"
+                className="input_primary"
                 required={false}
               />
             </div>
@@ -101,7 +101,7 @@ const NewBlog = () => {
                 name="password"
                 value={formValues.password}
                 onChange={handleChange}
-                className="border p-2 w-full"
+                className="input_primary"
               />
             </div>
 

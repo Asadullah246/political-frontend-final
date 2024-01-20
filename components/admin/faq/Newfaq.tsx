@@ -79,7 +79,7 @@ const NewFaq: React.FC = () => {
               type="text"
               value={faq.question}
               onChange={(e) => handleQuestionChange(faqIndex, e.target.value)}
-              className="border p-2 w-full mb-2"
+              className="input_primary mb-2"
               placeholder="Enter the question"
             />
             <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -88,7 +88,7 @@ const NewFaq: React.FC = () => {
             <textarea
               value={faq.answer}
               onChange={(e) => handleAnswerChange(faqIndex, e.target.value)}
-              className="border p-2 w-full mb-2 h-24"
+              className="input_primary mb-2 h-24"
               placeholder="Enter the answer"
             />
           </div>
