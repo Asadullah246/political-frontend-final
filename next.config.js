@@ -15,7 +15,7 @@
 module.exports = {
   // Your existing configuration options
   images: {
-    domains: ['localhost','utfs.io', 'localhost:5000', 'http://localhost:5000', 'ui-avatars.com','http://backend.politiq-global.com',"backend.politiq-global.com","backend.politiq-global.comundefined"], 
+    domains: ['localhost','utfs.io','backend.politiq-global.comnull', 'localhost:5000', 'http://localhost:5000', 'ui-avatars.com','http://backend.politiq-global.com',"backend.politiq-global.com","backend.politiq-global.comundefined"],
   },
   typescript: {
     ignoreBuildErrors: true,

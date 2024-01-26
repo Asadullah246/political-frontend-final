@@ -203,7 +203,7 @@ const Navbar: React.FC = () => {
     {
       id: 1,
       text: "Create my profile as constituency or Organization",
-      // link: "/myprofile"
+      link: "/myprofile"
     },
     {
       id: 2,
@@ -213,27 +213,27 @@ const Navbar: React.FC = () => {
     {
       id: 3,
       text: "Managed Matchmaking",
-      // link: "/matchmaking"
+      link: "/myprofile"
     },
     {
       id: 4,
       text: "Need to arrange Training or Workshop or Seminar",
-      // link: "/training"
+      link: "/myprofile"
     },
     {
       id: 5,
       text: "Arrange Consultancy",
-      // link: "/consultancy"
+      link: "/myprofile"
     },
     {
       id: 6,
       text: "Take on Political Apprentices",
-      // link: "/apprentices"
+      link: "/myprofile"
     },
     {
       id: 7,
       text: "Partner with PolitIQ",
-      // link: "/partner"
+      link: "/myprofile"
     }
   ];
 
@@ -251,7 +251,7 @@ const Navbar: React.FC = () => {
     {
       id: 3,
       text: "Apply for political internship",
-      // link: "/"
+      link: "/myprofile"
     },
     {
       id: 4,
@@ -289,7 +289,7 @@ const Navbar: React.FC = () => {
     {
       id: 1,
       text: "I want to contribute with curated courses",
-      // link: "/contribute-courses"
+      link: "/myprofile"
     },
     {
       id: 2,
@@ -299,7 +299,7 @@ const Navbar: React.FC = () => {
     {
       id: 3,
       text: "I want to take on Political Apprentices",
-      // link: "/take-apprentices"
+      link: "/myprofile"
     },
     {
       id: 4,
@@ -309,17 +309,17 @@ const Navbar: React.FC = () => {
     {
       id: 5,
       text: "I want to go on Political Apprenticeship",
-      // link: "/political-apprenticeship"
+      link: "/myprofile"
     },
     {
       id: 6,
       text: "I want to Partner with PolitIQ",
-      // link: "/partner-politiq"
+      link: "/myprofile"
     },
     {
       id: 7,
       text: "I need PolitIQ to build me a Political Team/Staff",
-      // link: "/build-political-team"
+      link: "/myprofile"
     },
     {
       id: 8,
@@ -342,7 +342,7 @@ const Navbar: React.FC = () => {
             <div className="flex h-full lg:w-[30%] w-[40%]">
               <a href="/">   <div className={`bg-[#FFC400] pr-12 h-full flex items-center lg:pl-4 pl-2 ${styles.logoDiv}`}>
                 {
-                  info?.logoImage && 
+                  info?.logoImage &&
                   <Image alt="Logo" height={50} width={50} src={`${base}${info?.logoImage}`} />
 
                 }
@@ -529,9 +529,9 @@ const Navbar: React.FC = () => {
                 ref={visibleDivRef}
                 // onMouseEnter={showDiv}
                 // onMouseLeave={hideDiv}
-                className="w-full absolute top-[85px] z-10 px-3 pt-3 pb-6  left-0 bg-white grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 md:gap-6  " id="">
+                className="w-full absolute top-[85px] z-10 px-3 pt-3 pb-6  left-0 bg-white grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 md:gap-6  bg-[black]  text-white  " id="">
                 <div>
-                  <p className="text-lg font-semibold  "  >I am a Constituency/Organization</p>
+                  <p className="text-lg font-semibold  text-[#FFC400] "  >I am a Constituency/Organization</p>
 
                   {
                     constituency?.map((singleC, index) => {
@@ -545,7 +545,7 @@ const Navbar: React.FC = () => {
                   }
                 </div>
                 <div>
-                  <p className="text-lg font-semibold  "  >I am a politician (new or experienced)</p>
+                  <p className="text-lg font-semibold  text-[#FFC400]  "  >I am a politician (new or experienced)</p>
 
                   {
                     politician?.map((singleC, index) => {
@@ -559,8 +559,8 @@ const Navbar: React.FC = () => {
                   }
 
                 </div>
-                <div>
-                  {/* <p className="text-lg font-semibold  "  >I am a Constituency/Organization</p> */}
+                <div className=""> 
+                  <p className="text-lg font-semibold text-[#FFC400]  "  >Others</p>
 
                   {
                     othersNav?.map((singleC, index) => {
