@@ -86,7 +86,22 @@ const BasicInfo: React.FC<Props> = ({
     return null;
   }
   return (
-    <div className=" grid grid-cols-12  lg:gap-12 mt-[10px]">
+  <div>
+
+    {/* buttons  */}
+   {/* <div>
+    <h4 className="text-xl text-blue-500 ">You may want</h4>
+   <div>
+   <div className="overflow-hidden w-fit ">
+            <Button
+              onClick={() => document.getElementById('my_modal_4').showModal()}
+              className="relative z-[5] px-16  bg-blue-100 h-[30px] text-blue-700   hover:text-white" variant={'hover'}>
+              Edit Profile
+            </Button>
+          </div>
+    </div>
+   </div> */} 
+      <div className=" grid grid-cols-12  lg:gap-12 mt-[10px]">
       {/* -----work----- */}
       <div className=" lg:col-span-3 col-span-12 w-[100%]">
         <div className="border-b w-full mb-[20px]">
@@ -134,7 +149,7 @@ const BasicInfo: React.FC<Props> = ({
           <span className=" uppercase text-gray-500 font-[600] block mb-1"> Skills </span>
         </div>
         <div>
-          <h2 className=" text-gray-500 text-[14px]"> 
+          <h2 className=" text-gray-500 text-[14px]">
             {info?.skills}
           </h2>
           {/* {
@@ -206,6 +221,8 @@ const BasicInfo: React.FC<Props> = ({
       </div>
 
     </div>
+
+  </div>
   )
 }
 
