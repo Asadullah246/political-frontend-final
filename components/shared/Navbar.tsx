@@ -529,7 +529,7 @@ const Navbar: React.FC = () => {
                 ref={visibleDivRef}
                 // onMouseEnter={showDiv}
                 // onMouseLeave={hideDiv}
-                className="w-full absolute top-[85px] z-10 px-3 pt-3 pb-6  left-0 bg-white grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 md:gap-6  bg-[black]  text-white  " id="">
+                className="w-full absolute top-[85px] z-10 px-3 pt-6  pb-8  left-0  grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 md:gap-6  bg-[black]   text-white  " id="">
                 <div>
                   <p className="text-lg font-semibold  text-[#FFC400] "  >I am a Constituency/Organization</p>
 
@@ -559,7 +559,7 @@ const Navbar: React.FC = () => {
                   }
 
                 </div>
-                <div className=""> 
+                <div className="">
                   <p className="text-lg font-semibold text-[#FFC400]  "  >Others</p>
 
                   {
