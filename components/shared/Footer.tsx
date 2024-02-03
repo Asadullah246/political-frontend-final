@@ -21,7 +21,7 @@ import SectionTittle from "../sectionTittle";
 
 
 
-interface DOMRectReadOnly {
+interface DOMRectReadOnly { 
   bottom: number;
   height: number;
   left: number;
@@ -147,7 +147,7 @@ const Footer: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll); 
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 

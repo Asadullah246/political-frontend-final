@@ -1,8 +1,26 @@
 import { useUser } from "@clerk/nextjs";
-import { Button } from "../ui/button";
+// import { Button } from "../ui/button";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { base } from "../shared/apis/api";
+
+import { CopyIcon } from "@radix-ui/react-icons"
+
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+
+
 
 interface Experience {
   id: number;
@@ -71,6 +89,7 @@ const BasicInfo: React.FC<Props> = ({
   }]
 
   const [info, setInfo] = useState<InfoType>()
+  const [modalName, setModalName]=useState()
   useEffect(() => {
     axios.get(`${base}/api/v1/user/${id}`)
       .then(data => {
@@ -86,115 +105,186 @@ const BasicInfo: React.FC<Props> = ({
     return null;
   }
   return (
-  <div>
+    <div>
 
-    {/* buttons  */}
-   {/* <div>
-    <h4 className="text-xl text-blue-500 ">You may want</h4>
-   <div>
-   <div className="overflow-hidden w-fit ">
+      {/* buttons  */}
+      <div>
+
+
+
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline">Share</Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>Share link</DialogTitle>
+              <DialogDescription>
+                Anyone who has this link will be able to view this.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex items-center space-x-2">
+              <div className="grid flex-1 gap-2">
+                <Label htmlFor="link" className="sr-only">
+                  Link
+                </Label>
+                <Input
+                  id="link"
+                  defaultValue="https://ui.shadcn.com/docs/installation"
+                  readOnly
+                />
+              </div>
+              <Button type="submit" size="sm" className="px-3">
+                <span className="sr-only">Copy</span>
+                <CopyIcon className="h-4 w-4" />
+              </Button>
+            </div>
+            <DialogFooter className="sm:justify-start">
+              <DialogClose asChild>
+                <Button type="button" variant="secondary">
+                  Close
+                </Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+
+
+
+        <h4 className="text-xl text-black ">You may want : </h4>
+        <div className="mt-4 flex flex-wrap gap-4 mb-8  ">
+          <div className="overflow-hidden w-fit ">
             <Button
               onClick={() => document.getElementById('my_modal_4').showModal()}
-              className="relative z-[5] px-16  bg-blue-100 h-[30px] text-blue-700   hover:text-white" variant={'hover'}>
-              Edit Profile
+              className="relative z-[5] px-6  bg-blue-100 h-[30px] text-blue-700   hover:text-white" variant={'hover'}>
+              POLITICAL TALENT/APPRENTICE
             </Button>
           </div>
-    </div>
-   </div> */} 
-      <div className=" grid grid-cols-12  lg:gap-12 mt-[10px]">
-      {/* -----work----- */}
-      <div className=" lg:col-span-3 col-span-12 w-[100%]">
-        <div className="border-b w-full mb-[20px]">
-          <span className=" uppercase text-gray-500 font-[600] block mb-1">About</span>
+          <div className="overflow-hidden w-fit ">
+            <Button
+              onClick={() => document.getElementById('my_modal_4').showModal()}
+              className="relative z-[5] px-6  bg-blue-100 h-[30px] text-blue-700   hover:text-white" variant={'hover'}>
+              EXPERIENCED POLITICIAN
+            </Button>
+          </div>
+          <div className="overflow-hidden w-fit ">
+            <Button
+              onClick={() => document.getElementById('my_modal_4').showModal()}
+              className="relative z-[5] px-6  bg-blue-100 h-[30px] text-blue-700   hover:text-white" variant={'hover'}>
+              MENTOR
+            </Button>
+          </div>
+          <div className="overflow-hidden w-fit ">
+            <Button
+              onClick={() => document.getElementById('my_modal_4').showModal()}
+              className="relative z-[5] px-6  bg-blue-100 h-[30px] text-blue-700   hover:text-white" variant={'hover'}>
+              ORGANISATION
+            </Button>
+          </div>
+          <div className="overflow-hidden w-fit ">
+            <Button
+              onClick={() => document.getElementById('my_modal_4').showModal()}
+              className="relative z-[5] px-6  bg-blue-100 h-[30px] text-blue-700   hover:text-white" variant={'hover'}>
+              CONSTITUENCY
+            </Button>
+          </div>
         </div>
-        <div className="mb-7">
-        <span className=" text-gray-500 font-[600]">
+      </div>
+      <div className=" grid grid-cols-12  lg:gap-12 mt-[10px]">
+        {/* -----work----- */}
+        <div className=" lg:col-span-3 col-span-12 w-[100%]">
+          <div className="border-b w-full mb-[20px]">
+            <span className=" uppercase text-gray-500 font-[600] block mb-1">About</span>
+          </div>
+          <div className="mb-7">
+            <span className=" text-gray-500 font-[600]">
               Activity in PolitQ
             </span> <br />
 
             <span className=" text-gray-500 text-[14px]">
-{info?.accounttype=="teacher" && "Teacher"}, {" "}
-{info?.talent=="approved" && "Talent"},
+              {info?.accounttype == "teacher" && "Teacher"}, {" "}
+              {info?.talent == "approved" && "Talent"},
 
-          </span>
-        </div>
-
-        <div className=" mb-[30px]">
-          <div className=" flex gap-5 items-center mb-1">
-            <span className=" text-gray-500 font-[500]">
-              Description
             </span>
-
           </div>
-          <span className=" text-gray-500 text-[14px]">
-            {info?.description?.slice(0, 120)}
-            {/* {
+
+          <div className=" mb-[30px]">
+            <div className=" flex gap-5 items-center mb-1">
+              <span className=" text-gray-500 font-[500]">
+                Description
+              </span>
+
+            </div>
+            <span className=" text-gray-500 text-[14px]">
+              {info?.description?.slice(0, 120)}
+              {/* {
               exits ?'Add Your Bio':`${userdata?.description.slice(0, 120)}...`
             } */}
-          </span>
-        </div>
-        <div className=" mb-[30px]">
-          <div className=" flex gap-5 items-center mb-1">
-            <span className=" text-gray-500 font-[500]">
-              {/* { info?.title} */}
             </span>
-
           </div>
-          <span className=" text-gray-500 text-[14px]">
-            {/* {info?.description?.slice(0, 120)} */}
+          <div className=" mb-[30px]">
+            <div className=" flex gap-5 items-center mb-1">
+              <span className=" text-gray-500 font-[500]">
+                {/* { info?.title} */}
+              </span>
 
-          </span>
-        </div>
-        <div className="border-b w-full mb-[10px]">
-          <span className=" uppercase text-gray-500 font-[600] block mb-1"> Skills </span>
-        </div>
-        <div>
-          <h2 className=" text-gray-500 text-[14px]">
-            {info?.skills}
-          </h2>
-          {/* {
+            </div>
+            <span className=" text-gray-500 text-[14px]">
+              {/* {info?.description?.slice(0, 120)} */}
+
+            </span>
+          </div>
+          <div className="border-b w-full mb-[10px]">
+            <span className=" uppercase text-gray-500 font-[600] block mb-1"> Skills </span>
+          </div>
+          <div>
+            <h2 className=" text-gray-500 text-[14px]">
+              {info?.skills}
+            </h2>
+            {/* {
              exits ?'Add Your Skill' : userdata?.skill.map((exp:any) => (
               <h2 key={exp.id} className=" text-gray-500 text-[14px]">
                 {exp.title}
               </h2>
             ))
           } */}
+          </div>
         </div>
-      </div>
-      {/* -----work----- */}
-      {/* ------contact info---- */}
-      <div className=" lg:col-span-9 col-span-12 w-[100%]">
-        <div className="w-full mb-[30px]">
-          <span className=" uppercase text-gray-500 font-[600] block mb-1 lg:mt-0 mt-4">contact information</span>
-        </div>
-        <div className=" w-full mb-[30px]">
+        {/* -----work----- */}
+        {/* ------contact info---- */}
+        <div className=" lg:col-span-9 col-span-12 w-[100%]">
+          <div className="w-full mb-[30px]">
+            <span className=" uppercase text-gray-500 font-[600] block mb-1 lg:mt-0 mt-4">contact information</span>
+          </div>
+          <div className=" w-full mb-[30px]">
 
-          <div className=" flex mb-[15px] gap-8">
-            <span className=" font-[600] text-[16px] text-gray-500">Phone:</span>
-            <span className={` text-black `}>
-              {
-                info?.phone
-              }
-            </span>
-          </div>
-          <div className=" flex mb-[15px] gap-8">
-            <span className=" font-[600] text-[16px] text-gray-500">Email:</span>
-            <span className={` text-black `}>
-              {
-                userdata?.primaryEmailAddress?.emailAddress
-              }
-            </span>
-          </div>
-          <div className=" flex mb-[15px] gap-8">
-            <span className=" font-[600] text-[16px] text-gray-500">Address:</span>
-            <span className={` text-black `}>
-              {
-               info?.address
-              }
-            </span>
-          </div>
+            <div className=" flex mb-[15px] gap-8">
+              <span className=" font-[600] text-[16px] text-gray-500">Phone:</span>
+              <span className={` text-black `}>
+                {
+                  info?.phone
+                }
+              </span>
+            </div>
+            <div className=" flex mb-[15px] gap-8">
+              <span className=" font-[600] text-[16px] text-gray-500">Email:</span>
+              <span className={` text-black `}>
+                {
+                  userdata?.primaryEmailAddress?.emailAddress
+                }
+              </span>
+            </div>
+            <div className=" flex mb-[15px] gap-8">
+              <span className=" font-[600] text-[16px] text-gray-500">Address:</span>
+              <span className={` text-black `}>
+                {
+                  info?.address
+                }
+              </span>
+            </div>
 
-          {/* {
+            {/* {
             ContactInfo.map((info) => (
               <div key={info.id} className=" flex mb-[15px] gap-8">
                 <span className=" font-[600] text-[16px] text-gray-500">{info.title}:</span>
@@ -207,22 +297,22 @@ const BasicInfo: React.FC<Props> = ({
             ))
           } */}
 
+          </div>
+          {
+            info?.signingId ? <div className="overflow-hidden w-[40%]">
+              <Button
+                onClick={() => document.getElementById('my_modal_4').showModal()}
+                className="relative z-[5] bg-blue-100 h-[40px] text-blue-700 w-full  hover:text-white" variant={'hover'}>
+                Edit Profile
+              </Button>
+            </div> : null
+          }
+          {/* ------contact info---- */}
         </div>
-        {
-          info?.signingId ? <div className="overflow-hidden w-[40%]">
-            <Button
-              onClick={() => document.getElementById('my_modal_4').showModal()}
-              className="relative z-[5] bg-blue-100 h-[40px] text-blue-700 w-full  hover:text-white" variant={'hover'}>
-              Edit Profile
-            </Button>
-          </div> : null
-        }
-        {/* ------contact info---- */}
+
       </div>
 
     </div>
-
-  </div>
   )
 }
 
