@@ -80,3 +80,67 @@ I have raised 10 points above needing your attention. Please carefully look at f
 
 LET ME BE CLEAR.
 I am not saying that you replace the TOP (HEADER) MENU where you already have "About us".. "PolitIQ Test", etc with "WHAT DO YOU WANT TO DO" and it's drop down menu. Rather, provide a separate portion on the landing page for the "WHAT DO YOU WHAT TO DO" with it's drop down menu comprising 11 options of what can be done. I suggested that you can REPLACE the area where you have pictures of what's happening in countries from Asia and Africa at middle of landing page with this "WHAT DO YOU WANT TO DO" and drop down menu" + samples courses and services scrolling past..
+
+
+
+// import { NextResponse } from "next/server";
+// require('dotenv').config();
+// const mysql = require('mysql2/promise'); // Using promise-based version
+
+// const pool = mysql.createPool(process.env.DATABASE_SERVER);
+// console.log('Connected to PlanetScale!');
+
+// export async function GET(request) {
+//   console.log("calling this get method");
+
+//   const data = [
+//     {
+//       name: "dkjfd",
+//       use: "djfd",
+//     },
+//     {
+//       name: "dkjfdfd",
+//       use: "ddffjfd",
+//     },
+//   ];
+
+//   try {
+//     const connection = await pool.getConnection();
+//     const res = await connection.query('SELECT * FROM Category');
+//     connection.release();
+//     console.log("re", res)
+//     // return NextResponse.json(data);
+//   } catch (error) {
+//     console.error(error);
+//     return NextResponse.json({ message: error }, { status: 500 });
+//   }
+// }
+
+// import { PrismaClient } from "@prisma/client";
+
+// const prisma = new PrismaClient();
+
+// export async function GET(request) {
+//   console.log("calling this get method");
+
+//   try {
+//     const categories = await prisma.course.findMany();
+//     return NextResponse.json(categories);
+//   } catch (error) {
+//     console.error('Error fetching data from Prisma:', error);
+//     return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+//   }
+// }
+
+
+// export function POST(request) {
+//   // Your POST logic here
+// }
+
+// export function PUT(request) {
+//   // Your PUT logic here
+// }
+
+// export function DELETE(request) {
+//   // Your DELETE logic here
+// }

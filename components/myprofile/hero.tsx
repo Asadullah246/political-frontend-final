@@ -533,7 +533,7 @@ const Hero = ({
                 <div className=" w-full  lg:h-[240px] grid grid-cols-12 lg:gap-12 gap-4">
                     {/* ------user img----- */}
                     <div className=" h-[100%] lg:col-span-3 col-span-5">
-                        <img src={userImg}
+                        <img src={userImg? userImg : ""} 
                             alt={fullName ? fullName : 'user'}
                             className=' rounded-sm w-[100%] h-[100%]' />
                     </div>

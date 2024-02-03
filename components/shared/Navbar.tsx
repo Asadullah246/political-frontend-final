@@ -82,7 +82,7 @@ const routes: Route[] = [
   {
     label: 'What you want ?',
     icon: User,
-    href: '/',
+    href: '#', 
     color: 'text-blue-500',
     activeColor: 'text-blue-700'
   },
