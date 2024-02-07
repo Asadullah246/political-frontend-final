@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import Modal from "./modal";
 
 
 
@@ -100,7 +101,16 @@ const BasicInfo: React.FC<Props> = ({
         console.log("err", error)
       })
   }, [id])
-
+  const Apprentice = [
+    { defaultValue: 'ParticipantName', readOnly: true },
+    // Add more custom input configurations as needed
+  ];
+  const ORGANISATION = [ 
+    { defaultValue: 'Organisation Name', readOnly: true },
+    {defaultValue: 'Organisation Detiles', readOnly: true},
+    {defaultValue: 'Organisation Address', readOnly: true}
+    // Add more custom input configurations as needed
+  ];
   if (!isLoaded || !isSignedIn) {
     return null;
   }
@@ -154,40 +164,57 @@ const BasicInfo: React.FC<Props> = ({
 
         <h4 className="text-xl text-black ">You may want : </h4>
         <div className="mt-4 flex flex-wrap gap-4 mb-8  ">
+          
           <div className="overflow-hidden w-fit ">
-            <Button
-              onClick={() => document.getElementById('my_modal_4').showModal()}
-              className="relative z-[5] px-6  bg-blue-100 h-[30px] text-blue-700   hover:text-white" variant={'hover'}>
-              POLITICAL TALENT/APPRENTICE
-            </Button>
+          <div>
+          <Modal
+        triggerButtonText="Plolitical Talent/Apprentice"
+        title="Plolitical Talent/Apprentice"
+        description="Elevating leaders, forging political excellence in dynamic dialogues"
+        customInputs={Apprentice}
+      />
+          </div>
           </div>
           <div className="overflow-hidden w-fit ">
-            <Button
-              onClick={() => document.getElementById('my_modal_4').showModal()}
-              className="relative z-[5] px-6  bg-blue-100 h-[30px] text-blue-700   hover:text-white" variant={'hover'}>
-              EXPERIENCED POLITICIAN
-            </Button>
+          <div>
+          <Modal
+        triggerButtonText=" EXPERIENCED POLITICIAN"
+        title="Update your profile"
+        description="Add your political talent or apprentice details"
+        customInputs={Apprentice}
+           />
+          </div>
           </div>
           <div className="overflow-hidden w-fit ">
-            <Button
-              onClick={() => document.getElementById('my_modal_4').showModal()}
-              className="relative z-[5] px-6  bg-blue-100 h-[30px] text-blue-700   hover:text-white" variant={'hover'}>
-              MENTOR
-            </Button>
+          <div>
+          <Modal
+        triggerButtonText="MENTOR"
+        title="Update your profile"
+        description="Add your political talent or apprentice details"
+        customInputs={Apprentice}
+           />
+          </div>
+           
           </div>
           <div className="overflow-hidden w-fit ">
-            <Button
-              onClick={() => document.getElementById('my_modal_4').showModal()}
-              className="relative z-[5] px-6  bg-blue-100 h-[30px] text-blue-700   hover:text-white" variant={'hover'}>
-              ORGANISATION
-            </Button>
+          <div>
+          <Modal
+        triggerButtonText=" ORGANISATION"
+        title="ORGANISATION"
+        description="Add your ORGANISATION details"
+        customInputs={ORGANISATION}
+           />
+          </div>
           </div>
           <div className="overflow-hidden w-fit ">
-            <Button
-              onClick={() => document.getElementById('my_modal_4').showModal()}
-              className="relative z-[5] px-6  bg-blue-100 h-[30px] text-blue-700   hover:text-white" variant={'hover'}>
-              CONSTITUENCY
-            </Button>
+          <div>
+          <Modal
+        triggerButtonText="CONSTITUENCY"
+        title="Update your profile"
+        description="Add your political talent or apprentice details"
+        customInputs={Apprentice}
+           />
+          </div>
           </div>
         </div>
       </div>
