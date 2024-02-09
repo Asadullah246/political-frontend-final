@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 
-export const base ='http://localhost:5000'  
+export const base ='http://localhost:5000'
 // export const base ='http://backend.politiq-global.com'
 
 
@@ -47,7 +47,7 @@ export const deleteAdmin = async (id:any) => {
     const res = await axios.delete(`${base}/api/v1/admin/${id}`, { headers });
     return res;
   } catch ( {message} ) {
-    console.log(message);
+    console.log(message); 
   }
 };
 
