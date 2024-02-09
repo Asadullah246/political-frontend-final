@@ -90,6 +90,7 @@ const BasicInfo: React.FC<Props> = ({
   }]
 
   const [info, setInfo] = useState<InfoType>()
+  console.log("info", info)
   const [modalName, setModalName]=useState()
   useEffect(() => {
     axios.get(`${base}/api/v1/user/${id}`)
@@ -105,6 +106,25 @@ const BasicInfo: React.FC<Props> = ({
     { defaultValue: 'ParticipantName', readOnly: true },
     // Add more custom input configurations as needed
   ];
+  const PoliticalTalent = [
+    { defaultValue: 'Political Talent Name', readOnly: true,value:info?.name },
+    { defaultValue: 'skills', readOnly: true },
+    { defaultValue: 'experiences', readOnly: true },
+    { defaultValue: 'location', readOnly: true},
+    { defaultValue: 'current designation', readOnly: true}
+    // Add more custom input configurations as needed
+  ]
+  const ExperiencePolitical =[
+    { defaultValue: 'Name', readOnly: true,
+    value:info?.name},
+    { defaultValue: 'Skills', readOnly: true },
+    { defaultValue: 'Experiences ', readOnly: true },
+    { defaultValue: 'Address', readOnly: true },
+    { defaultValue: 'Current designation', readOnly: true },
+    { defaultValue: 'Descritpion ', readOnly: true }
+
+  ]
+
   const ORGANISATION = [ 
     { defaultValue: 'Organisation Name', readOnly: true },
     {defaultValue: 'Organisation Detiles', readOnly: true},
@@ -171,7 +191,7 @@ const BasicInfo: React.FC<Props> = ({
         triggerButtonText="Plolitical Talent/Apprentice"
         title="Plolitical Talent/Apprentice"
         description="Elevating leaders, forging political excellence in dynamic dialogues"
-        customInputs={Apprentice}
+        customInputs={PoliticalTalent}
       />
           </div>
           </div>
@@ -181,7 +201,7 @@ const BasicInfo: React.FC<Props> = ({
         triggerButtonText=" EXPERIENCED POLITICIAN"
         title="Update your profile"
         description="Add your political talent or apprentice details"
-        customInputs={Apprentice}
+        customInputs={ExperiencePolitical}
            />
           </div>
           </div>
@@ -191,7 +211,7 @@ const BasicInfo: React.FC<Props> = ({
         triggerButtonText="MENTOR"
         title="Update your profile"
         description="Add your political talent or apprentice details"
-        customInputs={Apprentice}
+        customInputs={ExperiencePolitical}
            />
           </div>
            
@@ -212,7 +232,7 @@ const BasicInfo: React.FC<Props> = ({
         triggerButtonText="CONSTITUENCY"
         title="Update your profile"
         description="Add your political talent or apprentice details"
-        customInputs={Apprentice}
+        customInputs={ORGANISATION}
            />
           </div>
           </div>
