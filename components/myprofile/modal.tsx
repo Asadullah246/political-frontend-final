@@ -38,13 +38,7 @@ const Modal: React.FC<ModalProps> = ({
 // this function is used to get the data from the input fields
 // this function is used to get the data from the input fields
  const GetData = ()=>{
-    const data = customInputs.map((input, index) => {
-      return {
-        ...input,
-        value: (document.getElementById(index.toString()) as HTMLInputElement).value,
-      };
-    });
-    setData(data);
+   console.log(data);
  }
 
 
@@ -67,6 +61,15 @@ const Modal: React.FC<ModalProps> = ({
                placeholder= {input.defaultValue}
                 type= {input.readOnly ? "text" : "text"}
                 defaultValue={input.value}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setData((prev) => {
+                    const newData = [...prev];
+                    newData[index] = { ...newData[index], value };
+                    return newData;
+                  });
+                
+                }}
               />
             </div>
           </div>
