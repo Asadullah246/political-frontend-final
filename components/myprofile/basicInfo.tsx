@@ -91,10 +91,13 @@ const BasicInfo: React.FC<Props> = ({
   }]
 
   const [info, setInfo] = useState<InfoType>()
-  const [tal, setTal]=useState([])
-  const [exp, setexp]=useState([])
+  const [tal, setTal] = useState([])
+  const [exp, setexp] = useState([])
+  const [mentor, setmentor] = useState([])
+  const [org, setorg] = useState([])
+  const [cons, setcons] = useState([])
 
-  const [modalName, setModalName]=useState()
+  const [modalName, setModalName] = useState()
   useEffect(() => {
     axios.get(`${base}/api/v1/user/${id}`)
       .then(data => {
@@ -121,50 +124,90 @@ const BasicInfo: React.FC<Props> = ({
     axios.get(`${base}/api/v1/experience`)
       .then(data => {
         // console.log("data", data?.data?.data)
-        setexp(data?.data?.data) 
+        setexp(data?.data?.data)
       })
       .catch(error => {
         console.log("err", error)
       })
   }, [id])
   console.log("experience", exp)
+  useEffect(() => {
+    axios.get(`${base}/api/v1/mentor`)
+      .then(data => {
+        // console.log("data", data?.data?.data)
+        setmentor(data?.data?.data)
+      })
+      .catch(error => {
+        console.log("err", error)
+      })
+  }, [id])
+  console.log("mentor", mentor)
+
+  useEffect(() => {
+    axios.get(`${base}/api/v1/organization`)
+      .then(data => {
+        // console.log("data", data?.data?.data)
+        setorg(data?.data?.data)
+      })
+      .catch(error => {
+        console.log("err", error)
+      })
+  }, [id])
+  console.log("organization", org)
+
+  useEffect(() => {
+    axios.get(`${base}/api/v1/constituenly`)
+      .then(data => {
+        // console.log("data", data?.data?.data)
+        setcons(data?.data?.data)
+      })
+      .catch(error => {
+        console.log("err", error)
+      })
+  }, [id])
+  console.log("constituenly", cons)
+
+
+
   const Apprentice = [
     { defaultValue: 'ParticipantName', readOnly: true },
     // Add more custom input configurations as needed
   ];
   const PoliticalTalent = [
-    { defaultValue: 'name', readOnly: true,value:info?.name },
-    { defaultValue: 'skills', readOnly: false, value:info?.skills },
-    { defaultValue: 'experiences', readOnly: false ,value:info?.experiences},
-    { defaultValue: 'address', readOnly: false,value:info?.address},
-    { defaultValue: 'currentDesignation', readOnly: false, value:""}
+    { defaultValue: 'name', readOnly: true, value: info?.name },
+    { defaultValue: 'skills', readOnly: false, value: info?.skills },
+    { defaultValue: 'experiences', readOnly: false, value: info?.experiences },
+    { defaultValue: 'address', readOnly: false, value: info?.address },
+    { defaultValue: 'current-Designation', readOnly: false, value: "" }
     // Add more custom input configurations as needed
   ]
-  const ExperiencePolitical =[
-    { defaultValue: 'name', readOnly: true,
-    value:info?.name},
-    { defaultValue: 'skills', readOnly: false, value:info?.skills },
-    { defaultValue: 'experiences', readOnly: false ,value:info?.experiences},
-    { defaultValue: 'address', readOnly: false,value:info?.address},
-    { defaultValue: 'currentDesignation', readOnly: false, value:""}
+  const ExperiencePolitical = [
+    {
+      defaultValue: 'name', readOnly: true,
+      value: info?.name
+    },
+    { defaultValue: 'skills', readOnly: false, value: info?.skills },
+    { defaultValue: 'experiences', readOnly: false, value: info?.experiences },
+    { defaultValue: 'address', readOnly: false, value: info?.address },
+    { defaultValue: 'current-Designation', readOnly: false, value: "" }
 
   ]
 
   const ORGANISATION = [
-    { defaultValue: 'organisationName', readOnly: false, value:"" },
-    {defaultValue: 'organisationDetiles', readOnly: false, value:""},
-    {defaultValue: 'organisationAddress', readOnly: false, value:""}
+    { defaultValue: 'organization_Name', readOnly: false, value: "" },
+    { defaultValue: 'organization_Details', readOnly: false, value: "" },
+    { defaultValue: 'organization_Address', readOnly: false, value: "" }
     // Add more custom input configurations as needed
   ];
   if (!isLoaded || !isSignedIn) {
     return null;
   }
-  const talentHandle=async(data)=>{
-    const body ={
+  const talentHandle = async (data) => {
+    const body = {
       ...data,
-      signingId:info?.signingId,
-      email:info?.email,
-      status:1
+      signingId: info?.signingId,
+      email: info?.email,
+      status: 1
     }
     const res = await handleProfileCreation(body, "talentperson");
 
@@ -177,14 +220,65 @@ const BasicInfo: React.FC<Props> = ({
     }
   }
 
-  const experienceHandle=async(data)=>{
-    const body ={
+  const experienceHandle = async (data) => {
+    const body = {
       ...data,
-      signingId:info?.signingId,
-      email:info?.email,
-      status:1
+      signingId: info?.signingId,
+      email: info?.email,
+      status: 1
     }
     const res = await handleProfileCreation(body, "experience");
+
+    if (res?.status === "success") {
+      ToastSuccess("Successfully Request Sent");
+      // setIsSubmitting(false);
+    } else {
+      ToastError(res?.message || "Something error");
+      // setIsSubmitting(false);
+    }
+  }
+  const handleMentor = async (data) => {
+    const body = {
+      ...data,
+      signingId: info?.signingId,
+      email: info?.email,
+      status: 1
+    }
+    const res = await handleProfileCreation(body, "mentor");
+
+    if (res?.status === "success") {
+      ToastSuccess("Successfully Request Sent");
+      // setIsSubmitting(false);
+    } else {
+      ToastError(res?.message || "Something error");
+      // setIsSubmitting(false);
+    }
+  }
+  const handleOrg = async (data) => {
+    const body = {
+      ...data,
+      signingId: info?.signingId,
+      email: info?.email,
+      status: 1
+    }
+    const res = await handleProfileCreation(body, "organization");
+
+    if (res?.status === "success") {
+      ToastSuccess("Successfully Request Sent");
+      // setIsSubmitting(false);
+    } else {
+      ToastError(res?.message || "Something error");
+      // setIsSubmitting(false);
+    }
+  }
+  const handleCons = async (data) => {
+    const body = {
+      ...data,
+      signingId: info?.signingId,
+      email: info?.email,
+      status: 1
+    }
+    const res = await handleProfileCreation(body, "constituenly");
 
     if (res?.status === "success") {
       ToastSuccess("Successfully Request Sent");
@@ -197,112 +291,74 @@ const BasicInfo: React.FC<Props> = ({
 
   return (
     <div>
-
-      {/* buttons  */}
       <div>
-
-
-
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline">Share</Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-md">
-            <DialogHeader>
-              <DialogTitle>Share link</DialogTitle>
-              <DialogDescription>
-                Anyone who has this link will be able to view this.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="flex items-center space-x-2">
-              <div className="grid flex-1 gap-2">
-                <Label htmlFor="link" className="sr-only">
-                  Link
-                </Label>
-                <Input
-                  id="link"
-                  defaultValue="https://ui.shadcn.com/docs/installation"
-                  readOnly
-                />
-              </div>
-              <Button type="submit" size="sm" className="px-3">
-                <span className="sr-only">Copy</span>
-                <CopyIcon className="h-4 w-4" />
-              </Button>
-            </div>
-            <DialogFooter className="sm:justify-start">
-              <DialogClose asChild>
-                <Button type="button" variant="secondary">
-                  Close
-                </Button>
-              </DialogClose>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-
-
-
-
-        <h4 className="text-xl text-black ">You may want : </h4>
+        
+        <h4 className="text-xl text-black ">You may Suitable : </h4>
         <div className="mt-4 flex flex-wrap gap-4 mb-8  ">
 
+
           <div className="overflow-hidden w-fit ">
-          <div>
-          <Modal
-        triggerButtonText="Plolitical Talent/Apprentice"
-        title="Plolitical Talent/Apprentice"
-        description="Elevating leaders, forging political excellence in dynamic dialogues"
-        customInputs={PoliticalTalent}
-        info={info}
-        handlingFunction={talentHandle}
-      />
+            <div>
+              <Modal
+                triggerButtonText="Plolitical Talent/Apprentice"
+                title="Plolitical Talent/Apprentice"
+                description="Elevating leaders, forging political excellence in dynamic dialogues"
+                customInputs={PoliticalTalent}
+                info={info}
+                handlingFunction={talentHandle}
+              />
+            </div>
           </div>
+
+
+          <div className="overflow-hidden w-fit ">
+            <div>
+              <Modal
+                triggerButtonText=" EXPERIENCED POLITICIAN"
+                title="Update your profile"
+                description="Add your political talent or apprentice details"
+                customInputs={ExperiencePolitical}
+                info={info}
+                handlingFunction={experienceHandle}
+              />
+            </div>
           </div>
           <div className="overflow-hidden w-fit ">
-          <div>
-          <Modal
-        triggerButtonText=" EXPERIENCED POLITICIAN"
-        title="Update your profile"
-        description="Add your political talent or apprentice details"
-        customInputs={ExperiencePolitical}
-        info={info}
-        handlingFunction={experienceHandle}
-           />
-          </div>
-          </div>
-          <div className="overflow-hidden w-fit ">
-          <div>
-          <Modal
-        triggerButtonText="MENTOR"
-        title="Update your profile"
-        description="Add your political talent or apprentice details"
-        customInputs={ExperiencePolitical}
-        info={info}
-           />
-          </div>
+            <div>
+              <Modal
+                triggerButtonText="MENTOR"
+                title="Update your profile"
+                description="Add your political talent or apprentice details"
+                customInputs={ExperiencePolitical}
+                info={info}
+                handlingFunction={handleMentor}
+              />
+            </div>
 
           </div>
           <div className="overflow-hidden w-fit ">
-          <div>
-          <Modal
-        triggerButtonText=" ORGANISATION"
-        title="ORGANISATION"
-        description="Add your ORGANISATION details"
-        customInputs={ORGANISATION}
-        info={info}
-           />
-          </div>
+            <div>
+              <Modal
+                triggerButtonText=" ORGANISATION"
+                title="ORGANISATION"
+                description="Add your ORGANISATION details"
+                customInputs={ORGANISATION}
+                info={info}
+                handlingFunction={handleOrg}
+              />
+            </div>
           </div>
           <div className="overflow-hidden w-fit ">
-          <div>
-          <Modal
-        triggerButtonText="CONSTITUENCY"
-        title="Update your profile"
-        description="Add your political talent or apprentice details"
-        customInputs={ORGANISATION}
-        info={info}
-           />
-          </div>
+            <div>
+              <Modal
+                triggerButtonText="CONSTITUENCY"
+                title="Update your profile"
+                description="Add your political talent or apprentice details"
+                customInputs={ORGANISATION}
+                info={info}
+                handlingFunction={handleCons}
+              />
+            </div>
           </div>
         </div>
       </div>
