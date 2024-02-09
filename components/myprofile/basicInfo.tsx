@@ -91,17 +91,23 @@ const BasicInfo: React.FC<Props> = ({
   }]
 
   const [info, setInfo] = useState<InfoType>()
+
   const [tal, setTal] = useState([])
   const [exp, setexp] = useState([])
   const [mentor, setmentor] = useState([])
   const [org, setorg] = useState([])
   const [cons, setcons] = useState([])
+  const [refresh, setRefresh]=useState({
+    talentR:false,
+    expR:false,
+    mentorR:false,
+    orgR:false,
+    consR:false
+  })
 
-  const [modalName, setModalName] = useState()
   useEffect(() => {
     axios.get(`${base}/api/v1/user/${id}`)
       .then(data => {
-        // console.log("data", data?.data?.data)
         setInfo(data?.data?.data)
       })
       .catch(error => {
@@ -110,69 +116,59 @@ const BasicInfo: React.FC<Props> = ({
   }, [id])
   // console.log("info", info)
   useEffect(() => {
-    axios.get(`${base}/api/v1/talentperson`)
+    axios.get(`${base}/api/v1/talentperson/${info?.signingId}`)
       .then(data => {
-        // console.log("data", data?.data?.data)
         setTal(data?.data?.data)
       })
       .catch(error => {
         console.log("err", error)
       })
-  }, [id])
-  console.log("talent", tal)
+  }, [id, info?.signingId, refresh.talentR])
   useEffect(() => {
-    axios.get(`${base}/api/v1/experience`)
+    axios.get(`${base}/api/v1/experience/${info?.signingId}`)
       .then(data => {
-        // console.log("data", data?.data?.data)
+
         setexp(data?.data?.data)
       })
       .catch(error => {
         console.log("err", error)
       })
-  }, [id])
-  console.log("experience", exp)
+  }, [id, info?.signingId, refresh.expR])
+
   useEffect(() => {
-    axios.get(`${base}/api/v1/mentor`)
+    axios.get(`${base}/api/v1/mentor/${info?.signingId}`)
       .then(data => {
-        // console.log("data", data?.data?.data)
+
         setmentor(data?.data?.data)
       })
       .catch(error => {
         console.log("err", error)
       })
-  }, [id])
-  console.log("mentor", mentor)
+  }, [id, info?.signingId,, refresh.mentorR])
+
 
   useEffect(() => {
-    axios.get(`${base}/api/v1/organization`)
+    axios.get(`${base}/api/v1/organization/${info?.signingId}`)
       .then(data => {
-        // console.log("data", data?.data?.data)
+
         setorg(data?.data?.data)
       })
       .catch(error => {
         console.log("err", error)
       })
-  }, [id])
-  console.log("organization", org)
+  }, [id, info?.signingId, refresh.orgR])
 
   useEffect(() => {
-    axios.get(`${base}/api/v1/constituenly`)
+    axios.get(`${base}/api/v1/constituenly/${info?.signingId}`)
       .then(data => {
-        // console.log("data", data?.data?.data)
         setcons(data?.data?.data)
       })
       .catch(error => {
         console.log("err", error)
       })
-  }, [id])
-  console.log("constituenly", cons)
+  }, [id, info?.signingId,refresh.consR])
 
 
-
-  const Apprentice = [
-    { defaultValue: 'ParticipantName', readOnly: true },
-    // Add more custom input configurations as needed
-  ];
   const PoliticalTalent = [
     { defaultValue: 'name', readOnly: true, value: info?.name },
     { defaultValue: 'skills', readOnly: false, value: info?.skills },
@@ -213,10 +209,11 @@ const BasicInfo: React.FC<Props> = ({
 
     if (res?.status === "success") {
       ToastSuccess("Successfully Request Sent");
-      // setIsSubmitting(false);
+      setRefresh(r=>({...r, talentR:!(r.talentR)}))
+
     } else {
       ToastError(res?.message || "Something error");
-      // setIsSubmitting(false);
+
     }
   }
 
@@ -231,10 +228,11 @@ const BasicInfo: React.FC<Props> = ({
 
     if (res?.status === "success") {
       ToastSuccess("Successfully Request Sent");
-      // setIsSubmitting(false);
+      setRefresh(r=>({...r, expR:!(r.expR)}))
+
     } else {
       ToastError(res?.message || "Something error");
-      // setIsSubmitting(false);
+
     }
   }
   const handleMentor = async (data) => {
@@ -248,10 +246,11 @@ const BasicInfo: React.FC<Props> = ({
 
     if (res?.status === "success") {
       ToastSuccess("Successfully Request Sent");
-      // setIsSubmitting(false);
+      setRefresh(r=>({...r, mentorR:!(r.mentorR)}))
+
     } else {
       ToastError(res?.message || "Something error");
-      // setIsSubmitting(false);
+
     }
   }
   const handleOrg = async (data) => {
@@ -265,10 +264,11 @@ const BasicInfo: React.FC<Props> = ({
 
     if (res?.status === "success") {
       ToastSuccess("Successfully Request Sent");
-      // setIsSubmitting(false);
+      setRefresh(r=>({...r, orgR:!(r.orgR)}))
+
     } else {
       ToastError(res?.message || "Something error");
-      // setIsSubmitting(false);
+
     }
   }
   const handleCons = async (data) => {
@@ -282,36 +282,43 @@ const BasicInfo: React.FC<Props> = ({
 
     if (res?.status === "success") {
       ToastSuccess("Successfully Request Sent");
-      // setIsSubmitting(false);
+      setRefresh(r=>({...r, consR:!(r.consR)}))
+
     } else {
       ToastError(res?.message || "Something error");
-      // setIsSubmitting(false);
     }
   }
 
   return (
     <div>
       <div>
-        
-        <h4 className="text-xl text-black ">You may Suitable : </h4>
-        <div className="mt-4 flex flex-wrap gap-4 mb-8  ">
 
+        <h4 className="text-xl text-black mt-6 ">You May Need : </h4>
+        <div className="mt-4 flex flex-wrap gap-4 mb-8 items-center  ">
+        {tal?.status==1 ?
+        <p className="mb-0 pb-0 font-semibold text-blue-400 ">Talent/Apprentice Request Pending</p> :
+        tal?.status==2 ? "":
+        tal?.status==3 ? "":
+        <div className="overflow-hidden w-fit ">
+        <div>
 
-          <div className="overflow-hidden w-fit ">
-            <div>
-              <Modal
-                triggerButtonText="Plolitical Talent/Apprentice"
-                title="Plolitical Talent/Apprentice"
-                description="Elevating leaders, forging political excellence in dynamic dialogues"
-                customInputs={PoliticalTalent}
-                info={info}
-                handlingFunction={talentHandle}
-              />
-            </div>
-          </div>
+          <Modal
+            triggerButtonText="Plolitical Talent/Apprentice"
+            title="Plolitical Talent/Apprentice"
+            description="Elevating leaders, forging political excellence in dynamic dialogues"
+            customInputs={PoliticalTalent}
+            info={info}
+            handlingFunction={talentHandle}
+          />
+        </div>
+      </div>
+        }
 
-
-          <div className="overflow-hidden w-fit ">
+{exp?.status==1 ?
+        <p className="mb-0 pb-0 font-semibold text-blue-400">Experienced Politcal Request Pending</p> :
+        exp?.status==2 ? "":
+        exp?.status==3 ? "":
+<div className="overflow-hidden w-fit ">
             <div>
               <Modal
                 triggerButtonText=" EXPERIENCED POLITICIAN"
@@ -323,7 +330,13 @@ const BasicInfo: React.FC<Props> = ({
               />
             </div>
           </div>
-          <div className="overflow-hidden w-fit ">
+        }
+
+{mentor?.status==1 ?
+        <p className="mb-0 pb-0 font-semibold text-blue-400">Mentor Request Pending</p> :
+        mentor?.status==2 ? "":
+        mentor?.status==3 ? "":
+<div className="overflow-hidden w-fit ">
             <div>
               <Modal
                 triggerButtonText="MENTOR"
@@ -336,30 +349,44 @@ const BasicInfo: React.FC<Props> = ({
             </div>
 
           </div>
-          <div className="overflow-hidden w-fit ">
-            <div>
-              <Modal
-                triggerButtonText=" ORGANISATION"
-                title="ORGANISATION"
-                description="Add your ORGANISATION details"
-                customInputs={ORGANISATION}
-                info={info}
-                handlingFunction={handleOrg}
-              />
-            </div>
-          </div>
-          <div className="overflow-hidden w-fit ">
-            <div>
-              <Modal
-                triggerButtonText="CONSTITUENCY"
-                title="Update your profile"
-                description="Add your political talent or apprentice details"
-                customInputs={ORGANISATION}
-                info={info}
-                handlingFunction={handleCons}
-              />
-            </div>
-          </div>
+        }
+
+{org?.status==1 ?
+        <p className="mb-0 pb-0 font-semibold text-blue-400">Organization Request Pending</p> :
+        org?.status==2 ? "":
+        org?.status==3 ? "":
+        <div className="overflow-hidden w-fit ">
+        <div>
+          <Modal
+            triggerButtonText=" ORGANISATION"
+            title="ORGANISATION"
+            description="Add your ORGANISATION details"
+            customInputs={ORGANISATION}
+            info={info}
+            handlingFunction={handleOrg}
+          />
+        </div>
+      </div>
+        }
+         {cons?.status==1 ?
+        <p className="mb-0 pb-0 font-semibold text-blue-400">Constituenly Request Pending</p> :
+        cons?.status==2 ? "":
+        cons?.status==3 ? "":
+        <div className="overflow-hidden w-fit ">
+        <div>
+          <Modal
+            triggerButtonText="CONSTITUENCY"
+            title="Update your profile"
+            description="Add your political talent or apprentice details"
+            customInputs={ORGANISATION}
+            info={info}
+            handlingFunction={handleCons}
+          />
+        </div>
+      </div>
+        }
+
+
         </div>
       </div>
       <div className=" grid grid-cols-12  lg:gap-12 mt-[10px]">
@@ -374,8 +401,12 @@ const BasicInfo: React.FC<Props> = ({
             </span> <br />
 
             <span className=" text-gray-500 text-[14px]">
-              {info?.accounttype == "teacher" && "Teacher"}, {" "}
-              {info?.talent == "approved" && "Talent"},
+              {info?.accounttype == "teacher" && "Teacher"}
+              {tal?.status == 2 && ", Political Talent/Apprentice"}
+              {exp?.status == 2 && ", Experienced Politician"}
+              {mentor?.status == 2 && ", Mentor"}
+              {org?.status == 2 && ", Organization"}
+              {cons?.status == 2 && ", Constituenly"}
 
             </span>
           </div>
