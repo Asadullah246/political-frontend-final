@@ -12,11 +12,11 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-
 interface CustomInput {
 
   defaultValue?: string;
     readOnly?: boolean;
+    value?: string;
 }
 
 interface ModalProps {
@@ -24,14 +24,30 @@ interface ModalProps {
   title: string;
   description: string;
   customInputs: CustomInput[];
+
 }
 
 const Modal: React.FC<ModalProps> = ({
   triggerButtonText,
   title,
   description,
-  customInputs
+  customInputs,
 }) => {
+  const [data, setData] = React.useState<CustomInput[]>(customInputs);
+  console.log(data);
+// this function is used to get the data from the input fields
+// this function is used to get the data from the input fields
+ const GetData = ()=>{
+    const data = customInputs.map((input, index) => {
+      return {
+        ...input,
+        value: (document.getElementById(index.toString()) as HTMLInputElement).value,
+      };
+    });
+    setData(data);
+ }
+
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -47,15 +63,19 @@ const Modal: React.FC<ModalProps> = ({
             <div className="grid flex-1 gap-2">
               
               <Input
+
                placeholder= {input.defaultValue}
                 type= {input.readOnly ? "text" : "text"}
+                defaultValue={input.value}
               />
             </div>
           </div>
         ))}
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
-            <Button type="button"  className=' w-[90%] mx-auto bg-[#1B4FDB]'>
+            <Button type="button"  className=' w-[90%] mx-auto bg-[#1B4FDB]'
+            onClick={GetData}
+            >
               Submit
             </Button>
           </DialogClose>
