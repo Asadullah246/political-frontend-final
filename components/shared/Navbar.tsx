@@ -82,7 +82,7 @@ const routes: Route[] = [
   {
     label: 'What you want ?',
     icon: User,
-    href: '#', 
+    href: '#',
     color: 'text-blue-500',
     activeColor: 'text-blue-700'
   },
@@ -115,7 +115,7 @@ const Navbar: React.FC = () => {
 
     getUser()
   }, [])
-  console.log("info", info )
+  // console.log("info", info ) 
 
 
 
