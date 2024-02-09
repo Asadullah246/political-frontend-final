@@ -90,7 +90,7 @@ const BasicInfo: React.FC<Props> = ({
   }]
 
   const [info, setInfo] = useState<InfoType>()
-  console.log("info", info)
+
   const [modalName, setModalName]=useState()
   useEffect(() => {
     axios.get(`${base}/api/v1/user/${id}`)
@@ -102,33 +102,33 @@ const BasicInfo: React.FC<Props> = ({
         console.log("err", error)
       })
   }, [id])
+  console.log("info", info)
   const Apprentice = [
     { defaultValue: 'ParticipantName', readOnly: true },
     // Add more custom input configurations as needed
   ];
   const PoliticalTalent = [
-    { defaultValue: 'Political Talent Name', readOnly: true,value:info?.name },
-    { defaultValue: 'skills', readOnly: true },
-    { defaultValue: 'experiences', readOnly: true },
-    { defaultValue: 'location', readOnly: true},
-    { defaultValue: 'current designation', readOnly: true}
+    { defaultValue: 'PoliticalTalentName', readOnly: true,value:info?.name },
+    { defaultValue: 'skills', readOnly: false, value:info?.skills },
+    { defaultValue: 'Experiences', readOnly: false ,value:info?.experiences},
+    { defaultValue: 'Location', readOnly: false,value:info?.address},
+    { defaultValue: 'CurrentDesignation', readOnly: false, value:""}
     // Add more custom input configurations as needed
   ]
   const ExperiencePolitical =[
     { defaultValue: 'Name', readOnly: true,
     value:info?.name},
-    { defaultValue: 'Skills', readOnly: true },
-    { defaultValue: 'Experiences ', readOnly: true },
-    { defaultValue: 'Address', readOnly: true },
-    { defaultValue: 'Current designation', readOnly: true },
-    { defaultValue: 'Descritpion ', readOnly: true }
+    { defaultValue: 'skills', readOnly: false, value:info?.skills },
+    { defaultValue: 'Experiences', readOnly: false ,value:info?.experiences},
+    { defaultValue: 'Location', readOnly: false,value:info?.address},
+    { defaultValue: 'CurrentDesignation', readOnly: false, value:""}
 
   ]
 
-  const ORGANISATION = [ 
-    { defaultValue: 'Organisation Name', readOnly: true },
-    {defaultValue: 'Organisation Detiles', readOnly: true},
-    {defaultValue: 'Organisation Address', readOnly: true}
+  const ORGANISATION = [
+    { defaultValue: 'OrganisationName', readOnly: false, value:"" },
+    {defaultValue: 'OrganisationDetiles', readOnly: false, value:""},
+    {defaultValue: 'OrganisationAddress', readOnly: false, value:""}
     // Add more custom input configurations as needed
   ];
   if (!isLoaded || !isSignedIn) {
@@ -184,7 +184,7 @@ const BasicInfo: React.FC<Props> = ({
 
         <h4 className="text-xl text-black ">You may want : </h4>
         <div className="mt-4 flex flex-wrap gap-4 mb-8  ">
-          
+
           <div className="overflow-hidden w-fit ">
           <div>
           <Modal
@@ -192,6 +192,7 @@ const BasicInfo: React.FC<Props> = ({
         title="Plolitical Talent/Apprentice"
         description="Elevating leaders, forging political excellence in dynamic dialogues"
         customInputs={PoliticalTalent}
+        info={info}
       />
           </div>
           </div>
@@ -202,6 +203,7 @@ const BasicInfo: React.FC<Props> = ({
         title="Update your profile"
         description="Add your political talent or apprentice details"
         customInputs={ExperiencePolitical}
+        info={info}
            />
           </div>
           </div>
@@ -212,9 +214,10 @@ const BasicInfo: React.FC<Props> = ({
         title="Update your profile"
         description="Add your political talent or apprentice details"
         customInputs={ExperiencePolitical}
+        info={info}
            />
           </div>
-           
+
           </div>
           <div className="overflow-hidden w-fit ">
           <div>
@@ -223,6 +226,7 @@ const BasicInfo: React.FC<Props> = ({
         title="ORGANISATION"
         description="Add your ORGANISATION details"
         customInputs={ORGANISATION}
+        info={info}
            />
           </div>
           </div>
@@ -233,6 +237,7 @@ const BasicInfo: React.FC<Props> = ({
         title="Update your profile"
         description="Add your political talent or apprentice details"
         customInputs={ORGANISATION}
+        info={info}
            />
           </div>
           </div>

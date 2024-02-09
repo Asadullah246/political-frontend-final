@@ -533,7 +533,7 @@ const Hero = ({
                 <div className=" w-full  lg:h-[240px] grid grid-cols-12 lg:gap-12 gap-4">
                     {/* ------user img----- */}
                     <div className=" h-[100%] lg:col-span-3 col-span-5">
-                        <img src={userImg? userImg : ""} 
+                        <img src={userImg ? userImg : ""}
                             alt={fullName ? fullName : 'user'}
                             className=' rounded-sm w-[100%] h-[100%]' />
                     </div>
@@ -576,48 +576,8 @@ const Hero = ({
                                 </Button>
                             </div>}
 
-                        {info?.talent && info?.signingId && (info?.talent == "approved" || "pending") ? <div></div> :
-                            <>
-                            {info?.signingId &&
-                             <div className="overflow-hidden w-[40%] mt-8">
-                             <span className=""> Are you a political expert ? </span>
-                             <Button
-                                 onClick={handleTalent}
-                                 className="mt-3 relative z-[5] bg-blue-100 h-[40px] text-blue-700 w-full  hover:text-white" variant={'hover'}>
-                                 Confirm Us
-                             </Button>
-                         </div> }
 
-
-                            </>
-
-                        }
-                        {info?.signingId && <div>
-
-                            {/* {info?.accounttype == "teacher" && <span className="font-bold"> you are a Mentor</span>} */}
-                            {info?.accounttype == "teacher-pending" && <span className="font-bold"> your mentor-requested is pending</span>}
-
-
-
-                            {(!(info?.accounttype) || info?.accounttype == "none") && <div className="overflow-hidden w-[40%] mt-8">
-                                <span className=""> Are you want to be a mentor ? </span>
-                                <Button
-                                    onClick={handleTeacher}
-                                    className="mt-3 relative z-[5] bg-blue-100 h-[40px] text-blue-700 w-full  hover:text-white" variant={'hover'}>
-                                    Apply Now
-                                </Button>
-                            </div>}
-
-
-                        </div>}
-
-
-
-
-                        {/* {
-                            info?.talent == "approved" &&
-                            <span className="font-bold"> you are political expert</span>
-                        } */}
+ 
 
                     </div>
                     {/* ------user info----- */}
