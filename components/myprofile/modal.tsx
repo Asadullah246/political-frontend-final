@@ -32,6 +32,7 @@ const Modal: React.FC<ModalProps> = ({
   title,
   description,
   customInputs,
+  info
 }) => {
   const [data, setData] = React.useState<CustomInput[]>(customInputs);
   console.log(data);
@@ -49,7 +50,7 @@ const Modal: React.FC<ModalProps> = ({
 
 
   return (
-    <Dialog>
+    <Dialog className="z-[9999999] ">
       <DialogTrigger asChild>
         <Button variant="outline">{triggerButtonText}</Button>
       </DialogTrigger>
@@ -61,12 +62,13 @@ const Modal: React.FC<ModalProps> = ({
         {customInputs.map((input, index) => (
           <div key={index} className="flex items-center space-x-2">
             <div className="grid flex-1 gap-2">
-              
+
               <Input
 
                placeholder= {input.defaultValue}
-                type= {input.readOnly ? "text" : "text"}
-                defaultValue={input.value}
+                // type= {input.readOnly ? "text" : "text"}
+                readOnly={input?.readOnly}
+                defaultValue={input?.value}
               />
             </div>
           </div>
