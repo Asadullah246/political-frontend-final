@@ -12,6 +12,35 @@ export const base ='http://localhost:5000'
 
 // new codes
 
+// profile modal buttons api
+
+export const handleProfileCreation = async (data: any, endpoint:any) => {
+  try {
+    const res = await axios.post(`${base}/api/v1/${endpoint}`, data);
+    if (res) return res.data;
+  } catch (error) {
+    console.log("err is", error);
+  }
+};
+
+// get method
+
+export const getAllData = async (endpoint) => {
+  try {
+    const config = {
+      headers: {
+        token: localStorage.getItem("token") || "",
+      },
+    };
+    const res = await axios.get(`${base}/api/v1/${endpoint}`, config);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// profile modal buttons api
+
 
 // quiz
 
@@ -47,7 +76,7 @@ export const deleteAdmin = async (id:any) => {
     const res = await axios.delete(`${base}/api/v1/admin/${id}`, { headers });
     return res;
   } catch ( {message} ) {
-    console.log(message); 
+    console.log(message);
   }
 };
 

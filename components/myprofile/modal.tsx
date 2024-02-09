@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -32,21 +32,39 @@ const Modal: React.FC<ModalProps> = ({
   title,
   description,
   customInputs,
-  info
+  info,
+  handlingFunction
 }) => {
-  const [data, setData] = React.useState<CustomInput[]>(customInputs);
-  console.log(data);
+  // const [data, setData] = React.useState<CustomInput[]>(customInputs);
+  // console.log(data);
+  const [data, setData] = useState({});
 // this function is used to get the data from the input fields
 // this function is used to get the data from the input fields
+
+
+useEffect(() => {
+  const defaultData = {};
+  customInputs?.forEach(({ defaultValue, value }) => {
+    defaultData[defaultValue] = value;
+  });
+  setData(defaultData);
+}, [customInputs]);
+
+ // Function to update the state with data
+ const updateData = (defaultValue, value) => {
+  setData(prevState => ({
+    ...prevState,
+    [defaultValue]: value
+  }));
+};
+
+
  const GetData = ()=>{
-    const data = customInputs.map((input, index) => {
-      return {
-        ...input,
-        value: (document.getElementById(index.toString()) as HTMLInputElement).value,
-      };
-    });
-    setData(data);
+  handlingFunction(data)
  }
+
+
+
 
 
   return (
@@ -69,6 +87,7 @@ const Modal: React.FC<ModalProps> = ({
                 // type= {input.readOnly ? "text" : "text"}
                 readOnly={input?.readOnly}
                 defaultValue={input?.value}
+                onChange={(e) => updateData(input?.defaultValue, e.target.value)}
               />
             </div>
           </div>

@@ -2,7 +2,7 @@ import { useUser } from "@clerk/nextjs";
 // import { Button } from "../ui/button";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { base } from "../shared/apis/api";
+import { base, handleProfileCreation } from "../shared/apis/api";
 
 import { CopyIcon } from "@radix-ui/react-icons"
 
@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Modal from "./modal";
+import { ToastError, ToastSuccess } from "../shared/Others";
 
 
 
@@ -90,6 +91,8 @@ const BasicInfo: React.FC<Props> = ({
   }]
 
   const [info, setInfo] = useState<InfoType>()
+  const [tal, setTal]=useState([])
+  const [exp, setexp]=useState([])
 
   const [modalName, setModalName]=useState()
   useEffect(() => {
@@ -102,38 +105,96 @@ const BasicInfo: React.FC<Props> = ({
         console.log("err", error)
       })
   }, [id])
-  console.log("info", info)
+  // console.log("info", info)
+  useEffect(() => {
+    axios.get(`${base}/api/v1/talentperson`)
+      .then(data => {
+        // console.log("data", data?.data?.data)
+        setTal(data?.data?.data)
+      })
+      .catch(error => {
+        console.log("err", error)
+      })
+  }, [id])
+  console.log("talent", tal)
+  useEffect(() => {
+    axios.get(`${base}/api/v1/experience`)
+      .then(data => {
+        // console.log("data", data?.data?.data)
+        setexp(data?.data?.data) 
+      })
+      .catch(error => {
+        console.log("err", error)
+      })
+  }, [id])
+  console.log("experience", exp)
   const Apprentice = [
     { defaultValue: 'ParticipantName', readOnly: true },
     // Add more custom input configurations as needed
   ];
   const PoliticalTalent = [
-    { defaultValue: 'PoliticalTalentName', readOnly: true,value:info?.name },
+    { defaultValue: 'name', readOnly: true,value:info?.name },
     { defaultValue: 'skills', readOnly: false, value:info?.skills },
-    { defaultValue: 'Experiences', readOnly: false ,value:info?.experiences},
-    { defaultValue: 'Location', readOnly: false,value:info?.address},
-    { defaultValue: 'CurrentDesignation', readOnly: false, value:""}
+    { defaultValue: 'experiences', readOnly: false ,value:info?.experiences},
+    { defaultValue: 'address', readOnly: false,value:info?.address},
+    { defaultValue: 'currentDesignation', readOnly: false, value:""}
     // Add more custom input configurations as needed
   ]
   const ExperiencePolitical =[
-    { defaultValue: 'Name', readOnly: true,
+    { defaultValue: 'name', readOnly: true,
     value:info?.name},
     { defaultValue: 'skills', readOnly: false, value:info?.skills },
-    { defaultValue: 'Experiences', readOnly: false ,value:info?.experiences},
-    { defaultValue: 'Location', readOnly: false,value:info?.address},
-    { defaultValue: 'CurrentDesignation', readOnly: false, value:""}
+    { defaultValue: 'experiences', readOnly: false ,value:info?.experiences},
+    { defaultValue: 'address', readOnly: false,value:info?.address},
+    { defaultValue: 'currentDesignation', readOnly: false, value:""}
 
   ]
 
   const ORGANISATION = [
-    { defaultValue: 'OrganisationName', readOnly: false, value:"" },
-    {defaultValue: 'OrganisationDetiles', readOnly: false, value:""},
-    {defaultValue: 'OrganisationAddress', readOnly: false, value:""}
+    { defaultValue: 'organisationName', readOnly: false, value:"" },
+    {defaultValue: 'organisationDetiles', readOnly: false, value:""},
+    {defaultValue: 'organisationAddress', readOnly: false, value:""}
     // Add more custom input configurations as needed
   ];
   if (!isLoaded || !isSignedIn) {
     return null;
   }
+  const talentHandle=async(data)=>{
+    const body ={
+      ...data,
+      signingId:info?.signingId,
+      email:info?.email,
+      status:1
+    }
+    const res = await handleProfileCreation(body, "talentperson");
+
+    if (res?.status === "success") {
+      ToastSuccess("Successfully Request Sent");
+      // setIsSubmitting(false);
+    } else {
+      ToastError(res?.message || "Something error");
+      // setIsSubmitting(false);
+    }
+  }
+
+  const experienceHandle=async(data)=>{
+    const body ={
+      ...data,
+      signingId:info?.signingId,
+      email:info?.email,
+      status:1
+    }
+    const res = await handleProfileCreation(body, "experience");
+
+    if (res?.status === "success") {
+      ToastSuccess("Successfully Request Sent");
+      // setIsSubmitting(false);
+    } else {
+      ToastError(res?.message || "Something error");
+      // setIsSubmitting(false);
+    }
+  }
+
   return (
     <div>
 
@@ -193,6 +254,7 @@ const BasicInfo: React.FC<Props> = ({
         description="Elevating leaders, forging political excellence in dynamic dialogues"
         customInputs={PoliticalTalent}
         info={info}
+        handlingFunction={talentHandle}
       />
           </div>
           </div>
@@ -204,6 +266,7 @@ const BasicInfo: React.FC<Props> = ({
         description="Add your political talent or apprentice details"
         customInputs={ExperiencePolitical}
         info={info}
+        handlingFunction={experienceHandle}
            />
           </div>
           </div>
