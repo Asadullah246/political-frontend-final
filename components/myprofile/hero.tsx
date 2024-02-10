@@ -38,6 +38,9 @@ const Hero = ({
 
     const [info, setInfo] = useState<InfoType>()
     const [refresh, setRefresh] = useState(false)
+    const [org, setorg] = useState([])
+    const [cons, setcons] = useState([])
+
     useEffect(() => {
         axios.get(`${base}/api/v1/user/${id}`)
             .then(data => {
@@ -48,6 +51,30 @@ const Hero = ({
                 console.log("err", error)
             })
     }, [id, refresh])
+
+    useEffect(() => {
+        axios.get(`${base}/api/v1/organization/${info?.signingId}`)
+            .then(data => {
+                // console.log("data", data?.data?.data)
+                setorg(data?.data?.data)
+            })
+            .catch(error => {
+                console.log("err", error)
+            })
+    }, [id, info?.signingId])
+
+
+    useEffect(() => {
+        axios.get(`${base}/api/v1/constituenly/${info?.signingId}`)
+            .then(data => {
+                // console.log("data", data?.data?.data)
+                setcons(data?.data?.data)
+            })
+            .catch(error => {
+                console.log("err", error)
+            })
+    }, [id, info?.signingId])
+
 
 
     const [formValues, setFormValues] = useState<InfoType>({
@@ -542,15 +569,17 @@ const Hero = ({
                     <div className=" lg:col-span-9 col-span-7 h-full border-b">
                         <div className=" mb-[15px]">
                             <h2 className=" text-gray-600 text-[24px] uppercase">
-                                {
-                                    fullName ? fullName : 'user'
+                                {org?.status == 2 ? org?.organization_Name :
+                                    cons?.status == 2 ? cons?.organization_Name :
+                                        fullName ? fullName : 'user'
                                 }
+
                             </h2>
-                            <p className=" font-[500] text-[#0D01E5]">
+                            {/* <p className=" font-[500] text-[#0D01E5]">
                                 {
-                                    exits ? "" : userdata?.tittle
+                                    exits ? "" : userdata?.title
                                 }
-                            </p>
+                            </p> */}
                         </div>
                         <div className=" mb-[15px]">
                             <p className=" text-gray-500 uppercase font-[600]">
@@ -577,7 +606,7 @@ const Hero = ({
                             </div>}
 
 
- 
+
 
                     </div>
                     {/* ------user info----- */}
