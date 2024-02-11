@@ -34,20 +34,6 @@ interface InfoType {
 }
 
 
-const experiences: Experience[] = [{
-  id: 1,
-  title: "Political Speeker",
-}, {
-  id: 2,
-  title: "Political writer",
-}, {
-  id: 3,
-  title: "Motivational Speeker",
-}, {
-  id: 4,
-  title: "Motivational writer",
-}]
-
 const BasicInfo2: React.FC<Props> = ({
   exits,
   userdata,
@@ -55,32 +41,64 @@ const BasicInfo2: React.FC<Props> = ({
 }) => {
   const { isLoaded, isSignedIn, user } = useUser();
 
-  const ContactInfo: ContactInfo[] = [{
-    id: 1,
-    title: "Phone",
-    value: exits ? "Add Your Phone Number" : userdata?.phone_number
-  }, {
-    id: 2,
-    title: "Email",
-    value: exits ? user.emailAddresses[0].emailAddress : userdata?.email,
-    color: '#2578F0'
-  }, {
-    id: 3,
-    title: "Address",
-    value: exits ? "Add Your Address" : userdata?.address
-  }]
+  const [tal, setTal] = useState([])
+  const [exp, setexp] = useState([])
+  const [mentor, setmentor] = useState([])
+  const [org, setorg] = useState([])
+  const [cons, setcons] = useState([])
 
-  const [info, setInfo] = useState<InfoType>()
   useEffect(() => {
-    axios.get(`${base}/api/v1/user/${id}`)
+    axios.get(`${base}/api/v1/talentperson/${userdata?.signingId}`)
       .then(data => {
-        // console.log("data", data?.data?.data)
-        setInfo(data?.data?.data)
+        setTal(data?.data?.data)
       })
       .catch(error => {
         console.log("err", error)
       })
-  }, [id])
+  }, [userdata?.signingId])
+  useEffect(() => {
+    axios.get(`${base}/api/v1/experience/${userdata?.signingId}`)
+      .then(data => {
+
+        setexp(data?.data?.data)
+      })
+      .catch(error => {
+        console.log("err", error)
+      })
+  }, [userdata?.signingId])
+
+  useEffect(() => {
+    axios.get(`${base}/api/v1/mentor/${userdata?.signingId}`)
+      .then(data => {
+
+        setmentor(data?.data?.data)
+      })
+      .catch(error => {
+        console.log("err", error)
+      })
+  }, [userdata?.signingId])
+
+
+  useEffect(() => {
+    axios.get(`${base}/api/v1/organization/${userdata?.signingId}`)
+      .then(data => {
+
+        setorg(data?.data?.data)
+      })
+      .catch(error => {
+        console.log("err", error)
+      })
+  }, [userdata?.signingId])
+
+  useEffect(() => {
+    axios.get(`${base}/api/v1/constituenly/${userdata?.signingId}`)
+      .then(data => {
+        setcons(data?.data?.data)
+      })
+      .catch(error => {
+        console.log("err", error)
+      })
+  }, [userdata?.signingId])
 
   if (!isLoaded || !isSignedIn) {
     return null;
@@ -99,10 +117,14 @@ const BasicInfo2: React.FC<Props> = ({
             </span> <br />
 
             <span className=" text-gray-500 text-[14px]">
-{userdata?.accounttype=="teacher" && "Teacher"}, {" "}
-{userdata?.talent=="approved" && "Talent"},
+            {mentor?.status == 2 && "Mentor"}
+              {tal?.status == 2 && ", Political Talent/Apprentice"}
+              {exp?.status == 2 && ", Experienced Politician"}
 
-          </span> 
+              {org?.status == 2 && ", Organization"}
+              {cons?.status == 2 && ", Constituenly"}
+
+          </span>
         </div>
 
         <div className=" mb-[30px]">
@@ -114,10 +136,8 @@ const BasicInfo2: React.FC<Props> = ({
           </div>
 
           <span className=" text-gray-500 text-[14px]">
-            {userdata?.description?.slice(0, 120)}
-            {/* {
-              exits ?'Add Your Bio':`${userdata?.description.slice(0, 120)}...`
-            } */}
+            {userdata?.description}
+
           </span>
         </div>
         <div className=" mb-[30px]">
@@ -182,22 +202,11 @@ const BasicInfo2: React.FC<Props> = ({
             </span>
           </div>
 
-          {/* {
-            ContactInfo.map((info) => (
-              <div key={info.id} className=" flex mb-[15px] gap-8">
-                <span className=" font-[600] text-[16px] text-gray-500">{info.title}:</span>
-                <span className={`${info.color ? `text-[${info.color}]` : "text-gray-500"}`}>
-                  {
-                    info.value
-                  }
-                </span>
-              </div>
-            ))
-          } */}
+
 
         </div>
 
-        {/* ------contact info---- */}
+ 
       </div>
 
     </div>

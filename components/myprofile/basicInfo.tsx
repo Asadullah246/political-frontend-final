@@ -420,7 +420,7 @@ const BasicInfo: React.FC<Props> = ({
 
             </div>
             <span className=" text-gray-500 text-[14px]">
-              {info?.description?.slice(0, 120)}
+              {info?.description}
               {/* {
               exits ?'Add Your Bio':`${userdata?.description.slice(0, 120)}...`
             } */}
