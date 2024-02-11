@@ -35,6 +35,8 @@ import ConstituenlyManage from "@/components/admin/constituenly/FaqManage";
 import TalentPage from "@/components/admin/talent/FaqManage";
 import MentorManage from "@/components/admin/mentor/FaqManage";
 import AllUserManage from "@/components/admin/allUser/FaqManage";
+import OtherRequests from "@/components/admin/othersRequests/FaqManage";
+import Courses from "@/components/admin/courses/FaqManage";
 
 
 
@@ -80,6 +82,7 @@ const Page = () => {
 
   const tabs = [
     { label: "Website Info", icon: <FaCircleInfo /> },
+    { label: "Courses", icon: <FaCircleInfo /> },
     { label: "Political Talents", icon: <SiGenius /> },
     { label: "Mentors", icon: <PiChalkboardTeacherThin /> },
     { label: "Experienced Political", icon: <FaBlogger /> },
@@ -117,6 +120,8 @@ const Page = () => {
     switch (text) {
       case "Website Info":
         return <WebsiteInfoPage />;
+      case "Courses":
+        return <Courses />;
 
       case "Politiq Test":
         return <PolitTestPage />;
@@ -136,8 +141,8 @@ const Page = () => {
         return <OrganizationManage />;
       case "Constituenly":
         return <ConstituenlyManage />;
-      // case "Others Requests":
-      //   return <ConstituenlyManage />;
+      case "Others Requests":
+        return <OtherRequests />;
       case "All User":
         return <AllUserManage />;
       case "Contacts":
@@ -199,8 +204,8 @@ const Page = () => {
                 <small>{admin?.email}</small>
               </div>
             </div>
-            {/* {(admin?.role=="admin"? tabs : tabsSales)?.map((t, index) => { */}
-            {tabs?.map((t, index) => {
+            {(admin?.role=="admin"? tabs : tabsSales)?.map((t, index) => {
+            {/* {tabs?.map((t, index) => { */}
 
               return (
                 <div key={index} onClick={() => setCurrent(t?.label)} className={` flex py-4 px-4 rounded-md cursor-pointer items-center gap-2 ${t?.label == current ? 'bg-[#163c74]' : ""}`}>
@@ -213,7 +218,7 @@ const Page = () => {
             })}
 
             <div onClick={logout} className={` flex py-4 px-4 rounded-md cursor-pointer items-center gap-2 `}>
-              <a className={`text-[16px]`}> 
+              <a className={`text-[16px]`}>
                 Log Out
               </a>
               <p className={`  text-[16px] font-bold`}><FaRegNoteSticky /></p>

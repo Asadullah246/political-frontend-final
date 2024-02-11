@@ -22,7 +22,7 @@ const AdminNavbar = ({admin}) => {
       getUser()
     }, [])
 
-    console.log("info", info )
+    // console.log("info", info ) 
 
     return (
         <div className=' w-[100%] h-[80px] bg-white  top-0 shadow-md px-8 z-[1000] sticky py-3 rounded-md'>
@@ -31,7 +31,7 @@ const AdminNavbar = ({admin}) => {
                 {/* --logo and text */}
                 <div className=' flex gap-6 h-[100%] items-center'>
                      {/* <TfiAlignLeft className=' text-3xl cursor-pointer font-[900]' onClick={()=>setOpen(!open)} /> */}
-                    <Image src={info?.logoImage ? `${base}${info?.logoImage}` : logo} width={60} height={40} alt="Logo"  className=' h-[40px]' /> 
+                    <Image src={info?.logoImage ? `${base}${info?.logoImage}` : logo} width={60} height={40} alt="Logo"  className=' h-[40px]' />
                 </div>
                 {/* --logo and text */}
                 {/* profile icon */}

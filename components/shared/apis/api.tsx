@@ -92,6 +92,20 @@ export const CreatingNewAdmin = async (data: any) => {
 };
 // admin
 
+// delete course
+export const deleteCourse = async (id:any) => {
+  try {
+    const headers = {
+      token: localStorage.getItem("refresh") || "",
+    };
+    const res = await axios.delete(`${base}/api/v1/allcourse/${id}`, { headers }); 
+    return res;
+  } catch ( {message} ) {
+    console.log(message);
+  }
+};
+// delete course
+
 // salseManager
 
 export const deleteSaleManager = async (id:any) => {
@@ -390,7 +404,7 @@ export const updateOthers = async (id:string,endpoint, data:any) => {
   try {
     const config = {
       headers: {
-        token: localStorage.getItem("token") || "", 
+        token: localStorage.getItem("token") || "",
       },
     };
     const res = await axios.patch(`${base}/api/v1/${endpoint}/${id}`, data, config);
