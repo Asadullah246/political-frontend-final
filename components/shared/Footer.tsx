@@ -21,7 +21,7 @@ import SectionTittle from "../sectionTittle";
 
 
 
-interface DOMRectReadOnly { 
+interface DOMRectReadOnly {
   bottom: number;
   height: number;
   left: number;
@@ -439,7 +439,7 @@ const Footer: React.FC = () => {
               <div className=" lg:col-span-4 col-span-12">
 
                 <h2 className="text-2xl font-bold text-white">Contact</h2>
-                <p className="mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur</p>
+                {/* <p className="mt-4">{info?.description}</p>  */}
                 <div className="mt-6 text-white ">
                   <div className="flex items-center gap-2 mb-3 ">
                     <MapPin strokeWidth={2} size={20} style={{ fill: "black" }} className="text-[#FFC400]  " />

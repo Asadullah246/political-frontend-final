@@ -4,13 +4,15 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import NewBlog from "./blog";
 import AllBlogs from "./allBlogs";
+import SalesManagers from "./salesManagers";
+import SalesNew from "./newSalse";
 
 const Adminmange = () => {
   const [activeTab, setActiveTab] = useState(0);
 
 
 
-  const tabs = ["Admins", "New Admin"];
+  const tabs = ["Admins", "New Admin", "Sales Managers", "New Sales Manager"];
 
   const handleTabClick = (index: any) => {
     setActiveTab(index);
@@ -21,7 +23,7 @@ const Adminmange = () => {
       case 0:
         return (
           <div className="p-4">
-            <AllBlogs/>
+            <AllBlogs />
           </div>
         );
       case 1:
@@ -31,9 +33,24 @@ const Adminmange = () => {
           </div>
         );
       case 2:
-        return <div className="p-4">Content for Tab 3</div>;
+        return (
+          <div className="p-4">
+            <SalesManagers />
+          </div>
+        );
+      case 3:
+        return (
+          <div className="p-4">
+            <SalesNew />
+          </div>
+        );
+
       default:
-        return null;
+        return (
+          <div className="p-4">
+            <AllBlogs />
+          </div>
+        );
     }
   };
 
@@ -44,11 +61,10 @@ const Adminmange = () => {
           <button
             key={index}
             onClick={() => handleTabClick(index)}
-            className={`py-2 px-4 focus:outline-none ${
-              index === activeTab
+            className={`py-2 px-4 focus:outline-none ${index === activeTab
                 ? "border-b-2 border-blue-500 to-#0D01E5 text-blue-500"
                 : "text-gray-500"
-            }`}
+              }`}
           >
             {tab}
           </button>

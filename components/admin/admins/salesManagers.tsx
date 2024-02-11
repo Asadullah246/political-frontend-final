@@ -1,12 +1,12 @@
 import { ToastError, ToastSuccess } from "@/components/shared/Others";
-import { base, deleteAdmin, deleteBlog } from "@/components/shared/apis/api";
+import { base, deleteAdmin, deleteBlog, deleteSaleManager } from "@/components/shared/apis/api";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { CiCircleRemove } from "react-icons/ci";
 
 
-const AllBlogs = () => {
+const SalesManagers = () => {
   const [currentData, setCurrentData] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [refresh, setRefresh] = useState(false);
@@ -17,9 +17,9 @@ const AllBlogs = () => {
         console.log("blogs", res?.data?.data);
         if (res?.data?.status === "success") {
           const allData = res?.data?.data?.reverse();
-          const filtered=allData?.filter(a=>a?.role=="admin")
+            const filtered=allData?.filter(a=>a?.role=="sales_manager")
           setUserData(filtered);
-
+          // setUserData(res?.data?.data);
         }
       });
   }, [refresh]);
@@ -81,7 +81,7 @@ const AllBlogs = () => {
                     </td>
                     {/* <td>
                       {user?.password}
-                    </td> */}
+                    </td> */} 
                     {/* <td>{user?.subject}</td> */}
 
                     <th>
@@ -111,4 +111,4 @@ const AllBlogs = () => {
   );
 };
 
-export default AllBlogs;
+export default SalesManagers;

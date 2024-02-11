@@ -12,7 +12,7 @@ const Talents = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [refresh, setRefresh]=useState(false)
     useEffect(() => {
-        axios.get(`${base}/api/v1/talentperson`).then((res) => {
+        axios.get(`${base}/api/v1/constituenly`).then((res) => {
             //   console.log("users in politic", res);
             if (res?.data?.status === "success") {
               const allData=res?.data?.data
@@ -30,7 +30,7 @@ const Talents = () => {
             // accounttype: "teacher"
             status:2
         }
-        const res = await updateOthers(id,"talentperson", body);
+        const res = await updateOthers(id,"constituenly", body);
         if (res?.status == "success"){
             ToastSuccess("Successfully approved");
             setIsSubmitting(false);
@@ -45,7 +45,7 @@ const Talents = () => {
           const body = {
             status:3
         }
-        const res = await updateOthers(id, "talentperson", body);
+        const res = await updateOthers(id, "constituenly", body);
         setRefresh(!refresh)
         if (res?.status == "success"){
             ToastSuccess("Successfully declined");

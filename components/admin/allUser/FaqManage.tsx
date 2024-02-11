@@ -6,14 +6,15 @@ import { useState } from 'react';
 import TalentPlitic from './AskedQuestions';
 import Talents from './Talents';
 import Declined from './Declined';
+import AllUser from './Alluser';
 
 
 
 
-const TalentPage = () => {
+const AllUserManage = () => {
     const [activeTab, setActiveTab] = useState(0);
 
-    const tabs = ["All", "Requests ", "Declined"];
+    const tabs = ["All User"];
 
     const handleTabClick = (index:any) => {
         setActiveTab(index);
@@ -22,14 +23,14 @@ const TalentPage = () => {
     const renderTabContent = () => {
         switch (activeTab) {
             case 0:
-                return <div className="p-4"><Talents/></div>;
-            case 1:
-                return <div className="p-4"><TalentPlitic/></div>;
-            case 2:
-                return <div className="p-4"><Declined/></div>;
+                return <div className="p-4"><AllUser/></div>;
+            // case 1:
+            //     return <div className="p-4"><TalentPlitic/></div>;
+            // case 2:
+            //     return <div className="p-4"><Declined/></div>;
 
             default:
-                return <Talents/>;
+                return <AllUser/>; 
         }
     };
 
@@ -54,6 +55,6 @@ const TalentPage = () => {
     );
 };
 
-export default TalentPage;
+export default AllUserManage;
 
 

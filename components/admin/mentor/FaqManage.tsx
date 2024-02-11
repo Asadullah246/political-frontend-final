@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import TalentPlitic from './AskedQuestions';
 import Talents from './Talents';
-import AllUser from './Alluser';
+import Declined from './Declined';
 
 
 
@@ -13,7 +13,7 @@ import AllUser from './Alluser';
 const MentorManage = () => {
     const [activeTab, setActiveTab] = useState(0);
 
-    const tabs = ["All Mentors", "Requested "];
+    const tabs = ["All", "Requests ", "Declined"];
 
     const handleTabClick = (index:any) => {
         setActiveTab(index);
@@ -25,8 +25,8 @@ const MentorManage = () => {
                 return <div className="p-4"><Talents/></div>;
             case 1:
                 return <div className="p-4"><TalentPlitic/></div>;
-            // case 2:
-            //     return <div className="p-4"><AllUser/></div>;
+            case 2:
+                return <div className="p-4"><Declined/></div>;
 
             default:
                 return <Talents/>;
@@ -54,6 +54,6 @@ const MentorManage = () => {
     );
 };
 
-export default MentorManage;
+export default MentorManage; 
 
 
