@@ -3,8 +3,8 @@ import axios from "axios";
 
 
 
-export const base ='http://localhost:5000'
-// export const base ='http://backend.politiq-global.com'
+// export const base ='http://localhost:5000'
+export const base ='http://backend.politiq-global.com'
 
 
 
@@ -98,7 +98,7 @@ export const deleteCourse = async (id:any) => {
     const headers = {
       token: localStorage.getItem("refresh") || "",
     };
-    const res = await axios.delete(`${base}/api/v1/allcourse/${id}`, { headers }); 
+    const res = await axios.delete(`${base}/api/v1/allcourse/${id}`, { headers });
     return res;
   } catch ( {message} ) {
     console.log(message);

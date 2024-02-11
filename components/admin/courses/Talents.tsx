@@ -1,5 +1,5 @@
 import { ToastSuccess, ToastError } from "@/components/shared/Others";
-import { base, updateMentorInfo, updateOthers, updateProfileInfo } from "@/components/shared/apis/api";
+import { base, deleteCourse, updateMentorInfo, updateOthers, updateProfileInfo } from "@/components/shared/apis/api";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaRegCircleCheck } from "react-icons/fa6";
@@ -25,24 +25,35 @@ const Talents = () => {
 
     console.log("courses", userData);
 
-    const handleApproved = async (id: any) => {
-        const body = {
-            // accounttype: "teacher"
-            status:2
-        }
-        const res = await updateOthers(id,"mentor", body);
-        if (res?.status == "success"){
-            ToastSuccess("Successfully approved");
-            setIsSubmitting(false);
-            setRefresh(!refresh)
-        } else {
-            ToastError(res?.message || "Something error");
-            setIsSubmitting(false);
-            setRefresh(!refresh)
-        }
-    }
+    // const handleApproved = async (id: any) => {
+    //     const body = {
+    //         // accounttype: "teacher"
+    //         status:2
+    //     }
+    //     const res = await updateOthers(id,"mentor", body);
+    //     if (res?.status == "success"){
+    //         ToastSuccess("Successfully approved");
+    //         setIsSubmitting(false);
+    //         setRefresh(!refresh)
+    //     } else {
+    //         ToastError(res?.message || "Something error");
+    //         setIsSubmitting(false);
+    //         setRefresh(!refresh)
+    //     }
+    // }
     const handleDecline = async (id: any) => {
-        
+
+        const res = await deleteCourse(id);
+        console.log("res", res);
+        setRefresh(!refresh);
+        if (res?.data?.status == "success") {
+          ToastSuccess("Successfully Deleted");
+          setIsSubmitting(false);
+        } else {
+          ToastError(res?.message || "Something error");
+          setIsSubmitting(false);
+        }
+
     }
 
     return (
