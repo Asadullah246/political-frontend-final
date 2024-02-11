@@ -44,12 +44,12 @@ import Courses from "@/components/admin/courses/FaqManage";
 
 const Page = () => {
   const router = useRouter();
-  const [admin, setAdmin] = useState()
+  const [admin, setAdmin] = useState("")
   const [current, setCurrent] = useState("Website Info");
   useEffect(() => {
     const usercheking = async () => {
-      const cAdmin = JSON.parse(localStorage?.getItem("admin") || JSON.stringify({}))
-      console.log("admin", cAdmin)
+      const cAdmin = JSON.parse(localStorage?.getItem("admin"))
+
       if (cAdmin) {
         const body = {
           email: cAdmin?.email,
@@ -59,6 +59,7 @@ const Page = () => {
 
 
         if (res?.status === 'success') {
+          console.log("res is ", res)
           setAdmin(cAdmin)
         } else {
           ToastError(res?.message || 'Something error');
@@ -75,8 +76,9 @@ const Page = () => {
 
   }, [router])
 
+console.log("amdin is ", admin ) 
 
-  if (!admin || admin == undefined || admin == "") {
+  if (!admin || admin==undefined || admin=="" ) {
     return <h3 className="text-center font-semibold text-blue-400 mt-20 ">Loading Dashboard</h3>
   }
 
