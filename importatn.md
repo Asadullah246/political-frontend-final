@@ -33,3 +33,19 @@ all course : /api/v1/getallcourse
 single course : /api/v1/allcourse/:id
 delete course : /api/allcourse/delete/:id
 
+database 2 :
+
+main-2024-02-11-bqxzxx
+i2o8j19nvx7btxno391a
+pscale_pw_kAApq88DK76o1lxiJd0nMiblo7ImGSOzL46Q3QBwtQE
+
+ndoejs :
+
+DATABASE_URL='mysql://i2o8j19nvx7btxno391a:pscale_pw_kAApq88DK76o1lxiJd0nMiblo7ImGSOzL46Q3QBwtQE@aws.connect.psdb.cloud/politq?ssl={"rejectUnauthorized":true}'
+
+prisma:
+
+i2o8j19nvx7btxno391a
+pscale_pw_kAApq88DK76o1lxiJd0nMiblo7ImGSOzL46Q3QBwtQE
+DATABASE_URL='mysql://i2o8j19nvx7btxno391a:pscale_pw_kAApq88DK76o1lxiJd0nMiblo7ImGSOzL46Q3QBwtQE@aws.connect.psdb.cloud/politq?sslaccept=strict'
+

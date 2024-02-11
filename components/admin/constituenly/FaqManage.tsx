@@ -10,7 +10,7 @@ import Declined from './Declined';
 
 
 
-const TalentPage = () => {
+const ConstituenlyManage = () => {
     const [activeTab, setActiveTab] = useState(0);
 
     const tabs = ["All", "Requests ", "Declined"];
@@ -54,6 +54,6 @@ const TalentPage = () => {
     );
 };
 
-export default TalentPage;
+export default ConstituenlyManage;
 
 

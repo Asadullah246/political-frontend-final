@@ -92,6 +92,32 @@ export const CreatingNewAdmin = async (data: any) => {
 };
 // admin
 
+// salseManager
+
+export const deleteSaleManager = async (id:any) => {
+  try {
+    const headers = {
+      token: localStorage.getItem("refresh") || "",
+    };
+    const res = await axios.delete(`${base}/api/v1/sales_manager/${id}`, { headers });
+    return res;
+  } catch ( {message} ) {
+    console.log(message);
+  }
+};
+
+export const CreatingNewSaleManager = async (data: any) => {
+  try {
+    const res = await axios.post(`${base}/api/v1/sales_manager`, data);
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("refresh", res.data.refresh);
+    if (res) return res.data;
+  } catch (error) {
+    console.log("err is", error);
+  }
+};
+// salseManager
+
 // newletter
 
 export const deleteNewsletter = async (id:any) => {
@@ -322,6 +348,60 @@ export const deleteUser = async (id) => {
 
 
 // profile info
+
+// talent info
+export const updateTalentInfo = async (id:string, data:any) => {
+  try {
+    const config = {
+      headers: {
+        token: localStorage.getItem("token") || "",
+      },
+    };
+    const res = await axios.patch(`${base}/api/v1/talentperson/${id}`, data, config);
+
+    return res?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// talent info
+
+// update mentor info
+
+export const updateMentorInfo = async (id:string, data:any) => {
+  try {
+    const config = {
+      headers: {
+        token: localStorage.getItem("token") || "",
+      },
+    };
+    const res = await axios.patch(`${base}/api/v1/mentor/${id}`, data, config);
+
+    return res?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+// update mentor info
+
+// others
+export const updateOthers = async (id:string,endpoint, data:any) => {
+  try {
+    const config = {
+      headers: {
+        token: localStorage.getItem("token") || "", 
+      },
+    };
+    const res = await axios.patch(`${base}/api/v1/${endpoint}/${id}`, data, config);
+
+    return res?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// others
 // update website info
 export const updateWebsiteInfo = async ( data:any) => {
   try {

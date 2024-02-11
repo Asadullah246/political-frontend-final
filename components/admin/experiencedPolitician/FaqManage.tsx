@@ -5,15 +5,16 @@ import { useState } from 'react';
 
 import TalentPlitic from './AskedQuestions';
 import Talents from './Talents';
+
 import Declined from './Declined';
 
 
 
 
-const TalentPage = () => {
+const Experienced = () => {
     const [activeTab, setActiveTab] = useState(0);
 
-    const tabs = ["All", "Requests ", "Declined"];
+    const tabs = ["All Persons", "Requests ", "Declined"];
 
     const handleTabClick = (index:any) => {
         setActiveTab(index);
@@ -54,6 +55,6 @@ const TalentPage = () => {
     );
 };
 
-export default TalentPage;
+export default Experienced;
 
 

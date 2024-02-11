@@ -401,10 +401,11 @@ const BasicInfo: React.FC<Props> = ({
             </span> <br />
 
             <span className=" text-gray-500 text-[14px]">
-              {info?.accounttype == "teacher" && "Teacher"}
+              {/* {info?.accounttype == "teacher" && "Teacher"} */}
+              {mentor?.status == 2 && "Mentor"}
               {tal?.status == 2 && ", Political Talent/Apprentice"}
               {exp?.status == 2 && ", Experienced Politician"}
-              {mentor?.status == 2 && ", Mentor"}
+
               {org?.status == 2 && ", Organization"}
               {cons?.status == 2 && ", Constituenly"}
 

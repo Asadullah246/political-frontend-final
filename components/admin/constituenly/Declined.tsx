@@ -1,5 +1,5 @@
 import { ToastSuccess, ToastError } from "@/components/shared/Others";
-import { base, updateMentorInfo, updateOthers, updateProfileInfo } from "@/components/shared/apis/api";
+import { base, updateMentorInfo, updateOthers, updateProfileInfo, updateTalentInfo } from "@/components/shared/apis/api";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaRegCircleCheck } from "react-icons/fa6";
@@ -7,54 +7,51 @@ import { FaDeleteLeft } from "react-icons/fa6";
 
 
 
-const Talents = () => {
+const Declined = () => {
     const [userData, setUserData] = useState();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [refresh, setRefresh]=useState(false)
     useEffect(() => {
-        axios.get(`${base}/api/v1/talentperson`).then((res) => {
+        axios.get(`${base}/api/v1/constituenly`).then((res) => {
             //   console.log("users in politic", res);
             if (res?.data?.status === "success") {
-              const allData=res?.data?.data
-              const filtered=allData?.filter(a=>a?.status==2)
-              setUserData(filtered)
+                const allData=res?.data?.data
+                const filtered=allData?.filter(a=>a?.status==3)
+                setUserData(filtered)
                 // setUserData(res?.data?.data);
             }
         });
     }, [refresh]);
 
-    // console.log("filtered talent", userData);
+    // console.log("from database", userData);
 
     const handleApproved = async (id: any) => {
         const body = {
-            // accounttype: "teacher"
             status:2
         }
-        const res = await updateOthers(id,"talentperson", body);
+        const res = await updateOthers(id,"constituenly", body);
         if (res?.status == "success"){
             ToastSuccess("Successfully approved");
             setIsSubmitting(false);
             setRefresh(!refresh)
         } else {
+            setRefresh(!refresh)
             ToastError(res?.message || "Something error");
             setIsSubmitting(false);
-            setRefresh(!refresh)
         }
     }
     const handleDecline = async (id: any) => {
           const body = {
             status:3
         }
-        const res = await updateOthers(id, "talentperson", body);
+        const res = await updateOthers(id, "constituenly", body);
         setRefresh(!refresh)
         if (res?.status == "success"){
             ToastSuccess("Successfully declined");
             setIsSubmitting(false);
-             setRefresh(!refresh)
         } else {
             ToastError(res?.message || "Something error");
             setIsSubmitting(false);
-             setRefresh(!refresh)
         }
     }
 
@@ -108,17 +105,17 @@ const Talents = () => {
                                         <td>{user?.designation}</td>
                                         <td>{user?.address}</td>
                                         <td>{user?.additional}</td>
+
                                         <th>
                                             <p className="flex items-center gap-4">
-                                                {/* <button onClick={() => handleApproved(user._id)} className={`text-blue-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" } p-2`}>
-
+                                                <button onClick={() => handleApproved(user._id)} className={`text-blue-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" } p-2`}>
+                                                    {/* <FaRegCircleCheck class={`text-blue-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" }`} /> */}
                                                     Approve
-                                                </button> */}
-                                                <button onClick={() => handleDecline(user._id)} className={`text-red-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" } p-2`}>
-
-                                                    Remove
                                                 </button>
-
+                                                {/* <button onClick={() => handleDecline(user._id)} className={`text-red-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" } p-2`}> */}
+                                                    {/* <FaDeleteLeft class={`text-red-500 ${isSubmitting ? "opacity-50 cursor-not-allowed" : "" }`} /> */}
+                                                    {/* Decline
+                                                </button> */}
                                             </p>
                                         </th>
                                     </tr>
@@ -150,5 +147,5 @@ const Talents = () => {
     );
 };
 
-export default Talents;
+export default Declined;
 

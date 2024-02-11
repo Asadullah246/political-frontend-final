@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BlogPage from "@/components/admin/blog/BlogPage";
-import TalentPage from "@/components/admin/talent/FaqManage";
+// import TalentPage from "@/components/admin/talent/FaqManage";
 import ContactManage from "@/components/admin/contacts/FaqManage";
 import WebsiteInfoPage from "@/components/admin/websiteInfo/WebsiteInfoPage";
 import TestPage from "@/components/admin/testimonial/FaqManage";
@@ -17,7 +17,7 @@ import { checkLogin } from "@/components/shared/apis/api";
 import { ToastSuccess,ToastError } from "@/components/shared/Others";
 import { usePathname, useRouter } from "next/navigation";
 import Adminmange from "@/components/admin/admins/BlogPage";
-import MentorManage from "@/components/admin/mentor/FaqManage";
+// import MentorManage from "@/components/admin/mentor/FaqManage";
 import AdminNavbar from "@/components/AdminNavbar/AdminNavbar";
 import { FaCircleInfo } from "react-icons/fa6";
 import { PiExamThin } from "react-icons/pi";
@@ -29,6 +29,12 @@ import { TiContacts } from "react-icons/ti";
 import { FaRegNoteSticky } from "react-icons/fa6";
 import { IoNewspaperOutline } from "react-icons/io5";
 import { MdAdminPanelSettings } from "react-icons/md";
+import Experienced from "@/components/admin/experiencedPolitician/FaqManage";
+import OrganizationManage from "@/components/admin/organization/FaqManage";
+import ConstituenlyManage from "@/components/admin/constituenly/FaqManage";
+import TalentPage from "@/components/admin/talent/FaqManage";
+import MentorManage from "@/components/admin/mentor/FaqManage";
+import AllUserManage from "@/components/admin/allUser/FaqManage";
 
 
 
@@ -37,6 +43,7 @@ import { MdAdminPanelSettings } from "react-icons/md";
 const Page = () => {
   const router = useRouter();
   const [admin,setAdmin]=useState()
+  const [current, setCurrent] = useState("Website Info");
   useEffect(()=>{
     const usercheking =async()=>{
       const cAdmin=JSON.parse(localStorage?.getItem("admin") || JSON.stringify({}))
@@ -66,18 +73,28 @@ const Page = () => {
 
   },[router])
 
-  const [current, setCurrent] = useState("Website Info");
+
+  if(!admin || admin==undefined || admin==""){ 
+    return <h3 className="text-center font-semibold text-blue-400 mt-20 ">Loading Dashboard</h3>
+  }
+
   const tabs = [
     { label: "Website Info", icon: <FaCircleInfo /> },
+
+    { label: "Political Talents", icon: <SiGenius/> },
+    { label: "Mentors", icon: <PiChalkboardTeacherThin/> },
+    { label: "Experienced Political", icon: <FaBlogger /> },
+    { label: "organizations", icon: <PiChalkboardTeacherThin/> },
+    { label: "Constituenly", icon: <IoNewspaperOutline/> },
+    { label: "Others Requests", icon: <IoNewspaperOutline/> },
+    { label: "All User", icon: <MdAdminPanelSettings/> },
     { label: "Politiq Test", icon: <PiExamThin /> },
     { label: "FAQ", icon: <FcFaq /> },
     { label: "Blogs", icon: <FaBlogger /> },
-    { label: "Political Talents", icon: <SiGenius/> },
-    { label: "Mentors", icon: <PiChalkboardTeacherThin/> },
     { label: "Contacts", icon:<TiContacts/> },
     { label: "Testimonials", icon:<FaRegNoteSticky/> },
     { label: "NewsLetters", icon: <IoNewspaperOutline/> },
-    { label: "Admins", icon: <MdAdminPanelSettings/> },
+    { label: "Dashboard Access", icon: <MdAdminPanelSettings/> },
   ];
 
   const tabmanage = (text: string) => {
@@ -97,11 +114,21 @@ const Page = () => {
         return <TalentPage />;
       case "Mentors":
         return <MentorManage />;
+      case "Experienced Political":
+        return <Experienced />;
+      case "organizations":
+        return <OrganizationManage />;
+      case "Constituenly":
+        return <ConstituenlyManage />;
+      // case "Others Requests":
+      //   return <ConstituenlyManage />;
+      case "All User":
+        return <AllUserManage />;
       case "Contacts":
         return <ContactManage />;
       case "NewsLetters":
         return <NewsLetterManage />;
-      case "Admins":
+      case "Dashboard Access":
         return <Adminmange />;
       case "Others":
         return <WebsiteInfoPage />;
@@ -112,7 +139,7 @@ const Page = () => {
   };
   return (
     <div>
-      <AdminNavbar />
+      <AdminNavbar admin={admin} />
       <ToastContainer />
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />

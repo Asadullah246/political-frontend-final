@@ -1,35 +1,13 @@
 import { ToastError, ToastSuccess } from "@/components/shared/Others";
-import { CreatingNewBlog, base } from "@/components/shared/apis/api";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { CreatingNewAdmin, CreatingNewBlog, CreatingNewSaleManager } from "@/components/shared/apis/api";
+import React, { useState } from "react";
 
-const BlogEdit = () => {
+const SalesNew = () => {
   const [formValues, setFormValues] = useState({
     email: "",
-    password: ""
+    password: "",
+    role:"sales_manager"
   });
-
-//  data fetching
-  const [userData, setUserData] = useState();
-  useEffect(() => {
-    axios.get(`${base}/api/v1/blogs`)
-      .then((res) => {
-        // console.log("response", res.data.data);
-        if (res.data.status === "success") {
-          setUserData(res?.data?.data);
-        }
-      })
-      .catch(err=>{
-        console.log("err" , err);
-      })
-  }, []);
-
-  console.log("user data", userData);
-  const [currentData, setCurrentData] = useState();
-  console.log("currentData", currentData);
-
-
-
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -47,23 +25,25 @@ const BlogEdit = () => {
     console.log("data", formValues);
     setIsSubmitting(true);
 
-    const res = await CreatingNewBlog(formValues);
+    const res = await CreatingNewAdmin(formValues);
 
     if (res?.status === "success") {
-      ToastSuccess("Successfully updated");
+      ToastSuccess("Sales Manager Added");
       setIsSubmitting(false);
     } else {
       ToastError(res?.message || "Something error");
       setIsSubmitting(false);
     }
+
+
   };
 
   return (
     <div>
-      <div className="bg-white min-h-screen flex items-center justify-start ">
+      <div className="bg-white  flex items-center justify-start ">
         <div className="md:ml-8 bg-gray-100 p-8 shadow-md rounded-md">
           <h1 className="text-3xl font-bold mb-4  ">
-           Add new Admin
+            Blog Information form
           </h1>
 
           <form onSubmit={handleSubmit} className="max-w-md mt-8">
@@ -72,17 +52,17 @@ const BlogEdit = () => {
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="phone"
+                htmlFor="email"
               >
-                Title
+                Email
               </label>
               <input
-                type="text"
-                id="tile"
-                name="title"
-                value={formValues.title}
+                type="email"
+                id="email"
+                name="email"
+                value={formValues.email}
                 onChange={handleChange}
-                className="border p-2 w-full"
+                className="input_primary"
                 required={false}
               />
             </div>
@@ -90,36 +70,21 @@ const BlogEdit = () => {
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="facebook"
+                htmlFor="password"
               >
-                Author
+                Password
               </label>
               <input
                 type="text"
-                id="author"
-                name="author"
-                value={formValues.author}
+                id="password"
+                name="password"
+                value={formValues.password}
                 onChange={handleChange}
-                className="border p-2 w-full"
+                className="input_primary"
               />
             </div>
 
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="description"
-              >
-                Description
-              </label>
-              <textarea
-                id="description"
-                name="description"
-                value={formValues.description}
-                onChange={handleChange}
-                className="border p-2 w-full h-32"
-                required={false}
-              />
-            </div>
+
 
             <div className="mb-4">
               <button
@@ -139,4 +104,4 @@ const BlogEdit = () => {
   );
 };
 
-export default BlogEdit;
+export default SalesNew;

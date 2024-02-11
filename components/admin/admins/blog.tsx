@@ -5,7 +5,8 @@ import React, { useState } from "react";
 const NewBlog = () => {
   const [formValues, setFormValues] = useState({
     email: "",
-    password: ""
+    password: "",
+    role:"admin"
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,35 +28,12 @@ const NewBlog = () => {
     const res = await CreatingNewAdmin(formValues);
 
     if (res?.status === "success") {
-      ToastSuccess("Successfully updated");
+      ToastSuccess("New Admin Added");
       setIsSubmitting(false);
     } else {
       ToastError(res?.message || "Something error");
       setIsSubmitting(false);
     }
-
-    // try {
-    //   const formData = new FormData();
-
-    //   // Append each form field to the FormData object
-    //   for (const key in formValues) {
-    //     formData.append(key, formValues[key]);
-    //   }
-
-    //   // Make a POST request to your server endpoint
-    //   const res = await CreatingNewBlog(formData)
-
-    //   if (res?.status === 'success') {
-    //     ToastSuccess('Successfully created');
-    //   } else {
-    //     ToastError(res?.message || 'Something error');
-    //   }
-    // } catch (error) {
-    //   console.error('Error:', error);
-    //   ToastError('An error occurred');
-    // } finally {
-    //   setIsSubmitting(false);
-    // }
 
   };
 
@@ -105,7 +83,7 @@ const NewBlog = () => {
               />
             </div>
 
-            
+
 
             <div className="mb-4">
               <button
