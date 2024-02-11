@@ -60,7 +60,7 @@ const routes: Route[] = [
    {
     label:'My Profile',
     icon:User,
-    href:'/myprofile',
+    href:'/myprofile/default',
     color:'text-blue-500',
     activeColor:'text-blue-700'
    },
@@ -115,7 +115,7 @@ const Navbar: React.FC = () => {
 
     getUser()
   }, [])
-  // console.log("info", info ) 
+  // console.log("info", info )
 
 
 
@@ -193,7 +193,7 @@ const Navbar: React.FC = () => {
   // Function to toggle visibility
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
-    console.log("visi", isVisible);
+    // console.log("visi", isVisible);
   };
 
 
@@ -203,7 +203,7 @@ const Navbar: React.FC = () => {
     {
       id: 1,
       text: "Create my profile as constituency or Organization",
-      link: "/myprofile"
+      link: "/myprofile/org_constituency"
     },
     {
       id: 2,
@@ -213,27 +213,27 @@ const Navbar: React.FC = () => {
     {
       id: 3,
       text: "Managed Matchmaking",
-      link: "/myprofile"
+      link: "/myprofile/matchmaking"
     },
     {
       id: 4,
       text: "Need to arrange Training or Workshop or Seminar",
-      link: "/myprofile"
+      link: "/myprofile/training_workshop_seminar"
     },
     {
       id: 5,
       text: "Arrange Consultancy",
-      link: "/myprofile"
+      link: "/myprofile/consultancy"
     },
     {
       id: 6,
       text: "Take on Political Apprentices",
-      link: "/myprofile"
+      link: "/myprofile/apprentices"
     },
     {
       id: 7,
       text: "Partner with PolitIQ",
-      link: "/myprofile"
+      link: "/myprofile/partner"
     }
   ];
 
@@ -241,7 +241,7 @@ const Navbar: React.FC = () => {
     {
       id: 1,
       text: "Create my profile",
-      link: "/myprofile"
+      link: "/myprofile/create_profile"
     },
     {
       id: 2,
@@ -251,7 +251,7 @@ const Navbar: React.FC = () => {
     {
       id: 3,
       text: "Apply for political internship",
-      link: "/myprofile"
+      link: "/myprofile/apply_internship"
     },
     {
       id: 4,
@@ -289,37 +289,37 @@ const Navbar: React.FC = () => {
     {
       id: 1,
       text: "I want to contribute with curated courses",
-      link: "/myprofile"
+      link: "/myprofile/contribute_course"
     },
     {
       id: 2,
       text: "I want to be a Mentor",
-      link: "/be-mentor"
+      link: "/myprofile/mentor"
     },
     {
       id: 3,
       text: "I want to take on Political Apprentices",
-      link: "/myprofile"
+      link: "/myprofile/apprentices"
     },
     {
       id: 4,
       text: "I want to collaborate or partner with PolitIQ",
-      link: "/collaborate-partner"
+      link: "/myprofile/partner"
     },
     {
       id: 5,
       text: "I want to go on Political Apprenticeship",
-      link: "/myprofile"
+      link: "/myprofile/Apprentices"
     },
     {
       id: 6,
       text: "I want to Partner with PolitIQ",
-      link: "/myprofile"
+      link: "/myprofile/partner"
     },
     {
       id: 7,
-      text: "I need PolitIQ to build me a Political Team/Staff",
-      link: "/myprofile"
+      text: "Building me a Political Team/Staff",
+      link: "/myprofile/team_staff"
     },
     {
       id: 8,
@@ -334,7 +334,7 @@ const Navbar: React.FC = () => {
     <>
 
       {
-        pathName === "/about" || pathName === "/" || pathName === "/politicalTalent" || pathName === "/contactus" || pathName === "/myprofile" || pathName === "/iqpage" || pathName === "/faqpage" ? <div className={`w-full ${hight >= 210 && hight < 3000 ? 'navBar_scroll_active z-[999]' : hight >= 140 || hight > 3000 ? 'navBar_scroll z-[9999]' : ''}`}>
+        pathName === "/about" || pathName === "/" || pathName === "/politicalTalent" || pathName === "/contactus" || pathName === "/myprofile/default" || pathName === "/iqpage" || pathName === "/faqpage" ? <div className={`w-full ${hight >= 210 && hight < 3000 ? 'navBar_scroll_active z-[999]' : hight >= 140 || hight > 3000 ? 'navBar_scroll z-[9999]' : ''}`}>
           <div>
             <Topbar />
           </div>

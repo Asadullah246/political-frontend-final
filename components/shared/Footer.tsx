@@ -78,7 +78,7 @@ const routes2: Route[] = [
   }, {
     label: 'My Profile',
 
-    href: '/myprofile',
+    href: '/myprofile/default',
     color: 'text-blue-500',
     activeColor: 'text-blue-700'
   }, {
@@ -173,8 +173,8 @@ const Footer: React.FC = () => {
   const constituency = [
     {
       id: 1,
-      text: "Create profile as constituency or Organization",
-      link: "/myprofile"
+      text: "Create my profile as constituency or Organization",
+      link: "/myprofile/org_constituency"
     },
     {
       id: 2,
@@ -184,36 +184,35 @@ const Footer: React.FC = () => {
     {
       id: 3,
       text: "Managed Matchmaking",
-      link: "/myprofile"
+      link: "/myprofile/matchmaking"
     },
     {
       id: 4,
       text: "Need to arrange Training or Workshop or Seminar",
-      link: "/myprofile"
+      link: "/myprofile/training_workshop_seminar"
     },
     {
       id: 5,
       text: "Arrange Consultancy",
-      link: "/myprofile"
+      link: "/myprofile/consultancy"
     },
     {
       id: 6,
       text: "Take on Political Apprentices",
-      link: "/myprofile"
+      link: "/myprofile/apprentices"
     },
     {
       id: 7,
       text: "Partner with PolitIQ",
-      link: "/myprofile"
+      link: "/myprofile/partner"
     }
   ];
 
   const politician = [
-
     {
       id: 1,
-      text: "Create profile",
-      link: "/myprofile"
+      text: "Create my profile",
+      link: "/myprofile/create_profile"
     },
     {
       id: 2,
@@ -223,7 +222,7 @@ const Footer: React.FC = () => {
     {
       id: 3,
       text: "Apply for political internship",
-      link: "/myprofile"
+      link: "/myprofile/apply_internship"
     },
     {
       id: 4,
@@ -258,39 +257,41 @@ const Footer: React.FC = () => {
   ];
 
   const othersNav = [
-
     {
       id: 1,
-      text: "Contribute with curated courses",
-      link: "/myprofile"
+      text: "I want to contribute with curated courses",
+      link: "/myprofile/contribute_course"
     },
     {
       id: 2,
-      text: "Be a Mentor",
-      link: "/be-mentor"
+      text: "I want to be a Mentor",
+      link: "/myprofile/mentor"
     },
     {
       id: 3,
-      text: "Take on Political Apprentices",
-      link: "/myprofile"
+      text: "I want to take on Political Apprentices",
+      link: "/myprofile/apprentices"
     },
     {
       id: 4,
-      text: "Collaborate or partner with PolitIQ",
-      link: "/myprofile"    },
+      text: "I want to collaborate or partner with PolitIQ",
+      link: "/myprofile/partner"
+    },
     {
       id: 5,
-      text: "Political Apprenticeship",
-      link: "/myprofile"    },
+      text: "I want to go on Political Apprenticeship",
+      link: "/myprofile/Apprentices"
+    },
     {
       id: 6,
-      text: "Partner with PolitIQ",
-      link: "/myprofile"    },
+      text: "I want to Partner with PolitIQ",
+      link: "/myprofile/partner"
+    },
     {
       id: 7,
-      text: "Build a Political Team/Staff",
-      link: "/myprofile"    },
-
+      text: "Building me a Political Team/Staff",
+      link: "/myprofile/team_staff"
+    }
   ];
   const navLinks=[
     {

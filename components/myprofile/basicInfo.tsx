@@ -24,6 +24,7 @@ import { ToastError, ToastSuccess } from "../shared/Others";
 
 
 
+
 interface Experience {
   id: number;
   title: string;
@@ -54,41 +55,12 @@ interface InfoType {
 }
 
 
-const experiences: Experience[] = [{
-  id: 1,
-  title: "Political Speeker",
-}, {
-  id: 2,
-  title: "Political writer",
-}, {
-  id: 3,
-  title: "Motivational Speeker",
-}, {
-  id: 4,
-  title: "Motivational writer",
-}]
-
 const BasicInfo: React.FC<Props> = ({
   exits,
   userdata,
   id
 }) => {
   const { isLoaded, isSignedIn, user } = useUser();
-
-  const ContactInfo: ContactInfo[] = [{
-    id: 1,
-    title: "Phone",
-    value: exits ? "Add Your Phone Number" : userdata?.phone_number
-  }, {
-    id: 2,
-    title: "Email",
-    value: exits ? user.emailAddresses[0].emailAddress : userdata?.email,
-    color: '#2578F0'
-  }, {
-    id: 3,
-    title: "Address",
-    value: exits ? "Add Your Address" : userdata?.address
-  }]
 
   const [info, setInfo] = useState<InfoType>()
 
@@ -97,13 +69,24 @@ const BasicInfo: React.FC<Props> = ({
   const [mentor, setmentor] = useState([])
   const [org, setorg] = useState([])
   const [cons, setcons] = useState([])
-  const [refresh, setRefresh]=useState({
-    talentR:false,
-    expR:false,
-    mentorR:false,
-    orgR:false,
-    consR:false
+  const [refresh, setRefresh] = useState({
+    talentR: false,
+    expR: false,
+    mentorR: false,
+    orgR: false,
+    consR: false
   })
+
+  const [pathId, setPathId]=useState()
+  useEffect(() => {
+    // Extracting ID from the URL using window.location.pathname
+    const pathArray = window.location.pathname.split('/');
+    const id = pathArray[pathArray.length - 1];
+    setPathId(id);
+  }, []);
+
+
+
 
   useEffect(() => {
     axios.get(`${base}/api/v1/user/${id}`)
@@ -144,7 +127,7 @@ const BasicInfo: React.FC<Props> = ({
       .catch(error => {
         console.log("err", error)
       })
-  }, [id, info?.signingId,, refresh.mentorR])
+  }, [id, info?.signingId, , refresh.mentorR])
 
 
   useEffect(() => {
@@ -166,7 +149,101 @@ const BasicInfo: React.FC<Props> = ({
       .catch(error => {
         console.log("err", error)
       })
-  }, [id, info?.signingId,refresh.consR])
+  }, [id, info?.signingId, refresh.consR])
+
+
+
+
+
+  useEffect(()=>{
+    const data={
+      signingId: info?.signingId,
+      email: info?.email,
+      name:info?.name,
+      address:info?.address,
+      skills:info?.skills,
+      experience:info?.experiences,
+      designation:info?.designation,
+      status: 1
+    }
+    const handleReqs = async (data, endpoint) => {
+      if(!(info?.signingId)){
+        ToastError("Activate your account first")
+        return ;
+      }
+
+      const res = await handleProfileCreation(data, endpoint);
+
+      if (res?.status === "success") {
+        ToastSuccess("Successfully Request Sent");
+        // setRefresh(r => ({ ...r, talentR: !(r.talentR) }))
+
+      } else {
+        ToastError(res?.message || "Already applied or Something error");
+
+      }
+    }
+
+
+   if(info?.signingId){
+
+    if(pathId=="matchmaking"){
+      const result = window.confirm("are you requesting for managed matchmaking ?")
+      if(result){
+        console.log("sing",info )
+        handleReqs(data, "matchmaking")
+      }
+
+    }
+    else if(pathId=="training_workshop_seminar"){
+      const result = window.confirm("are you requesting for managed matchmaking ?")
+      if(result){
+        handleReqs(data, "training_workshop_seminar")
+      }
+    }
+    else if(pathId=="consultancy"){
+      const result = window.confirm("are you requesting to arrange consultancy ?")
+      if(result){
+        handleReqs(data, "consultancy")
+      }
+    }
+    else if(pathId=="partner"){
+      const result = window.confirm("are you requesting for partnership ?")
+      if(result){
+        handleReqs(data, "partner")
+      }
+    }
+    else if(pathId=="apply_internship"){
+      const result = window.confirm("are you requesting for partnership ?")
+      if(result){
+        handleReqs(data, "apply_internship")
+      }
+    }
+    else if(pathId=="contribute_course"){
+      const result = window.confirm("are you requesting for partnership ?")
+      if(result){
+        handleReqs(data, "contribute_course")
+      }
+    }
+    else if(pathId=="team_staff"){
+      const result = window.confirm("are you requesting for partnership ?")
+      if(result){
+        handleReqs(data, "team_staff")
+      }
+    }
+
+
+
+   }
+
+  },[pathId, info?.signingId, info?.email, info?.name, info?.address, info?.experiences, info?.skills, info?.designation,info ])
+
+
+
+
+
+
+
 
 
   const PoliticalTalent = [
@@ -199,6 +276,10 @@ const BasicInfo: React.FC<Props> = ({
     return null;
   }
   const talentHandle = async (data) => {
+    if(!(info?.signingId)){
+      ToastError("Activate your account first")
+      return ;
+    }
     const body = {
       ...data,
       signingId: info?.signingId,
@@ -209,7 +290,7 @@ const BasicInfo: React.FC<Props> = ({
 
     if (res?.status === "success") {
       ToastSuccess("Successfully Request Sent");
-      setRefresh(r=>({...r, talentR:!(r.talentR)}))
+      setRefresh(r => ({ ...r, talentR: !(r.talentR) }))
 
     } else {
       ToastError(res?.message || "Something error");
@@ -218,6 +299,10 @@ const BasicInfo: React.FC<Props> = ({
   }
 
   const experienceHandle = async (data) => {
+    if(!(info?.signingId)){
+      ToastError("Activate your account first")
+      return ;
+    }
     const body = {
       ...data,
       signingId: info?.signingId,
@@ -228,7 +313,7 @@ const BasicInfo: React.FC<Props> = ({
 
     if (res?.status === "success") {
       ToastSuccess("Successfully Request Sent");
-      setRefresh(r=>({...r, expR:!(r.expR)}))
+      setRefresh(r => ({ ...r, expR: !(r.expR) }))
 
     } else {
       ToastError(res?.message || "Something error");
@@ -236,6 +321,10 @@ const BasicInfo: React.FC<Props> = ({
     }
   }
   const handleMentor = async (data) => {
+    if(!(info?.signingId)){
+      ToastError("Activate your account first")
+      return ;
+    }
     const body = {
       ...data,
       signingId: info?.signingId,
@@ -246,7 +335,7 @@ const BasicInfo: React.FC<Props> = ({
 
     if (res?.status === "success") {
       ToastSuccess("Successfully Request Sent");
-      setRefresh(r=>({...r, mentorR:!(r.mentorR)}))
+      setRefresh(r => ({ ...r, mentorR: !(r.mentorR) }))
 
     } else {
       ToastError(res?.message || "Something error");
@@ -254,6 +343,10 @@ const BasicInfo: React.FC<Props> = ({
     }
   }
   const handleOrg = async (data) => {
+    if(!(info?.signingId)){
+      ToastError("Activate your account first")
+      return ;
+    }
     const body = {
       ...data,
       signingId: info?.signingId,
@@ -264,7 +357,7 @@ const BasicInfo: React.FC<Props> = ({
 
     if (res?.status === "success") {
       ToastSuccess("Successfully Request Sent");
-      setRefresh(r=>({...r, orgR:!(r.orgR)}))
+      setRefresh(r => ({ ...r, orgR: !(r.orgR) }))
 
     } else {
       ToastError(res?.message || "Something error");
@@ -272,6 +365,10 @@ const BasicInfo: React.FC<Props> = ({
     }
   }
   const handleCons = async (data) => {
+    if(!(info?.signingId)){
+      ToastError("Activate your account first")
+      return ;
+    }
     const body = {
       ...data,
       signingId: info?.signingId,
@@ -282,7 +379,7 @@ const BasicInfo: React.FC<Props> = ({
 
     if (res?.status === "success") {
       ToastSuccess("Successfully Request Sent");
-      setRefresh(r=>({...r, consR:!(r.consR)}))
+      setRefresh(r => ({ ...r, consR: !(r.consR) }))
 
     } else {
       ToastError(res?.message || "Something error");
@@ -294,97 +391,97 @@ const BasicInfo: React.FC<Props> = ({
       <div>
 
         <h4 className="text-xl text-black mt-6 ">You May Need : </h4>
-        <div className="mt-4 flex flex-wrap gap-4 mb-8 items-center  ">
-        {tal?.status==1 ?
-        <p className="mb-0 pb-0 font-semibold text-blue-400 ">Talent/Apprentice Request Pending</p> :
-        tal?.status==2 ? "":
-        tal?.status==3 ? "":
-        <div className="overflow-hidden w-fit ">
-        <div>
+        <div id="fiveButtons"  className="mt-4 flex flex-wrap gap-4 mb-8 items-center  ">
+          {tal?.status == 1 ?
+            <p className="mb-0 pb-0 font-semibold text-blue-400 ">Talent/Apprentice Request Pending</p> :
+            tal?.status == 2 ? "" :
+              tal?.status == 3 ? "" :
+                <div className="overflow-hidden w-fit ">
+                  <div>
 
-          <Modal
-            triggerButtonText="Plolitical Talent/Apprentice"
-            title="Plolitical Talent/Apprentice"
-            description="Elevating leaders, forging political excellence in dynamic dialogues"
-            customInputs={PoliticalTalent}
-            info={info}
-            handlingFunction={talentHandle}
-          />
-        </div>
-      </div>
-        }
+                    <Modal
+                      triggerButtonText="Plolitical Talent/Apprentice"
+                      title="Plolitical Talent/Apprentice"
+                      description="Elevating leaders, forging political excellence in dynamic dialogues"
+                      customInputs={PoliticalTalent}
+                      info={info}
+                      handlingFunction={talentHandle}
+                    />
+                  </div>
+                </div>
+          }
 
-{exp?.status==1 ?
-        <p className="mb-0 pb-0 font-semibold text-blue-400">Experienced Politcal Request Pending</p> :
-        exp?.status==2 ? "":
-        exp?.status==3 ? "":
-<div className="overflow-hidden w-fit ">
-            <div>
-              <Modal
-                triggerButtonText=" EXPERIENCED POLITICIAN"
-                title="Update your profile"
-                description="Add your political talent or apprentice details"
-                customInputs={ExperiencePolitical}
-                info={info}
-                handlingFunction={experienceHandle}
-              />
-            </div>
-          </div>
-        }
+          {exp?.status == 1 ?
+            <p className="mb-0 pb-0 font-semibold text-blue-400">Experienced Politcal Request Pending</p> :
+            exp?.status == 2 ? "" :
+              exp?.status == 3 ? "" :
+                <div className="overflow-hidden w-fit ">
+                  <div>
+                    <Modal
+                      triggerButtonText=" EXPERIENCED POLITICIAN"
+                      title="Update your profile"
+                      description="Add your political talent or apprentice details"
+                      customInputs={ExperiencePolitical}
+                      info={info}
+                      handlingFunction={experienceHandle}
+                    />
+                  </div>
+                </div>
+          }
 
-{mentor?.status==1 ?
-        <p className="mb-0 pb-0 font-semibold text-blue-400">Mentor Request Pending</p> :
-        mentor?.status==2 ? "":
-        mentor?.status==3 ? "":
-<div className="overflow-hidden w-fit ">
-            <div>
-              <Modal
-                triggerButtonText="MENTOR"
-                title="Update your profile"
-                description="Add your political talent or apprentice details"
-                customInputs={ExperiencePolitical}
-                info={info}
-                handlingFunction={handleMentor}
-              />
-            </div>
+          {mentor?.status == 1 ?
+            <p className="mb-0 pb-0 font-semibold text-blue-400">Mentor Request Pending</p> :
+            mentor?.status == 2 ? "" :
+              mentor?.status == 3 ? "" :
+                <div className="overflow-hidden w-fit ">
+                  <div>
+                    <Modal
+                      triggerButtonText="MENTOR"
+                      title="Update your profile"
+                      description="Add your political talent or apprentice details"
+                      customInputs={ExperiencePolitical}
+                      info={info}
+                      handlingFunction={handleMentor}
+                    />
+                  </div>
 
-          </div>
-        }
+                </div>
+          }
 
-{org?.status==1 ?
-        <p className="mb-0 pb-0 font-semibold text-blue-400">Organization Request Pending</p> :
-        org?.status==2 ? "":
-        org?.status==3 ? "":
-        <div className="overflow-hidden w-fit ">
-        <div>
-          <Modal
-            triggerButtonText=" ORGANISATION"
-            title="ORGANISATION"
-            description="Add your ORGANISATION details"
-            customInputs={ORGANISATION}
-            info={info}
-            handlingFunction={handleOrg}
-          />
-        </div>
-      </div>
-        }
-         {cons?.status==1 ?
-        <p className="mb-0 pb-0 font-semibold text-blue-400">Constituenly Request Pending</p> :
-        cons?.status==2 ? "":
-        cons?.status==3 ? "":
-        <div className="overflow-hidden w-fit ">
-        <div>
-          <Modal
-            triggerButtonText="CONSTITUENCY"
-            title="Update your profile"
-            description="Add your political talent or apprentice details"
-            customInputs={ORGANISATION}
-            info={info}
-            handlingFunction={handleCons}
-          />
-        </div>
-      </div>
-        }
+          {org?.status == 1 ?
+            <p className="mb-0 pb-0 font-semibold text-blue-400">Organization Request Pending</p> :
+            org?.status == 2 ? "" :
+              org?.status == 3 ? "" :
+                <div className="overflow-hidden w-fit ">
+                  <div>
+                    <Modal
+                      triggerButtonText=" ORGANISATION"
+                      title="ORGANISATION"
+                      description="Add your ORGANISATION details"
+                      customInputs={ORGANISATION}
+                      info={info}
+                      handlingFunction={handleOrg}
+                    />
+                  </div>
+                </div>
+          }
+          {cons?.status == 1 ?
+            <p className="mb-0 pb-0 font-semibold text-blue-400">Constituenly Request Pending</p> :
+            cons?.status == 2 ? "" :
+              cons?.status == 3 ? "" :
+                <div className="overflow-hidden w-fit ">
+                  <div>
+                    <Modal
+                      triggerButtonText="CONSTITUENCY"
+                      title="Update your profile"
+                      description="Add your political talent or apprentice details"
+                      customInputs={ORGANISATION}
+                      info={info}
+                      handlingFunction={handleCons}
+                    />
+                  </div>
+                </div>
+          }
 
 
         </div>
@@ -396,11 +493,11 @@ const BasicInfo: React.FC<Props> = ({
             <span className=" uppercase text-gray-500 font-[600] block mb-1">About</span>
           </div>
           <div className="mb-7">
-            <span className=" text-gray-500 font-[600]">
+            <span className="  font-[600] text-blue-500 ">
               Activity in PolitQ
             </span> <br />
 
-            <span className=" text-gray-500 text-[14px]">
+            <span className=" text-gray-500 text-[14px] font-bold  ">
               {/* {info?.accounttype == "teacher" && "Teacher"} */}
               {mentor?.status == 2 && "Mentor"}
               {tal?.status == 2 && ", Political Talent/Apprentice"}
@@ -414,13 +511,13 @@ const BasicInfo: React.FC<Props> = ({
 
           <div className=" mb-[30px]">
             <div className=" flex gap-5 items-center mb-1">
-              <span className=" text-gray-500 font-[500]">
+              <span className=" text-blue-500 font-[500]">
                 Description
               </span>
 
             </div>
             <span className=" text-gray-500 text-[14px]">
-              {info?.description?.slice(0, 120)}
+              {info?.description}
               {/* {
               exits ?'Add Your Bio':`${userdata?.description.slice(0, 120)}...`
             } */}
@@ -439,7 +536,7 @@ const BasicInfo: React.FC<Props> = ({
             </span>
           </div>
           <div className="border-b w-full mb-[10px]">
-            <span className=" uppercase text-gray-500 font-[600] block mb-1"> Skills </span>
+            <span className=" uppercase text-blue-500 font-[600] block mb-1"> Skills </span>
           </div>
           <div>
             <h2 className=" text-gray-500 text-[14px]">
@@ -458,7 +555,7 @@ const BasicInfo: React.FC<Props> = ({
         {/* ------contact info---- */}
         <div className=" lg:col-span-9 col-span-12 w-[100%]">
           <div className="w-full mb-[30px]">
-            <span className=" uppercase text-gray-500 font-[600] block mb-1 lg:mt-0 mt-4">contact information</span>
+            <span className=" uppercase text-blue-500 font-[600] block mb-1 lg:mt-0 mt-4">contact information</span>
           </div>
           <div className=" w-full mb-[30px]">
 

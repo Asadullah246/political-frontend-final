@@ -6,12 +6,20 @@ import { useUser } from "@clerk/nextjs"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from "@/components/shared/Footer";
+import { useEffect } from "react"
 
 
 const ProfilePage: React.FC = () => {
 
     // console.log("authd", auth()  );
     // const {userId}=auth()
+
+    useEffect(() => {
+        const sectionToScrollTo = document.getElementById('fiveButtons');
+        if (sectionToScrollTo) {
+          sectionToScrollTo.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, []);
     const {isLoaded,isSignedIn,user} = useUser()
     console.log("user", user)
     if(!isLoaded || !isSignedIn) return <Loading/>
