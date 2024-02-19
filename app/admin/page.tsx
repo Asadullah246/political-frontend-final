@@ -1,42 +1,42 @@
 "use client";
 
-import NewQuiz from "@/components/admin/PolitiQTest/NewQuiz";
 import PolitTestPage from "@/components/admin/PolitiQTest/PolitTestPage";
-import FaqManage from "@/components/admin/faq/FaqManage";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import BlogPage from "@/components/admin/blog/BlogPage";
+import FaqManage from "@/components/admin/faq/FaqManage";
+import { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import TalentPage from "@/components/admin/talent/FaqManage";
-import ContactManage from "@/components/admin/contacts/FaqManage";
-import WebsiteInfoPage from "@/components/admin/websiteInfo/WebsiteInfoPage";
-import TestPage from "@/components/admin/testimonial/FaqManage";
-import NewsLetterManage from "@/components/admin/subscribe/FaqManage";
-import { checkLogin } from "@/components/shared/apis/api";
-import { ToastSuccess, ToastError } from "@/components/shared/Others";
-import { usePathname, useRouter } from "next/navigation";
 import Adminmange from "@/components/admin/admins/BlogPage";
+import ContactManage from "@/components/admin/contacts/FaqManage";
+import NewsLetterManage from "@/components/admin/subscribe/FaqManage";
+import TestPage from "@/components/admin/testimonial/FaqManage";
+import WebsiteInfoPage from "@/components/admin/websiteInfo/WebsiteInfoPage";
+import { ToastError } from "@/components/shared/Others";
+import { checkLogin } from "@/components/shared/apis/api";
+import { useRouter } from "next/navigation";
 // import MentorManage from "@/components/admin/mentor/FaqManage";
 import AdminNavbar from "@/components/AdminNavbar/AdminNavbar";
-import { FaCircleInfo } from "react-icons/fa6";
-import { PiExamThin } from "react-icons/pi";
-import { FcFaq } from "react-icons/fc";
+import { MdDashboard } from "react-icons/md";
+
+import AllUserManage from "@/components/admin/allUser/FaqManage";
+import ConstituenlyManage from "@/components/admin/constituenly/FaqManage";
+import Courses from "@/components/admin/courses/FaqManage";
+import Dashboard from "@/components/admin/dashboard/Dashboards";
+import Experienced from "@/components/admin/experiencedPolitician/FaqManage";
+import MentorManage from "@/components/admin/mentor/FaqManage";
+import OrganizationManage from "@/components/admin/organization/FaqManage";
+import OtherRequests from "@/components/admin/othersRequests/FaqManage";
+import TalentPage from "@/components/admin/talent/FaqManage";
 import { FaBlogger } from "react-icons/fa";
-import { SiGenius } from "react-icons/si";
-import { PiChalkboardTeacherThin } from "react-icons/pi";
-import { TiContacts } from "react-icons/ti";
-import { FaRegNoteSticky } from "react-icons/fa6";
+import { FaCircleInfo, FaRegNoteSticky } from "react-icons/fa6";
+import { FcFaq } from "react-icons/fc";
 import { IoNewspaperOutline } from "react-icons/io5";
 import { MdAdminPanelSettings } from "react-icons/md";
-import Experienced from "@/components/admin/experiencedPolitician/FaqManage";
-import OrganizationManage from "@/components/admin/organization/FaqManage";
-import ConstituenlyManage from "@/components/admin/constituenly/FaqManage";
-import TalentPage from "@/components/admin/talent/FaqManage";
-import MentorManage from "@/components/admin/mentor/FaqManage";
-import AllUserManage from "@/components/admin/allUser/FaqManage";
-import OtherRequests from "@/components/admin/othersRequests/FaqManage";
-import Courses from "@/components/admin/courses/FaqManage";
+import { PiChalkboardTeacherThin, PiExamThin } from "react-icons/pi";
+import { SiGenius } from "react-icons/si";
+import { TiContacts } from "react-icons/ti";
+
 
 
 
@@ -76,13 +76,14 @@ const Page = () => {
 
   }, [router])
 
-console.log("amdin is ", admin ) 
+console.log("amdin is ", admin )
 
   if (!admin || admin==undefined || admin=="" ) {
     return <h3 className="text-center font-semibold text-blue-400 mt-20 ">Loading Dashboard</h3>
   }
 
   const tabs = [
+    {label:"Dashboard",icon:<MdDashboard/>},
     { label: "Website Info", icon: <FaCircleInfo /> },
     { label: "Courses", icon: <FaCircleInfo /> },
     { label: "Political Talents", icon: <SiGenius /> },
@@ -120,6 +121,8 @@ console.log("amdin is ", admin )
 
   const tabmanage = (text: string) => {
     switch (text) {
+      case "Dashboard":
+        return <Dashboard/>
       case "Website Info":
         return <WebsiteInfoPage />;
       case "Courses":

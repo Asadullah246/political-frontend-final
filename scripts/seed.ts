@@ -6,10 +6,19 @@ async function main() {
   try {
     await database.category.createMany({
       data: [
+<<<<<<< HEAD
         { name: "Public Speaking" },
         { name: "Leadership" },
         { name: "Diplomacy" },
         { name: "Policy Expertise" }
+=======
+        { name: "Councilor" },
+        { name: "LG Chairmen" },
+        { name: "Assembly member" },
+        { name: "Senator" },
+        { name: "Representatives memberss" },
+        { name: "Governors, Presidents, others" }
+>>>>>>> origin/sayman-3
       ]
     });
 
